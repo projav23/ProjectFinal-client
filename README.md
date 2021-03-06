@@ -2,7 +2,7 @@
 
 <br>
 
-# MyRoomie App
+# Roomies App
 
 <br>
 
@@ -232,20 +232,24 @@ Chores model
 
 ## API Endpoints (backend routes)
 
-| HTTP Method | URL                    | Request Body                                     | Success status | Error Status | Description                                                                                                                     |
-| ----------- | ---------------------- | ------------------------------------------------ | -------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| POST        | `/auth/signup`         | {name, lastName, img, username, email, password} | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
-| POST        | `/auth/login`          | {username, password}                             | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session              |
-| POST        | `/auth/logout`         | (empty)                                          | 204            | 400          | Logs out the user                                                                                                               |
-| GET         | `/api/spaces`          |                                                  |                | 400          | Sends all spaces                                                                                                                |
-| GET         | `/api/spaces/:spaceId` | {id}                                             |                |              | Sends one specific space with its tasks (if any)                                                                                |
-| POST        | `/api/spaces`          | {title, description}                             | 201            | 400          | Create and saves a new space in the DB                                                                                          |
-| PUT         | `/api/spaces/:spaceId` | {title, description}                             | 200            | 400          | Edits space in the DB                                                                                                           |
-| DELETE      | `/api/spaces/:spaceId` | {id}                                             | 201            | 400          | Deletes space                                                                                                                   |
-
-POST | `/api/spaces/:spaceId/tasks` | {name,description, status} | 200 | 404 | Adds a new task to a specific space |
-| PUT | `/api/tasks/:taskId` | {name,description, status} | 201 | 400 | Edits a task in the DB |
-| DELETE | `/api/tasks/:taskId` | {id} | 200 | 400 | Deletes task |
+| HTTP Method | URL                                 | Request Body                                     | Success status | Error Status | Description                                                                                                                     |
+| ----------- | ----------------------------------- | ------------------------------------------------ | -------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| POST        | `/auth/signup`                      | {name, lastName, img, username, email, password} | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
+| POST        | `/auth/login`                       | {username, password}                             | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session              |
+| POST        | `/auth/logout`                      | (empty)                                          | 204            | 400          | Logs out the user                                                                                                               |
+| GET         | `/api/spaces`                       |                                                  |                | 400          | Sends all spaces                                                                                                                |
+| GET         | `/api/spaces/:spaceId`              | {id}                                             |                |              | Sends one specific space with its tasks (if any)                                                                                |
+| POST        | `/api/spaces`                       | {title, description}                             | 201            | 400          | Create and saves a new space in the DB                                                                                          |
+| PUT         | `/api/spaces/:spaceId`              | {title, description}                             | 200            | 400          | Edits space in the DB                                                                                                           |
+| DELETE      | `/api/spaces/:spaceId`              | {id}                                             | 201            | 400          | Deletes space                                                                                                                   |
+| POST        | `/api/tasks`                        | {name,description, status}                       | 200            | 404          | Adds a new task to a specific space                                                                                             |
+| DELETE      | `/api/tasks/:taskId`                | {id}                                             | 200            | 400          | Deletes task                                                                                                                    |
+| POST        | `/api/expenses`                     | {name,description, status}                       | 200            | 404          | Adds a new task to a specific space                                                                                             |
+| DELETE      | `/api/expenses/:expensesId`         | {id}                                             | 200            | 400          | Deletes expenses                                                                                                                    |
+| POST        | `/api/chores`                       | {name,description, status}                       | 200            | 404          | Adds a new task to a specific space                                                                                             |
+| DELETE      | `/api/chores/:choresId`             | {id}                                             | 200            | 400          | Deletes chores                                                                                                                    |
+| POST        | `/api/shoppingList`                 | {name,description, status}                       | 200            | 404          | Adds a new task to a specific space                                                                                             |
+| DELETE      | `/api/shoppingList/:shoppingListId` | {id}                                             | 200            | 400          | Deletes shoppingList                                                                                                                    |
 
 <br>
 
@@ -267,4 +271,4 @@ The url to your repository and to your deployed space
 
 ### WireFrames
 
-<img src="https://s3.amazonaws.com/assets.mockflow.com/app/wireframepro/company/C578639c0f06e4393986f9f8cf4e1c6a5/projects/Mc7bae173775282b2aa1d7f5c74d3f1961614692736977/pages/5f55b16f13554136ab8e6207ecf9ec93/image/5f55b16f13554136ab8e6207ecf9ec93.png?1615030103906" alt="wireframes>
+<img src="https://s3.amazonaws.com/assets.mockflow.com/app/wireframepro/company/C578639c0f06e4393986f9f8cf4e1c6a5/projects/Mc7bae173775282b2aa1d7f5c74d3f1961614692736977/pages/5f55b16f13554136ab8e6207ecf9ec93/image/5f55b16f13554136ab8e6207ecf9ec93.png?1615030103906" alt="wireframes">
