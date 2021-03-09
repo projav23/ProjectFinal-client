@@ -6,12 +6,12 @@ export function useAuth() {
   return React.useContext(AuthContext);
 }
 
-export function withAuth(Component) {
-  return function Wrapper(props) {
-    const state = useAuth();
-    return <Component {...props} {...state} />;
-  };
-}
+// export function withAuth(Component) {
+//   return function Wrapper(props) {
+//     const state = useAuth();
+//     return <Component {...props} {...state} />;
+//   };
+// }
 
 export function defaultUser() {
   return {

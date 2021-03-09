@@ -1,0 +1,28 @@
+.iconos-row{
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap:nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.iconos-column{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 20% 0 100px 0
+}
+.iconos-column img{
+margin: 30% auto;
+width: 40%;
+}
+
+.title{
+  font-weight: 900;
+  font-size: 2em;
+  margin-top: 20%;
+}
