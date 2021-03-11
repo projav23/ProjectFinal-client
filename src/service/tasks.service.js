@@ -6,4 +6,4 @@ const authApi = axios.create({
 });
 
 export const tasksAll = (spaceId) => authApi.get(`/${spaceId}/tasks`);
-export const newTask = (spaceId, task) => authApi.post(`/${spaceId}/newTask`, task);
+export const newTask = (spaceId, task) => authApi.post(`/${spaceId}/tasks/newtask`, task);

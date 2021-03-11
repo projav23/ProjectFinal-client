@@ -1,7 +1,10 @@
 import React from "react";
-// import {useParams} from 'react-router-dom'
+import { useParams, useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-function FormTask({ onSubmit }) {
+function TaskForm({ onSubmit, isRedirect }) {
+  let history = useHistory();
+  const { spaceId } = useParams();
   const [state, setState] = React.useState({
     name: "",
     description: "",
@@ -15,9 +18,14 @@ function FormTask({ onSubmit }) {
     e.preventDefault();
     onSubmit(state);
   };
+  const goBack = () => {
+    history.goBack();
+  };
+  console.log(state);
 
   return (
     <>
+      {isRedirect ? <Redirect to={`/spaces/${spaceId}/task`} /> : null}
       <form onSubmit={handleSubmit}>
         <label>
           Nombre de la tarea
@@ -48,8 +56,9 @@ function FormTask({ onSubmit }) {
         </label>
         <button type="submit">Crear nueva tarea</button>
       </form>
+      <button onClick={goBack}>Cancelar</button>
     </>
   );
 }
 
-export default FormTask;
+export default TaskForm;

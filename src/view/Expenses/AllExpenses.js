@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
-import { useParams, Link, useHistory, Redirect } from "react-router-dom";
-import { tasksAll } from "../../service/tasks.service";
+import { expensesAll } from "../../service/expenses.service";
 import { findSpace } from "../../service/spaces.service";
-import TaskList from "../../components/TaskList/TaskList";
-// import NewTask from "./NewTask";
-import "./AllTasks.css";
+import { useParams, useHistory, Link } from "react-router-dom";
 import {
   TabContent,
   TabPane,
@@ -12,32 +9,30 @@ import {
   NavItem,
   NavLink,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 import classnames from "classnames";
 
-const GetAllTasks = (props) => {
+const AllExpenses = () => {
   let history = useHistory();
-  const { spaceId } = useParams();
-  const [loading, setLoading] = React.useState(false);
-  // const [modal, setModal] = React.useState(false);
+  const [expenses, setExpenses] = React.useState({});
   const [space, setSpace] = React.useState({});
-  const [tasks, setTasks] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("1");
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-  // const toggleModal = () => {
-  //   setModal(!modal);
-  // };
-  // const redirectNewTask = () => {
-  //   <Redirect to="/newtask" />;
-  // };
+  const { spaceId } = useParams();
 
-  const getTasks = async () => {
-    const { data } = await tasksAll(spaceId);
-    setTasks(data);
-    setLoading(true);
+  const getExpenses = async () => {
+    try {
+      const { data } = await expensesAll(spaceId);
+      console.log("expenses", data);
+      setExpenses(data);
+      setLoading(true);
+    } catch (e) {
+      console.error(e);
+    }
   };
   const getName = async () => {
     const { data } = await findSpace(spaceId);
@@ -45,12 +40,12 @@ const GetAllTasks = (props) => {
     setSpace(data);
   };
   useEffect(() => {
-    getTasks();
-  }, []);
-  useEffect(() => {
     getName();
   }, []);
 
+  useEffect(() => {
+    getExpenses();
+  }, []);
   const goBack = () => {
     history.goBack();
   };
@@ -71,7 +66,7 @@ const GetAllTasks = (props) => {
                 toggle("1");
               }}
             >
-              Tareas
+              Recibos
             </NavLink>
           </NavItem>
           <NavItem>
@@ -82,7 +77,7 @@ const GetAllTasks = (props) => {
                 toggle("2");
               }}
             >
-              Mis tareas
+              Otros gastos
             </NavLink>
           </NavItem>
         </Nav>
@@ -92,14 +87,12 @@ const GetAllTasks = (props) => {
               <Col sm="12">
                 <div className="column">
                   {loading ? (
-                    tasks.allTask.map((task) => (
-                      <TaskList key={task._id} task={task}></TaskList>
-                    ))
+                    expenses.recibos.map((expense) => <p>{expense.name}</p>)
                   ) : (
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link to={`/spaces/${spaceId}/task/newtask`}>
+                <Link to={`/spaces/${spaceId}/expenses/newexpense`}>
                   {" "}
                   <img src="/images/mas.png" alt="mas"></img>
                 </Link>
@@ -111,14 +104,12 @@ const GetAllTasks = (props) => {
               <Col sm="6">
                 <div className="column">
                   {loading ? (
-                    tasks.taskByUser.map((task) => (
-                      <TaskList key={task._id} task={task}></TaskList>
-                    ))
+                    expenses.otros.map((expense) => <p>{expense.name}</p>)
                   ) : (
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link to={`/spaces/${spaceId}/task/newtask`}>
+                <Link to={`/spaces/${spaceId}/expenses/newexpense`}>
                   {" "}
                   <img src="/images/mas.png" alt="mas"></img>
                 </Link>
@@ -127,20 +118,20 @@ const GetAllTasks = (props) => {
           </TabPane>
         </TabContent>
         {/* <Modal isOpen={modal} toggle={toggleModal}>
-          <ModalHeader toggle={toggleModal}>Crear nueva tarea</ModalHeader>
-          <NewTask click={toggleModal}/>
-         
-            <Button form='taskForm' color="primary" onClick={toggleModal}>
-              Create task
-            </Button>{" "}
-            <Button  color="secondary" onClick={toggleModal}>
-              Cancel
-            </Button>
-          
-        </Modal> */}
+        <ModalHeader toggle={toggleModal}>Crear nueva tarea</ModalHeader>
+        <NewTask click={toggleModal}/>
+       
+          <Button form='taskForm' color="primary" onClick={toggleModal}>
+            Create task
+          </Button>{" "}
+          <Button  color="secondary" onClick={toggleModal}>
+            Cancel
+          </Button>
+        
+      </Modal> */}
       </div>
     </div>
   );
 };
 
-export default GetAllTasks;
+export default AllExpenses;

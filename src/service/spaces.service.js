@@ -8,4 +8,5 @@ const authApi = axios.create({
 export const allSpaces = () => authApi.get("/");
 export const findSpace = (spaceId) => authApi.get(`/${spaceId}`);
 export const newSpace = (space) => authApi.post("/new", space);
+export const getUsers = () => authApi.get("/new");
 

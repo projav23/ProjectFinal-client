@@ -23,8 +23,8 @@ function Home() {
   useEffect(() => {
     handleInfo();
     console.log("prueba useEffect");
-  }, [refresh]);
-  console.log(isLogged);
+  }, []);
+
   return (
     <div className="home">
       <div className="title">
