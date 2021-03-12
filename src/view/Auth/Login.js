@@ -10,9 +10,9 @@ function Login() {
       const { data } = await login(user);
       console.log(data);
       if(data.user){
-        setUser({isLogged: true, user: data.user})
+        setUser({isLogged: true, user: data.id})
         localStorage.setItem('isLogged', 'true')
-        localStorage.setItem('user', data.user)
+        localStorage.setItem('user', data.id)
       }
     } catch (e) {
       console.error(e);

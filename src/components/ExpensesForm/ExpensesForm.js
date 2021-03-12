@@ -46,8 +46,8 @@ const ExpensesForm = ({ onSubmit, isRedirect }) => {
           </select>
         </label>
         <button type="submit">Crear nuevo gasto</button>
-      </form>{" "}
-      ;
+      </form>
+
     </>
   );
 };

@@ -39,3 +39,4 @@ function AuthForm({ btnText, onSubmit }) {
 }
 
 export default AuthForm;
+

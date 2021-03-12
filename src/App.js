@@ -14,15 +14,15 @@ import AllTasks from './view/Tasks/AllTasks'
 import NewTask from './view/Tasks/NewTask'
 import AllExpenses from './view/Expenses/AllExpenses'
 import NewExpenses from './view/Expenses/NewExpenses'
-
-
+import AllItems from './view/ShoppingList/AllItems'
+import NewItem from './view/ShoppingList/NewItem'
+import EditSpace from './view/Spaces/EditSpace'
 
 
 function App() {
   return (
     <div className="App">
         <NavBar/>
-        {/* <button onClick={() => localStorage.removeItem("user")}>logout</button> */}
         <Switch>
           <AnonRoute exact path="/login">
             <Login />
@@ -36,6 +36,9 @@ function App() {
           <PrivateRoute  exact path="/spaces/:spaceId">
             <Space />
           </PrivateRoute>
+          <PrivateRoute  exact path="/spaces/:spaceId/edit">
+            <EditSpace />
+          </PrivateRoute>
           <PrivateRoute  exact path="/spaces/:spaceId/expenses">
             <AllExpenses />
           </PrivateRoute>
@@ -48,6 +51,12 @@ function App() {
           <PrivateRoute  exact path="/spaces/:spaceId/task/newtask">
             <NewTask />
           </PrivateRoute>
+          <PrivateRoute  exact path="/spaces/:spaceId/shoppinglist">
+            <AllItems />
+          </PrivateRoute>
+          <PrivateRoute  exact path="/spaces/:spaceId/shoppinglist/newshoppinglist">
+            <NewItem />
+          </PrivateRoute>
           <PrivateRoute  exact path="/new">
             <NewSpace/>
           </PrivateRoute>
@@ -58,9 +67,5 @@ function App() {
     </div>
   );
 }
-
-// function PrivateComp() {
-//   return <h1>This is private</h1>;
-// }
 
 export default App;

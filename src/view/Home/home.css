@@ -1,5 +1,8 @@
 .home{
-  background-color: blue;
+  background-image: url("./tyler-nix-qs0im4pLYbE-unsplash.jpg");
+  background-position: center;
+  background-size: cover;
+  /* filter:grayscale(); */
   height: 100vh;
   color: white;
   display: flex;
@@ -9,4 +12,8 @@
 
 .title{
 margin: 5%;
+}
+
+h2{
+  color: white;
 }

@@ -7,6 +7,7 @@ function Space() {
   const { spaceId } = useParams();
   const [loading, setLoading] = React.useState(false);
   const [state, setState] = React.useState({});
+
   console.log("spaceId", spaceId);
 
   const getSpace = async () => {
@@ -20,7 +21,9 @@ function Space() {
     getSpace();
   }, []);
 
-  return <>{loading ? <SpaceCard state={state} /> : <p>Loading...</p>}</>;
+
+
+  return <>{loading ? <SpaceCard state={state}  /> : <p>Loading...</p>}</>;
 }
 
 export default Space;

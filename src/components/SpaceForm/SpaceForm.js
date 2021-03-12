@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { Redirect } from "react-router";
 import { getUsers } from "../../service/spaces.service";
+import "./SpaceForm.css";
 
 function FormSpace({ onSubmit, isRedirect }) {
-  const [state, setState] = React.useState({ name: "", users:[] });
+  const [state, setState] = React.useState({ name: "", users: [] });
   const [inputfieldsToAdd, setInputfieldsToAdd] = React.useState(1);
   const [committedFieldsToAdd, setCommittedFieldsToAdd] = React.useState(0);
   const [users, setUsers] = React.useState({});
-  console.log("state global", state)
+  console.log("state global", state);
   const getAllUsers = async () => {
     const { data } = await getUsers();
     console.log("Usuarios", data);
@@ -16,49 +17,87 @@ function FormSpace({ onSubmit, isRedirect }) {
   const handleChange = ({ target }) => {
     setState({ ...state, [target.name]: target.value });
   };
+
+  const handleSelect = ({ target }) => {
+    setState((state) => ({
+      ...state,
+      users: Object.values({ ...state.users, [target.name]: target.value }),
+    }));
+    console.log("state select", state);
+  };
   useEffect(() => {
     getAllUsers();
   }, []);
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    // parserToArray()
+    console.log("state enviado", state);
     onSubmit(state);
   };
 
   return (
     <>
       {isRedirect ? <Redirect to="/spaces" /> : null}
-      <form onSubmit={handleSubmit} id="form">
+      <form
+        className="form-space"
+        onSubmit={handleSubmit}
+        id="form"
+        enctype="multipart/form-data"
+      >
         <label>
-          Nombre del espacio
+          Nombre del espacio*
           <input
             type="text"
             name="name"
             value={state.name}
             onChange={handleChange}
+            required
           />
         </label>
         <label>
-          Descripcion
+          Descripcion*
           <input
             type="text"
             name="description"
             value={state.description}
             onChange={handleChange}
+            required
           />
         </label>
         <label>
-          Password
+          Imagen del espacio
+          <input
+            type="file"
+            name="image"
+            value={state.image}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Tipo de espacio*
+          <select name="type" onChange={handleChange} form="form" required>
+            <option selected>Selecciona el tipo</option>
+            <option value="Grupal">Grupal</option>
+            <option value="Personal">Personal</option>
+          </select>
+        </label>
+
+        <label>
+          Password*
           <input
             type="password"
             name="password"
             value={state.password}
             onChange={handleChange}
+            required
           />
         </label>
         <label>
-          Numero de inquilinos
+          Numero de inquilinos*
           <input
+            required
             type="number"
             name="inquilinos"
             value={inputfieldsToAdd}
@@ -75,16 +114,12 @@ function FormSpace({ onSubmit, isRedirect }) {
       >
         Add users
       </button>
-      {[...Array(committedFieldsToAdd)].map((index) => (
-
-        <div>
-            <label>User</label>
-            <select name="users" onChange={handleChange} form="form">
-              {users.map((user) => (
-                <option value={user._id}>{user.username}</option>
-              ))}
-            </select>
-        </div>
+      {[...Array(committedFieldsToAdd)].map((item, index) => (
+        <select key={index} name={index} onChange={handleSelect} form="form">
+          {users.map((user) => (
+            <option value={user._id}>{user.username}</option>
+          ))}
+        </select>
       ))}
       <button form="form" type="submit">
         Crear nuevo espacio
@@ -92,16 +127,5 @@ function FormSpace({ onSubmit, isRedirect }) {
     </>
   );
 }
-// const Field = ({ change, users }) => (
-//   <div>
-//     <label>User</label>
-//     <select name="users" onChange={change} form="form">
-//       {users.map((user) => (
-//         <option value={users._id}>{user.username}</option>
-//       ))}
-//     </select>
-//   </div>
-// );
 
-        /* <Field key={index} users={users} change={handleChange} /> */
 export default FormSpace;

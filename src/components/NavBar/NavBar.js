@@ -5,8 +5,8 @@ import { logout } from "../../service/auth.service";
 import { useAuth } from "../../context/AuthContext.utils";
 
 function NavBar() {
-  const { user } = useAuth();
-  // const [redirect, setRedirect] = React.useState(false);
+  const { user, setUser } = useAuth();
+  const [redirect, setRedirect] = React.useState(false);
   const [show, setShow] = React.useState(null);
   const [refresh, setRefresh] = React.useState(false);
   const [expanded, setExpanded] = React.useState(false)
@@ -14,7 +14,8 @@ function NavBar() {
   const handleLogout = async () => {
     await logout();
     localStorage.clear();
-    // setRedirect(true);
+    setUser({isLogged: false})
+    setRedirect(true);
   };
   const refreshNav = () => {
     if (localStorage.getItem('user')) {
@@ -31,8 +32,8 @@ function NavBar() {
 
   return (
     <>
-      {/* {redirect ? <Redirect to="/" /> : null} */}
-      {show ? (
+      {redirect ? <Redirect to="/" /> : null}
+      {user && user.isLogged ? (
         <Navbar expanded={expanded}  bg="dark" variant="dark" expand="lg" sticky="top">
           <Navbar.Brand href="/">Roomies</Navbar.Brand>
           <Navbar.Toggle onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="basic-navbar-nav" />

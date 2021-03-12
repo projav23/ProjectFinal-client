@@ -2,13 +2,12 @@ import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 
-function TaskForm({ onSubmit, isRedirect }) {
+function ShoppingForm({ onSubmit, isRedirect }) {
   let history = useHistory();
   const { spaceId } = useParams();
   const [state, setState] = React.useState({
     name: "",
-    description: "",
-    asignedTo: "",
+    quantity: 0,
   });
   const handleChange = ({ target }) => {
     setState({ ...state, [target.name]: target.value });
@@ -25,10 +24,10 @@ function TaskForm({ onSubmit, isRedirect }) {
 
   return (
     <>
-      {isRedirect ? <Redirect to={`/spaces/${spaceId}/task`} /> : null}
+      {isRedirect ? <Redirect to={`/spaces/${spaceId}/shoppinglist`} /> : null}
       <form onSubmit={handleSubmit}>
         <label>
-          Nombre de la tarea
+          Comprar:
           <input
             type="text"
             name="name"
@@ -37,28 +36,19 @@ function TaskForm({ onSubmit, isRedirect }) {
           />
         </label>
         <label>
-          Descripcion de la tarea
+          Cantidad a comprar
           <input
-            type="text"
-            name="description"
-            value={state.description}
+            type="number"
+            name="quantity"
+            value={state.quantity}
             onChange={handleChange}
           />
         </label>
-        <label>
-          Usuario asignado
-          <input
-            type="text"
-            name="asignedTo"
-            value={state.asignedTo}
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit">Crear nueva tarea</button>
+        <button type="submit">Añadir a la lista de la compra</button>
       </form>
       <button onClick={goBack}>Cancelar</button>
     </>
-  )
+  );
 }
 
-export default TaskForm;
+export default ShoppingForm;
