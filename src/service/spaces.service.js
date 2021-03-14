@@ -10,5 +10,7 @@ export const findSpace = (spaceId) => authApi.get(`/${spaceId}`);
 export const editSpace = (spaceId, space) => authApi.post(`/${spaceId}/edit`, space);
 export const newSpace = (space) => authApi.post("/new", space);
 export const getUsers = () => authApi.get("/new");
+export const getFile = (file) => authApi.post('/new/upload', file)
+export const deleteUserSpace = (id) => authApi.post('')
 
 

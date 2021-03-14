@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Redirect } from "react-router";
-import { getUsers } from "../../service/spaces.service";
+import { getUsers, getFile} from "../../service/spaces.service";
 import "./SpaceForm.css";
 
 function FormSpace({ onSubmit, isRedirect }) {
@@ -29,6 +29,13 @@ function FormSpace({ onSubmit, isRedirect }) {
     getAllUsers();
   }, []);
 
+  const handleUpload = async (e) =>{
+    const uploadData = new FormData()
+    uploadData.append('file', e.target.files[0])
+    const {data} = await getFile(uploadData)
+    setState({...state, imgURL: data})
+  }
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +51,6 @@ function FormSpace({ onSubmit, isRedirect }) {
         className="form-space"
         onSubmit={handleSubmit}
         id="form"
-        enctype="multipart/form-data"
       >
         <label>
           Nombre del espacio*
@@ -72,7 +78,7 @@ function FormSpace({ onSubmit, isRedirect }) {
             type="file"
             name="image"
             value={state.image}
-            onChange={handleChange}
+            onChange={handleUpload}
           />
         </label>
         <label>

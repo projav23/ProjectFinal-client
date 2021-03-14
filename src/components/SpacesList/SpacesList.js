@@ -14,8 +14,9 @@ import { useAuth } from "../../context/AuthContext.utils";
 
 
 const SpacesList = ({ space }) => {
+  console.log("space", space)
   const { user } = useAuth();
-  const [access, setAccess] = React.useState(false);
+  const [access, setAccess] = React.useState(true);
   let history = useHistory();
   const spaceId = space._id;
   const spaceUsers = space.users;
@@ -44,7 +45,7 @@ const SpacesList = ({ space }) => {
             <CardImg
               top
               width="100%"
-              src="/images/helena-lopes-PGnqT0rXWLs-unsplash.jpg"
+              src={space.imgURL}
               alt="Card image cap"
             />
           </Link>
