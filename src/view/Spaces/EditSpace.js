@@ -22,7 +22,7 @@ useEffect(()=>{
 
 const handleSubmit = async (space) =>{
  try {
- const editSpaceOne = await editSpace(space)
+ const editSpaceOne = await editSpace(spaceId, space)
  console.log(editSpaceOne)
  setRedirect(true)
  } catch (e) {
@@ -31,7 +31,7 @@ const handleSubmit = async (space) =>{
 }
 console.log('state',state)
 
-  return ( <EditSpaceForm state={state} onSubmit={handleSubmit} isRedirect={redirect}/> );
+  return ( <EditSpaceForm  onSubmit={handleSubmit} isRedirect={redirect}/> );
 }
  
 export default EditSpace;

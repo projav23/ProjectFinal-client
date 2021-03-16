@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import SpaceCard from "../../components/SpaceCard/SpaceCard";
 import { findSpace } from "../../service/spaces.service";
+import "./Space.css";
 
 function Space() {
   const { spaceId } = useParams();
@@ -21,9 +22,26 @@ function Space() {
     getSpace();
   }, []);
 
+  let history = useHistory();
+  const redirect = () => {
+    history.push("/spaces");
+  };
 
-
-  return <>{loading ? <SpaceCard state={state}  /> : <p>Loading...</p>}</>;
+  return (
+    <div className='space-view'>
+      <div className="title-logo">
+        <img
+          onClick={redirect}
+          src="/images/left-arrow.png"
+          alt="back"
+        ></img>
+        <p className='space'>{state.name}</p>
+      </div>
+      {loading ? <SpaceCard state={state} /> : <p>Loading...</p>}
+    </div>
+  );
 }
 
 export default Space;
+
+

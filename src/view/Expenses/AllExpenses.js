@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import { expensesAll } from "../../service/expenses.service";
+import { deleteExpense, expensesAll } from "../../service/expenses.service";
 import { findSpace } from "../../service/spaces.service";
+import ExpensesCard from '../../components/ExpensesCard/ExpensesCard'
+import './AllExpenses.css'
 import { useParams, useHistory, Link } from "react-router-dom";
 import {
   TabContent,
@@ -47,8 +49,39 @@ const AllExpenses = () => {
     getExpenses();
   }, []);
   const goBack = () => {
-    history.goBack();
+    history.push(`/spaces/${spaceId}/`);
   };
+
+  const handleRemove = async (spaceId, expenseId) =>{
+    const {data} = await deleteExpense(spaceId, expenseId)
+    getExpenses()
+
+  }
+
+  const fecha = new Date()
+  const dia = fecha.getDate()
+  const mes = fecha.getMonth() + 1
+  const year = fecha.getFullYear()
+
+  const meses = {
+    1: 'Enero',
+    2: 'Febrero',
+    3: 'Marzo',
+    4: 'Abril',
+    5: 'Mayo',
+    6: 'Junio',
+    7: 'Julio',
+    8: 'Agosto',
+    9: 'Septiembre',
+    10: 'Octubre',
+    11: 'Noviembre',
+    12: 'Diciembre'
+  }
+  // console.log('fecha', fecha)
+  // console.log('dia', dia)
+  // console.log('mes', mes)
+  // console.log('year', year)
+
 
   return (
     <div>
@@ -85,9 +118,10 @@ const AllExpenses = () => {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <div className="column">
+                <div className='fecha'><span>{`${meses[mes]} de ${year}`}</span></div>
+                <div className="column-expenses">
                   {loading ? (
-                    expenses.recibos.map((expense) => <p>{expense.name}</p>)
+                    expenses.recibos.map((expense) => <ExpensesCard key={expense._id} expense={expense} space={space} deleteExp={handleRemove} />)
                   ) : (
                     <p>Loading...</p>
                   )}
@@ -102,9 +136,11 @@ const AllExpenses = () => {
           <TabPane tabId="2">
             <Row>
               <Col sm="6">
-                <div className="column">
+              <div className='fecha'><span>{`${meses[mes]} de ${year}`}</span></div>
+                <div className="column-expenses">
                   {loading ? (
-                    expenses.otros.map((expense) => <p>{expense.name}</p>)
+                    expenses.otros.map((expense) => 
+                    <ExpensesCard expense={expense} space={space} deleteExp={handleRemove}/>)
                   ) : (
                     <p>Loading...</p>
                   )}

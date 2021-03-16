@@ -8,8 +8,10 @@ function NewTask(){
   const [redirect, setRedirect] = React.useState(false)
   const handleSubmit= async (task)=>{
     try {
-      console.log('Vista')
+    console.log('Vista')
+    console.log('tarea', task)
     const createNewTask = await newTask(spaceId, task)
+    console.log('createNewTask', createNewTask)
     if (createNewTask){
       setRedirect(true)
     }

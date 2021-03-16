@@ -1,20 +1,24 @@
 import React from "react";
-import { allSpaces } from "../../service/spaces.service";
-import SearchBar from "../../components/SearchBar/SearchBar"
+import { allSpaces, deleteSpaceOne } from "../../service/spaces.service";
+import SearchBar from "../../components/SearchBar/SearchBar";
 import SpaceList from "../../components/SpacesList/SpacesList";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import { createGlobalStyle } from "styled-components";
 
 function Spaces() {
   const [spaces, setSpaces] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [search, setSearch] = React.useState([]);
 
-
   const getSpaces = async () => {
-    const { data } = await allSpaces();
-    setSpaces(data);
-    setSearch(data)
-    setLoading(true);
+    try {
+      const { data } = await allSpaces();
+      setSpaces(data);
+      setSearch(data);
+      setLoading(true);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   React.useEffect(() => {
@@ -22,17 +26,29 @@ function Spaces() {
   }, []);
 
   const filterSpace = (value) => {
-    if (value !== ""){
-      const spacefilter = spaces.filter(space => (space.name.toLowerCase().includes(value.toLowerCase())))
-      setSearch(spacefilter)
-      console.log("spacefilter", spacefilter)
+    if (value !== "") {
+      const spacefilter = spaces.filter((space) =>
+        space.name.toLowerCase().includes(value.toLowerCase())
+      );
+      setSearch(spacefilter);
     } else {
-      setSearch([...spaces])
+      setSearch([...spaces]);
     }
-  }
+  };
+  const deleteSpace = async (spaceId) => {
+    const { data } = await deleteSpaceOne(spaceId);
+    getSpaces();
+  };
 
   return (
-    <div style={{maxWidth:'900px', display:'flex', flexDirection:'column', margin:'auto'}}>
+    <div
+      style={{
+        maxWidth: "900px",
+        display: "flex",
+        flexDirection: "column",
+        margin: "auto",
+      }}
+    >
       <div>
         <Breadcrumb tag="nav" listTag="div">
           <BreadcrumbItem tag="a" href="/">
@@ -42,16 +58,17 @@ function Spaces() {
             Spaces
           </BreadcrumbItem>
         </Breadcrumb>
-        <SearchBar filter={filterSpace}/>
+        <SearchBar filter={filterSpace} />
       </div>
-      <div style={{display:'flex', flexWrap:'wrap'}}>
-      {loading ? (
-        search.map((space) => (
-            <SpaceList space={space}></SpaceList>
-        ))
-      ) : (
-        <p>Loading...</p>
-      )}
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {loading ? (
+          search.map((space) => (
+            <SpaceList onDelete={deleteSpace} space={space}></SpaceList>
+
+          ))
+        ) : (
+          <p>Loading...</p>
+        )}
       </div>
     </div>
   );

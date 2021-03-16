@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function SpaceCard({ state }) {
   return (
     <>
-      <div className="title">{state.name}</div>
+      
       <div className="iconos-row">
         <div className="iconos-column">
           <Link to={`/spaces/${state._id}/expenses`}>

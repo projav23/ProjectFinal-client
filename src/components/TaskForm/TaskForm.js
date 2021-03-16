@@ -1,10 +1,12 @@
 import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { getUsersBySpace } from "../../service/tasks.service";
 
 function TaskForm({ onSubmit, isRedirect }) {
   let history = useHistory();
   const { spaceId } = useParams();
+  const [users, setUsers] = React.useState([]);
   const [state, setState] = React.useState({
     name: "",
     description: "",
@@ -14,6 +16,18 @@ function TaskForm({ onSubmit, isRedirect }) {
     setState({ ...state, [target.name]: target.value });
   };
 
+  const getUsersAll = async () => {
+    try {
+      const { data } = await getUsersBySpace(spaceId);
+      console.log("users", data);
+      setUsers(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  React.useEffect(() => {
+    getUsersAll();
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(state);
@@ -21,7 +35,8 @@ function TaskForm({ onSubmit, isRedirect }) {
   const goBack = () => {
     history.goBack();
   };
-  console.log(state);
+  console.log("state", state);
+  console.log("users", users);
 
   return (
     <>
@@ -47,18 +62,21 @@ function TaskForm({ onSubmit, isRedirect }) {
         </label>
         <label>
           Usuario asignado
-          <input
-            type="text"
-            name="asignedTo"
-            value={state.asignedTo}
-            onChange={handleChange}
-          />
+          <select type="text" name="asignedTo" onChange={handleChange}>
+          <option selected='true' disabled='disabled'>Seleccionar usuario</option>
+          {
+            users.map((user)=>(
+              <option value={user._id}>{user.username}</option>
+            ))
+          }
+            
+          </select>
         </label>
         <button type="submit">Crear nueva tarea</button>
       </form>
       <button onClick={goBack}>Cancelar</button>
     </>
-  )
+  );
 }
 
 export default TaskForm;

@@ -17,9 +17,19 @@ import NewExpenses from './view/Expenses/NewExpenses'
 import AllItems from './view/ShoppingList/AllItems'
 import NewItem from './view/ShoppingList/NewItem'
 import EditSpace from './view/Spaces/EditSpace'
+import AllDocuments from './view/Documents/AllDocuments'
+import NewDocument from "./view/Documents/NewDocument";
 
 
 function App() {
+  const date = new Date()
+  const day = date.getDate()
+  console.log("dia", day)
+  if(day === 1){
+    console.log('Es primero de mes')
+  }else{
+    console.log('No es primero de mes')
+  }
   return (
     <div className="App">
         <NavBar/>
@@ -50,6 +60,12 @@ function App() {
           </PrivateRoute>
           <PrivateRoute  exact path="/spaces/:spaceId/task/newtask">
             <NewTask />
+          </PrivateRoute>
+          <PrivateRoute  exact path="/spaces/:spaceId/documents">
+            <AllDocuments />
+          </PrivateRoute>
+          <PrivateRoute  exact path="/spaces/:spaceId/documents/newdocument">
+            <NewDocument />
           </PrivateRoute>
           <PrivateRoute  exact path="/spaces/:spaceId/shoppinglist">
             <AllItems />

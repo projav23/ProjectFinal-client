@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, Link, useHistory, Redirect } from "react-router-dom";
-import { allShoppingList } from "../../service/shopping.service";
+import { documentsAll } from "../../service/documents.service";
 import { findSpace } from "../../service/spaces.service";
-import ShoppingList from "../../components/ShoppingList/ShoppingList";
-// import NewTask from "./NewTask";
-// import "./AllTasks.css";
 import {
   TabContent,
   TabPane,
@@ -15,22 +12,24 @@ import {
   Col,
 } from "reactstrap";
 import classnames from "classnames";
+import DocumentsList from "../../components/DocumentsList/DocumentsList";
 
 const GetAllItems = (props) => {
   let history = useHistory();
   const { spaceId } = useParams();
   const [loading, setLoading] = React.useState(false);
-  // const [modal, setModal] = React.useState(false);
   const [space, setSpace] = React.useState({});
-  const [items, setItems] = React.useState({});
+  const [documents, setDocuments] = React.useState({});
   const [activeTab, setActiveTab] = React.useState("1");
+
+
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
 
-  const getItems = async () => {
-    const { data } = await allShoppingList(spaceId);
-    setItems(data);
+  const getDocuments = async () => {
+    const { data } = await documentsAll(spaceId);
+    setDocuments(data);
     setLoading(true);
   };
   const getName = async () => {
@@ -39,7 +38,7 @@ const GetAllItems = (props) => {
     setSpace(data);
   };
   useEffect(() => {
-    getItems();
+    getDocuments();
   }, []);
   useEffect(() => {
     getName();
@@ -47,6 +46,7 @@ const GetAllItems = (props) => {
 
   const goBack = () => {
     history.push(`/spaces/${spaceId}`)
+
   };
 
   return (
@@ -65,7 +65,7 @@ const GetAllItems = (props) => {
                 toggle("1");
               }}
             >
-              Lista de la compra
+              Documentos
             </NavLink>
           </NavItem>
         </Nav>
@@ -75,14 +75,14 @@ const GetAllItems = (props) => {
               <Col sm="12">
                 <div className="column">
                   {loading ? (
-                    items.allItems.map((item) => (
-                      <ShoppingList key={item._id} item={item}></ShoppingList>
+                    documents.map((item) => (
+                      <DocumentsList key={item._id} item={item}></DocumentsList>
                     ))
                   ) : (
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link to={`/spaces/${spaceId}/shoppinglist/newshoppinglist`}>
+                <Link to={`/spaces/${spaceId}/documents/newdocument`}>
                   {" "}
                   <img src="/images/mas.png" alt="mas"></img>
                 </Link>

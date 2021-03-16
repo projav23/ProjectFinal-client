@@ -1,0 +1,18 @@
+.title-space{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 2%;
+}
+
+.name-space{
+  margin: auto;
+  font-size: 1.5em;
+  margin-top: 5%;
+}
+
+.space-view{
+overflow: hidden;
+}
+

@@ -28,7 +28,7 @@ function Home() {
   return (
     <div className="home">
       <div className="title">
-        {isLogged ? (
+        {user && user.isLogged ? (
           <div>
             <Link to="spaces">
               <h2>Espacios</h2>

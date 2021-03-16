@@ -7,3 +7,4 @@ const authApi = axios.create({
 
 export const expensesAll = (spaceId) => authApi.get(`/${spaceId}/expenses`);
 export const newExpense = (spaceId, expense) => authApi.post(`/${spaceId}/expenses/newexpense`, expense);
+export const deleteExpense = (spaceId, expenseId) => authApi.delete(`/${spaceId}/expenses/${expenseId}`);

@@ -11,6 +11,7 @@ export const editSpace = (spaceId, space) => authApi.post(`/${spaceId}/edit`, sp
 export const newSpace = (space) => authApi.post("/new", space);
 export const getUsers = () => authApi.get("/new");
 export const getFile = (file) => authApi.post('/new/upload', file)
-export const deleteUserSpace = (id) => authApi.post('')
+// export const deleteUserSpace = (id) => authApi.post('')
+export const deleteSpaceOne = (spaceId) => authApi.delete(`/${spaceId}`)
 
 

@@ -84,7 +84,7 @@ function FormSpace({ onSubmit, isRedirect }) {
         <label>
           Tipo de espacio*
           <select name="type" onChange={handleChange} form="form" required>
-            <option selected>Selecciona el tipo</option>
+            <option selected='true' disabled='disabled'>Selecciona el tipo</option>
             <option value="Grupal">Grupal</option>
             <option value="Personal">Personal</option>
           </select>
@@ -122,6 +122,7 @@ function FormSpace({ onSubmit, isRedirect }) {
       </button>
       {[...Array(committedFieldsToAdd)].map((item, index) => (
         <select key={index} name={index} onChange={handleSelect} form="form">
+          <option disabled='disabled' selected='true' >Seleccionar usuario</option>
           {users.map((user) => (
             <option value={user._id}>{user.username}</option>
           ))}

@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, Redirect, useHistory } from "react-router-dom";
 
 const ExpensesForm = ({ onSubmit, isRedirect }) => {
-  const [state, setState] = React.useState({ name: "", price: 0, type: "" });
+  const [state, setState] = React.useState({ name: "", price: '', type: "" });
   const { spaceId } = useParams();
   let history = useHistory();
 
@@ -16,6 +16,10 @@ const ExpensesForm = ({ onSubmit, isRedirect }) => {
     onSubmit(state);
   };
 
+  const goBack = () =>{
+    history.push(`/spaces/${spaceId}/expenses`)
+  }
+
   return (
     <>
       {isRedirect ? <Redirect to={`/spaces/${spaceId}/expenses`} /> : null}
@@ -26,6 +30,17 @@ const ExpensesForm = ({ onSubmit, isRedirect }) => {
             type="text"
             name="name"
             value={state.name}
+            placeholder='Ej: Aquiler'
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Descripcion del gasto
+          <input
+            type="text"
+            name="description"
+            value={state.description}
+            placeholder='Ej: Es el pago mensual del aquiler'
             onChange={handleChange}
           />
         </label>
@@ -35,18 +50,21 @@ const ExpensesForm = ({ onSubmit, isRedirect }) => {
             type="number"
             name="price"
             value={state.price}
+            placeholder='Ej: 700'
             onChange={handleChange}
           />
         </label>
         <label>
           Tipo de gasto
           <select name="type" form="form" onChange={handleChange}>
+            <option selected='true' disabled='disabled'>Selecciona una opcion</option>
             <option value="Recibos">Recibos</option>
             <option value="Otros">Otros gastos</option>
           </select>
         </label>
         <button type="submit">Crear nuevo gasto</button>
       </form>
+      <button onClick={goBack}>Cancel</button>
 
     </>
   );

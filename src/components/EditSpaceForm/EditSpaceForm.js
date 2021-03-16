@@ -1,7 +1,8 @@
 import React from "react";
 import { findSpace } from "../../service/spaces.service";
 import { useParams } from "react-router-dom";
-import { getUsers } from "../../service/spaces.service";
+import { Redirect } from "react-router";
+import { getUsers, getFile } from "../../service/spaces.service";
 
 
 const EditForm = ({ onSubmit, isRedirect }) => {
@@ -40,20 +41,26 @@ const EditForm = ({ onSubmit, isRedirect }) => {
     setState({ ...state, [target.name]: target.value });
   };
 
-  const handleSelect = ({ target }) => {
+  const handleUpload = async (e) =>{
+    const uploadData = new FormData()
+    uploadData.append('file', e.target.files[0])
+    const {data} = await getFile(uploadData)
+    setState({...state, imgURL: data})
+  }
+
+  const handleSelect = (e) => {
+    const user = users.find(u => e.target.value === u._id);
     setState((state) => ({
       ...state,
-      users: Object.values({ ...state.users, [target.name]: target.value }),
+      users: [...state.users, {_id: user._id, username: user.username } ],
     }));
     const array = [...Array(committedFieldsToAdd)]
     array.pop()
     setCommittedFieldsToAdd(array.length)
- 
   };
 
   const handleRemoveClick = (id, idx, e) => {
     const list = [...state.users];
-  
     list.splice(idx, 1);
     setState({ ...state, users: list });
 
@@ -73,11 +80,17 @@ const EditForm = ({ onSubmit, isRedirect }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newArr = state.users.map(user => user._id)
+    console.log('newArr', newArr)
+    setState({...state, users: newArr})
+    console.log("state enviado", state)
     onSubmit(state);
   };
 
-  console.log('estado', state)
+
   return (
+    <>
+    {isRedirect ? <Redirect to='/spaces' /> : null}
     <form onSubmit={handleSubmit}>
       <label>
         Nombre
@@ -87,31 +100,14 @@ const EditForm = ({ onSubmit, isRedirect }) => {
         Description
         <input name='description' placeholder={state.description} onChange={handleChange} type="text"></input>
       </label>
-      {/* {inputList.map((x, i) => {
-        return (
-          <div>
-            <input
-              name="username"
-              placeholder={x.username}
-              value={x.username}
-              onChange={(e) => handleInputChange(e, i)}
-            />
-            <div>
-              {inputList.length !== 1 && (
-                <button className="mr10" onClick={() => handleRemoveClick(i)}>
-                  Remove
-                </button>
-              )}
-              {inputList.length - 1 === i && (
-                <button onClick={handleAddClick}>Add</button>
-              )}
-            </div>
-          </div>
-        );
-      })} */}
+      <label>
+        Imagen
+        <input name='imgURL' onChange={handleUpload} type="file"></input>
+      </label>
+
       {state.users.map((user, idx) => (
         <div>
-          <input value={user.username} placeholder={user.username} readOnly />
+          <input value={user.username}  readOnly />
           <button
             type="button"
             onClick={(e) => handleRemoveClick(idx, user._id)}
@@ -121,11 +117,11 @@ const EditForm = ({ onSubmit, isRedirect }) => {
         </div>
       ))}
       {[...Array(committedFieldsToAdd)].map((item, index) => (
-        <div>
-          <select key={index} name={state.users.length} onChange={handleSelect} form="form">
+        <div key={index}>
+          <select  name={state.users.length} onChange={handleSelect} form="form">
             <option selected='true' disabled='disabled'>Selecciona usuario</option>
             {users.map((user) => (
-              <option  value={user._id}>{user.username}</option>
+              <option name="id" value={user._id}>{user.username}</option>
             ))}
           </select>
           <button onClick={() => handleRemoveClickAdded(index)}>
@@ -144,6 +140,7 @@ const EditForm = ({ onSubmit, isRedirect }) => {
       <br></br>
       <button>Actualizar espacio</button>
     </form>
+    </>
   );
 };
 

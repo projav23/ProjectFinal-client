@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams, Link, useHistory, Redirect } from "react-router-dom";
-import { tasksAll } from "../../service/tasks.service";
+import { changeStatus, tasksAll } from "../../service/tasks.service";
 import { findSpace } from "../../service/spaces.service";
 import TaskList from "../../components/TaskList/TaskList";
 // import NewTask from "./NewTask";
@@ -41,7 +41,6 @@ const GetAllTasks = (props) => {
   };
   const getName = async () => {
     const { data } = await findSpace(spaceId);
-    console.log(data);
     setSpace(data);
   };
   useEffect(() => {
@@ -52,8 +51,14 @@ const GetAllTasks = (props) => {
   }, []);
 
   const goBack = () => {
-    history.goBack();
+    history.push(`/spaces/${spaceId}`)
   };
+
+  const handleStatus = async(spaceId, taskId) =>{
+    const { data } = await changeStatus(spaceId, taskId);
+    getTasks()
+    
+  }
 
   return (
     <div>
@@ -93,7 +98,7 @@ const GetAllTasks = (props) => {
                 <div className="column">
                   {loading ? (
                     tasks.allTask.map((task) => (
-                      <TaskList key={task._id} task={task}></TaskList>
+                      <TaskList key={task._id} task={task} statusClick={handleStatus}></TaskList>
                     ))
                   ) : (
                     <p>Loading...</p>
@@ -112,7 +117,7 @@ const GetAllTasks = (props) => {
                 <div className="column">
                   {loading ? (
                     tasks.taskByUser.map((task) => (
-                      <TaskList key={task._id} task={task}></TaskList>
+                      <TaskList key={task._id} task={task} statusClick={handleStatus}></TaskList>
                     ))
                   ) : (
                     <p>Loading...</p>
