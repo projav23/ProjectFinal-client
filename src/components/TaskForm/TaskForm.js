@@ -10,6 +10,7 @@ function TaskForm({ onSubmit, isRedirect }) {
   const [state, setState] = React.useState({
     name: "",
     description: "",
+    endData:"",
     asignedTo: "",
   });
   const handleChange = ({ target }) => {
@@ -35,8 +36,7 @@ function TaskForm({ onSubmit, isRedirect }) {
   const goBack = () => {
     history.goBack();
   };
-  console.log("state", state);
-  console.log("users", users);
+
 
   return (
     <>
@@ -62,15 +62,17 @@ function TaskForm({ onSubmit, isRedirect }) {
         </label>
         <label>
           Usuario asignado
-          <select type="text" name="asignedTo" onChange={handleChange}>
+          <select type="text" name="asignedTo"  onChange={handleChange}>
           <option selected='true' disabled='disabled'>Seleccionar usuario</option>
           {
             users.map((user)=>(
               <option value={user._id}>{user.username}</option>
             ))
           }
-            
           </select>
+        </label>
+        <label>Fecha de fin 
+          <input type='date' name='endData' value={state.endData} onChange={handleChange}/>
         </label>
         <button type="submit">Crear nueva tarea</button>
       </form>

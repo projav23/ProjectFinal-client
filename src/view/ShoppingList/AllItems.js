@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams, Link, useHistory, Redirect } from "react-router-dom";
-import { allShoppingList } from "../../service/shopping.service";
+import { allShoppingList, deleteItem } from "../../service/shopping.service";
 import { findSpace } from "../../service/spaces.service";
 import ShoppingList from "../../components/ShoppingList/ShoppingList";
 // import NewTask from "./NewTask";
@@ -49,6 +49,15 @@ const GetAllItems = (props) => {
     history.push(`/spaces/${spaceId}`)
   };
 
+  const handleDelete = async (shoppingId) =>{
+    try {
+    const deleteOne = await deleteItem(spaceId, shoppingId)
+    getItems()
+    } catch (e) {
+    console.error(e)
+    }
+  }
+
   return (
     <div>
       <div className="title-logo">
@@ -76,7 +85,7 @@ const GetAllItems = (props) => {
                 <div className="column">
                   {loading ? (
                     items.allItems.map((item) => (
-                      <ShoppingList key={item._id} item={item}></ShoppingList>
+                      <ShoppingList onDelete={handleDelete} key={item._id} item={item}></ShoppingList>
                     ))
                   ) : (
                     <p>Loading...</p>

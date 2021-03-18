@@ -24,11 +24,16 @@ const ExpensesCard = ({ expense, space, deleteExp}) => {
   };
 
   const [modal, setModal] = React.useState(false);
+  const [image, setImage] = React.useState('')
   const toggle = () => setModal(!modal);
 
   const handleRemove = () =>{
     deleteExp(space._id, expense._id)
     setModal(!modal)
+  }
+
+  const handleImage = () =>{
+    expense.name.includes()
   }
 
   return (

@@ -19,6 +19,8 @@ import NewItem from './view/ShoppingList/NewItem'
 import EditSpace from './view/Spaces/EditSpace'
 import AllDocuments from './view/Documents/AllDocuments'
 import NewDocument from "./view/Documents/NewDocument";
+import AllChores from "./view/Chores/AllChores";
+import NewChore from "./view/Chores/NewChore";
 
 
 function App() {
@@ -72,6 +74,12 @@ function App() {
           </PrivateRoute>
           <PrivateRoute  exact path="/spaces/:spaceId/shoppinglist/newshoppinglist">
             <NewItem />
+          </PrivateRoute>
+          <PrivateRoute  exact path="/spaces/:spaceId/chores">
+            <AllChores />
+          </PrivateRoute>
+          <PrivateRoute  exact path="/spaces/:spaceId/chores/newchore">
+            <NewChore />
           </PrivateRoute>
           <PrivateRoute  exact path="/new">
             <NewSpace/>

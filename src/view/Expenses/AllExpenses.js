@@ -55,7 +55,6 @@ const AllExpenses = () => {
   const handleRemove = async (spaceId, expenseId) =>{
     const {data} = await deleteExpense(spaceId, expenseId)
     getExpenses()
-
   }
 
   const fecha = new Date()
@@ -140,7 +139,7 @@ const AllExpenses = () => {
                 <div className="column-expenses">
                   {loading ? (
                     expenses.otros.map((expense) => 
-                    <ExpensesCard expense={expense} space={space} deleteExp={handleRemove}/>)
+                    <ExpensesCard key={expense._id} expense={expense} space={space} deleteExp={handleRemove}/>)
                   ) : (
                     <p>Loading...</p>
                   )}

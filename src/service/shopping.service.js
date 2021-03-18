@@ -7,3 +7,4 @@ const authApi = axios.create({
 
 export const allShoppingList = (spaceId) => authApi.get(`/${spaceId}/shoppinglist`);
 export const newItemList = (spaceId, item) => authApi.post(`/${spaceId}/shoppinglist/newshoppinglist`, item);
+export const deleteItem = (spaceId, shoppingId) => authApi.delete(`/${spaceId}/shoppinglist/${shoppingId}`);

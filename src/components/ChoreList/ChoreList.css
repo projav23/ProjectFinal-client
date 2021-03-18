@@ -1,0 +1,14 @@
+.chore{
+  text-align: start;
+  border: 1px solid green;
+  margin-bottom: 5%;
+  font-size: 0.6em;
+  min-width: 350px;
+}
+
+.center{
+  border-bottom: 1px solid black;
+}
+.center p{
+  margin: auto;
+}

@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useParams, Link, useHistory, Redirect } from "react-router-dom";
-import { changeStatus, tasksAll } from "../../service/tasks.service";
+import {
+  changeStatus,
+  deleteTask,
+  tasksAll,
+} from "../../service/tasks.service";
 import { findSpace } from "../../service/spaces.service";
 import TaskList from "../../components/TaskList/TaskList";
 // import NewTask from "./NewTask";
@@ -12,7 +16,7 @@ import {
   NavItem,
   NavLink,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 import classnames from "classnames";
 
@@ -51,14 +55,18 @@ const GetAllTasks = (props) => {
   }, []);
 
   const goBack = () => {
-    history.push(`/spaces/${spaceId}`)
+    history.push(`/spaces/${spaceId}`);
   };
 
-  const handleStatus = async(spaceId, taskId) =>{
+  const handleStatus = async (spaceId, taskId) => {
     const { data } = await changeStatus(spaceId, taskId);
-    getTasks()
-    
-  }
+    getTasks();
+  };
+
+  const handleDelete = async (taskId) => {
+    const { data } = await deleteTask(spaceId, taskId);
+    getTasks();
+  };
 
   return (
     <div>
@@ -98,7 +106,12 @@ const GetAllTasks = (props) => {
                 <div className="column">
                   {loading ? (
                     tasks.allTask.map((task) => (
-                      <TaskList key={task._id} task={task} statusClick={handleStatus}></TaskList>
+                      <TaskList
+                        onDelete={handleDelete}
+                        key={task._id}
+                        task={task}
+                        statusClick={handleStatus}
+                      ></TaskList>
                     ))
                   ) : (
                     <p>Loading...</p>
@@ -117,7 +130,12 @@ const GetAllTasks = (props) => {
                 <div className="column">
                   {loading ? (
                     tasks.taskByUser.map((task) => (
-                      <TaskList key={task._id} task={task} statusClick={handleStatus}></TaskList>
+                      <TaskList
+                        onDelete={handleDelete}
+                        key={task._id}
+                        task={task}
+                        statusClick={handleStatus}
+                      ></TaskList>
                     ))
                   ) : (
                     <p>Loading...</p>

@@ -59,7 +59,7 @@ const EditForm = ({ onSubmit, isRedirect }) => {
     setCommittedFieldsToAdd(array.length)
   };
 
-  const handleRemoveClick = (id, idx, e) => {
+  const handleRemoveClick = (idx, userId) => {
     const list = [...state.users];
     list.splice(idx, 1);
     setState({ ...state, users: list });
@@ -106,7 +106,7 @@ const EditForm = ({ onSubmit, isRedirect }) => {
       </label>
 
       {state.users.map((user, idx) => (
-        <div>
+        <div key={user._id}>
           <input value={user.username}  readOnly />
           <button
             type="button"
@@ -124,7 +124,7 @@ const EditForm = ({ onSubmit, isRedirect }) => {
               <option name="id" value={user._id}>{user.username}</option>
             ))}
           </select>
-          <button onClick={() => handleRemoveClickAdded(index)}>
+          <button onClick={() => handleRemoveClickAdded(item)}>
             Borrar usuario
           </button>
         </div>

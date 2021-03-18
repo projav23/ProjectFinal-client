@@ -7,5 +7,6 @@ const authApi = axios.create({
 
 export const documentsAll = (spaceId) => authApi.get(`/${spaceId}/documents`);
 export const newDocument = (spaceId, document) => authApi.post(`/${spaceId}/documents/newdocument`, document);
-export const deleteDocument = (spaceId, document) => authApi.post(`/${spaceId}/documents/delete`, document);
 export const getFile = (spaceId, file) => authApi.post(`/${spaceId}/documents/newdocument/upload`, file)
+export const deleteDocument = (spaceId, documentId) => authApi.delete(`/${spaceId}/documents/${documentId}`);
+
