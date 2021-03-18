@@ -25,7 +25,6 @@ function TaskList({ task, statusClick, onDelete }) {
   const dias = Math.floor(milisegundos/86400000)
   const porcentajeDia = Number((100/dias).toFixed(2))
   const porcentajeCompletado = ((dias - diasRestantes) * porcentajeDia).toFixed(0)
-
   const colorFunct = () =>{
     if(porcentajeCompletado >40 && porcentajeCompletado<=70){
     setColor('#F37A27')

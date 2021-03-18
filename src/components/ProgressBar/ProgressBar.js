@@ -30,7 +30,7 @@ const ProgressBar = ({ completed, bgColor, diasRestantes }) => {
     if (diasRestantes < 0) {
       setMessage(`Deberia haber finalizado hace ${-diasRestantes} dia(s)`);
     } else {
-      setMessage(`Te queda(n) ${-diasRestantes} dia(s)`);
+      setMessage(`Te queda(n) ${diasRestantes} dia(s)`);
     }
   };
 

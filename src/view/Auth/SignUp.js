@@ -3,7 +3,7 @@ import AuthFormSignUp from "../../components/Auth/AuthForm/AuthFormSignUp";
 import { signup } from "../../service/auth.service";
 import { useAuth } from "../../context/AuthContext.utils";
 
-function Signup() {
+function Signup({toggle}) {
   const { setUser } = useAuth();
   const handleSignup = async (user) => {
     try {
@@ -18,6 +18,9 @@ function Signup() {
       console.error(e);
     }
   };
+  React.useEffect(()=>{
+    toggle()
+  },[])
 
   return <AuthFormSignUp btnText="signup" onSubmit={handleSignup} />;
 }

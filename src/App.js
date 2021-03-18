@@ -24,6 +24,11 @@ import NewChore from "./view/Chores/NewChore";
 
 
 function App() {
+  const [showNav, setShowNav] = React.useState(true)
+
+  const toggleMenu = () =>{
+    setShowNav(!showNav)
+  }
   const date = new Date()
   const day = date.getDate()
   console.log("dia", day)
@@ -34,13 +39,13 @@ function App() {
   }
   return (
     <div className="App">
-        <NavBar/>
+        {showNav && <NavBar/>}
         <Switch>
           <AnonRoute exact path="/login">
-            <Login />
+            <Login toggle={toggleMenu}/>
           </AnonRoute>
           <AnonRoute  exact path="/signup">
-            <Signup />
+            <Signup toggle={toggleMenu} />
           </AnonRoute>
           <PrivateRoute  exact path="/spaces">
             <Spaces />

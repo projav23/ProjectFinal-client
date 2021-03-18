@@ -19,6 +19,7 @@ import {
   Col,
 } from "reactstrap";
 import classnames from "classnames";
+import Pie from "../../components/ProgressCircleBar/ProgressCircleBar";
 
 const GetAllTasks = (props) => {
   let history = useHistory();
@@ -26,8 +27,9 @@ const GetAllTasks = (props) => {
   const [loading, setLoading] = React.useState(false);
   // const [modal, setModal] = React.useState(false);
   const [space, setSpace] = React.useState({});
-  const [tasks, setTasks] = React.useState({});
+  const [tasks, setTasks] = React.useState({allTask:[], tasksByUser:[]});
   const [activeTab, setActiveTab] = React.useState("1");
+  const [count, setCount] = React.useState(0)
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
@@ -37,7 +39,7 @@ const GetAllTasks = (props) => {
   // const redirectNewTask = () => {
   //   <Redirect to="/newtask" />;
   // };
-
+  console.log('tasks', tasks)
   const getTasks = async () => {
     const { data } = await tasksAll(spaceId);
     setTasks(data);
@@ -67,6 +69,28 @@ const GetAllTasks = (props) => {
     const { data } = await deleteTask(spaceId, taskId);
     getTasks();
   };
+
+
+  const numberTasks = tasks.allTask.length
+  const taskPercentaje = 100/numberTasks
+  const percentajetotal = count * taskPercentaje
+  console.log('taskPercentaje', taskPercentaje)
+  // console.log('numberTasks', numberTasks)
+  
+  const percentaje = () =>{
+    
+    tasks.allTask.forEach(task => {
+      if(task.status){
+        console.log('count if', count)
+        setCount(count + 1)  
+      }
+    });
+  }
+
+  useEffect(()=>{
+    percentaje()
+  },[tasks])
+  console.log('count', count)
 
   return (
     <div>
@@ -103,6 +127,7 @@ const GetAllTasks = (props) => {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
+              <Pie percentage={percentajetotal} colour='blue'/>
                 <div className="column">
                   {loading ? (
                     tasks.allTask.map((task) => (
