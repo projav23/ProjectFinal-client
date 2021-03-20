@@ -27,9 +27,10 @@ const GetAllTasks = (props) => {
   const [loading, setLoading] = React.useState(false);
   // const [modal, setModal] = React.useState(false);
   const [space, setSpace] = React.useState({});
-  const [tasks, setTasks] = React.useState({allTask:[], tasksByUser:[]});
+  const [tasks, setTasks] = React.useState({ allTask: [], tasksByUser: [] });
   const [activeTab, setActiveTab] = React.useState("1");
-  const [count, setCount] = React.useState(0)
+  const [count, setCount] = React.useState(0);
+
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
@@ -39,7 +40,6 @@ const GetAllTasks = (props) => {
   // const redirectNewTask = () => {
   //   <Redirect to="/newtask" />;
   // };
-  console.log('tasks', tasks)
   const getTasks = async () => {
     const { data } = await tasksAll(spaceId);
     setTasks(data);
@@ -51,6 +51,16 @@ const GetAllTasks = (props) => {
   };
   useEffect(() => {
     getTasks();
+    console.log('useEffect')
+    tasks.allTask.forEach((task) => {
+      console.log('forEach task',  task)
+      if (task.status) {
+        setCount(count + 1);
+      }else if (count > 0 && !task.status){
+        setCount(count - 1)
+      }
+        
+    });
   }, []);
   useEffect(() => {
     getName();
@@ -62,6 +72,7 @@ const GetAllTasks = (props) => {
 
   const handleStatus = async (spaceId, taskId) => {
     const { data } = await changeStatus(spaceId, taskId);
+    console.log("data task", data);
     getTasks();
   };
 
@@ -70,27 +81,25 @@ const GetAllTasks = (props) => {
     getTasks();
   };
 
-
-  const numberTasks = tasks.allTask.length
-  const taskPercentaje = 100/numberTasks
-  const percentajetotal = count * taskPercentaje
-  console.log('taskPercentaje', taskPercentaje)
+  const numberTasks = tasks.allTask.length;
+  const taskPercentaje = 100 / numberTasks;
+  const percentajetotal = count * taskPercentaje;
   // console.log('numberTasks', numberTasks)
-  
-  const percentaje = () =>{
-    
-    tasks.allTask.forEach(task => {
-      if(task.status){
-        console.log('count if', count)
-        setCount(count + 1)  
-      }
-    });
-  }
 
-  useEffect(()=>{
-    percentaje()
-  },[tasks])
-  console.log('count', count)
+  // const percentaje = () => {
+  //   setCount(0);
+  //   tasks.allTask.forEach((task, idx) => {
+  //     console.log("task.status", task.status);
+  //     if (task.status) {
+  //       setCount(count + 1);
+  //     }
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   percentaje();
+  // }, [tasks]);
+  console.log("count", count);
 
   return (
     <div>
@@ -127,7 +136,7 @@ const GetAllTasks = (props) => {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-              <Pie percentage={percentajetotal} colour='blue'/>
+                <Pie percentage={percentajetotal} colour="blue" />
                 <div className="column">
                   {loading ? (
                     tasks.allTask.map((task) => (

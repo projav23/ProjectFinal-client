@@ -1,4 +1,5 @@
 import React from "react";
+import './ProgressCircleBar.css'
 
 const cleanPercentage = (percentage) => {
   const tooLow = !Number.isFinite(+percentage) || percentage < 0;

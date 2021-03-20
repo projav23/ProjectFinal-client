@@ -3,7 +3,7 @@ import "./ExpensesCard.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { deleteExpense } from "../../service/expenses.service";
 
-const ExpensesCard = ({ expense, space, deleteExp}) => {
+const ExpensesCard = ({ expense, space, deleteExp }) => {
   const fecha = new Date();
   const dia = fecha.getDate();
   const mes = fecha.getMonth() + 1;
@@ -24,17 +24,157 @@ const ExpensesCard = ({ expense, space, deleteExp}) => {
   };
 
   const [modal, setModal] = React.useState(false);
-  const [image, setImage] = React.useState('')
+  const [image, setImage] = React.useState("");
   const toggle = () => setModal(!modal);
 
-  const handleRemove = () =>{
-    deleteExp(space._id, expense._id)
-    setModal(!modal)
+  const handleRemove = () => {
+    deleteExp(space._id, expense._id);
+    setModal(!modal);
+  };
+
+  const split = expense.name.toLowerCase().split(" ");
+
+  const comida = [
+    "cena",
+    "compra",
+    "pizzas",
+    "burguers",
+    "hamburguesas",
+    "pan",
+    "fruta",
+    "verduras",
+    "carne",
+    "bbq",
+    "barbacoa",
+    "sal",
+    "vinagre",
+    "aceite",
+    "aceitunas",
+    "olivas",
+    "patatas",
+    "pizza",
+    "verdura",
+    "zanahorias",
+    "manzanas",
+    "peras",
+    "melon",
+    "sandia",
+    "naranjas",
+  ];
+
+  const bebida = [
+    "cafe",
+    "alcohol",
+    "ron",
+    "ginebra",
+    "whisky",
+    "vodka",
+    "fanta",
+    "cocacola",
+    "sprite",
+    "tónica",
+    "tonica",
+    "pepsi",
+    "leche",
+    "vino",
+    "vermut",
+    "cerveza",
+  ];
+
+  const limpieza = [
+    "limpieza",
+    "hogar",
+    "estropajos",
+    "estropajo",
+    "desengrasante",
+    "lejia",
+    "limpiacristales",
+    "suavizante",
+    "detergente",
+    "basura",
+    "bolsas",
+    "servilletas",
+    "papel",
+    "aluminio",
+    "film",
+  ];
+
+  const servicios = [
+    "luz",
+    "agua",
+    "factura",
+    "cerrajero",
+    "electricista",
+    "fontanero",
+    "veterinario",
+    "comunidad",
+    "alquiler",
+    "gas",
+  ];
+
+  const fiesta = ["fiesta", "discoteca", "concierto"];
+
+  const regalo = ["regalo", "regalos", "sorpresa", "cumpleaños"];
+
+  const combustible = ["gasolina", "diesel", "caldera", "carbon", "butano"];
+
+  const imagenSrc = () =>{
+    split.forEach((word)=>{
+      comida.forEach((food) => {
+        if (word.includes(food)){
+          if(!image.length){
+            setImage("comida")
+          }
+        }
+      })
+      bebida.forEach((food) => {
+        if (word.includes(food)){
+          if(!image.length){
+            setImage("bebida")
+          }
+        }
+      })
+      limpieza.forEach((item) => {
+        if (word.includes(item)){
+          if(!image.length){
+            setImage("limpieza")
+          }
+        }
+      })
+      servicios.forEach((item) => {
+        if (word.includes(item)){
+          if(!image.length){
+            setImage("servicios")
+          }
+        }
+      })
+      fiesta.forEach((item) => {
+        if (word.includes(item)){
+          if(!image.length){
+            setImage("fiesta")
+          }
+        }
+      })
+      regalo.forEach((item) => {
+        if (word.includes(item)){
+          if(!image.length){
+            setImage("regalo")
+          }
+        }
+      })
+      combustible.forEach((item) => {
+        if (word.includes(item)){
+          if(!image.length){
+            setImage("combustible")
+          }
+        }
+      })
+  })
   }
 
-  const handleImage = () =>{
-    expense.name.includes()
-  }
+  React.useEffect(()=>{
+    imagenSrc()
+  },[])
 
   return (
     <>
@@ -44,7 +184,7 @@ const ExpensesCard = ({ expense, space, deleteExp}) => {
           <span>{dia}</span>
         </div>
         <div>
-          <span>Image</span>
+          <span>{image}</span>
         </div>
         <div className="row-expense">
           <p>{expense.name}</p>
@@ -53,15 +193,40 @@ const ExpensesCard = ({ expense, space, deleteExp}) => {
           <p>{expense.price}€</p>
         </div>
       </div>
-      <Modal isOpen={modal} centered='true' toggle={toggle} >
+      <Modal isOpen={modal} centered="true" toggle={toggle}>
         <ModalHeader toggle={toggle}>Gasto de '{space.name}'</ModalHeader>
         <ModalBody>
-          <p><span style={{fontWeight:'700', marginRight:'2%'}}>Nombre del gasto:</span>{expense.name}</p>
-          <p><span style={{fontWeight:'700', marginRight:'2%'}}>Descripcion:</span>{expense.description}</p>
-          <p><span style={{fontWeight:'700', marginRight:'2%'}}>Tipo de gasto:</span>{expense.type}</p>
-          <p><span style={{fontWeight:'700', marginRight:'2%'}}>Precio:</span>{expense.price}€</p>
-          <p><span style={{fontWeight:'700', marginRight:'2%'}}>Pagado por:</span>{expense.createdBy}</p>
-         </ModalBody>
+          <p>
+            <span style={{ fontWeight: "700", marginRight: "2%" }}>
+              Nombre del gasto:
+            </span>
+            {expense.name}
+          </p>
+          <p>
+            <span style={{ fontWeight: "700", marginRight: "2%" }}>
+              Descripcion:
+            </span>
+            {expense.description}
+          </p>
+          <p>
+            <span style={{ fontWeight: "700", marginRight: "2%" }}>
+              Tipo de gasto:
+            </span>
+            {expense.type}
+          </p>
+          <p>
+            <span style={{ fontWeight: "700", marginRight: "2%" }}>
+              Precio:
+            </span>
+            {expense.price}€
+          </p>
+          <p>
+            <span style={{ fontWeight: "700", marginRight: "2%" }}>
+              Pagado por:
+            </span>
+            {expense.createdBy}
+          </p>
+        </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={handleRemove}>
             Borrar gasto

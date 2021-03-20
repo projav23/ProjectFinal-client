@@ -21,6 +21,7 @@ import AllDocuments from './view/Documents/AllDocuments'
 import NewDocument from "./view/Documents/NewDocument";
 import AllChores from "./view/Chores/AllChores";
 import NewChore from "./view/Chores/NewChore";
+import MyCalendar from './view/Calendar/Calendar'
 
 
 function App() {
@@ -85,6 +86,9 @@ function App() {
           </PrivateRoute>
           <PrivateRoute  exact path="/spaces/:spaceId/chores/newchore">
             <NewChore />
+          </PrivateRoute>
+          <PrivateRoute  exact path="/spaces/:spaceId/calendar">
+            <MyCalendar/>
           </PrivateRoute>
           <PrivateRoute  exact path="/new">
             <NewSpace/>
