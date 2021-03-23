@@ -15,5 +15,10 @@
 
 .space-view{
 overflow: hidden;
+height: 100vh;
+backdrop-filter: blur(5px);
 }
 
+.lock:hover .icon-unlock:before {
+  content: "\f023";
+}

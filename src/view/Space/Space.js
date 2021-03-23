@@ -4,6 +4,7 @@ import SpaceCard from "../../components/SpaceCard/SpaceCard";
 import { findSpace } from "../../service/spaces.service";
 import "./Space.css";
 
+
 function Space() {
   const { spaceId } = useParams();
   const [loading, setLoading] = React.useState(false);
@@ -27,21 +28,23 @@ function Space() {
     history.push("/spaces");
   };
 
+  const style = {
+    backgroundImage: `url(${state.imgURL})`,
+    backgroundSize: "cover",
+    backgroundPosition: "50% 50%",
+  };
+
   return (
-    <div className='space-view'>
-      <div className="title-logo">
-        <img
-          onClick={redirect}
-          src="/images/left-arrow.png"
-          alt="back"
-        ></img>
-        <p className='space'>{state.name}</p>
-      </div>
-      {loading ? <SpaceCard state={state} /> : <p>Loading...</p>}
+    <div style={style} className="space-view">
+
+
+      {loading ? (
+        <SpaceCard state={state} spaceId={spaceId} />
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
 
 export default Space;
-
-

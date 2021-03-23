@@ -2,3 +2,8 @@
   border: 1px solid blue;
   margin: 5%;
 }
+
+.imagenEspacio{
+  height: 40vh;
+  object-fit: cover;
+}

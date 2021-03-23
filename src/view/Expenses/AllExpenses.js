@@ -1,9 +1,15 @@
 import React, { useEffect } from "react";
-import { deleteExpense, expensesAll } from "../../service/expenses.service";
+import {
+  deleteExpense,
+  expensesAll,
+  newExpense,
+} from "../../service/expenses.service";
 import { findSpace } from "../../service/spaces.service";
-import ExpensesCard from '../../components/ExpensesCard/ExpensesCard'
-import './AllExpenses.css'
+import ExpensesCard from "../../components/ExpensesCard/ExpensesCard";
+import "./AllExpenses.css";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { useParams, useHistory, Link } from "react-router-dom";
+import expenseImg from './entrepreneur-working-with-bills.jpg'
 import {
   TabContent,
   TabPane,
@@ -13,19 +19,28 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { IoArrowBackCircle } from "react-icons/io5";
 import classnames from "classnames";
 
 const AllExpenses = () => {
+  const initialState = { name: "", description: "", type: "", price: "" };
   let history = useHistory();
   const [expenses, setExpenses] = React.useState({});
   const [space, setSpace] = React.useState({});
+  const [state, setState] = React.useState(initialState);
   const [loading, setLoading] = React.useState(false);
   const [activeTab, setActiveTab] = React.useState("1");
+  const [modal, setModal] = React.useState(false);
+  const toggleModal = () => setModal(!modal);
+  const { spaceId } = useParams();
+
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-  const { spaceId } = useParams();
 
+  const handleChange = ({ target }) => {
+    setState({ ...state, [target.name]: target.value });
+  };
   const getExpenses = async () => {
     try {
       const { data } = await expensesAll(spaceId);
@@ -52,43 +67,77 @@ const AllExpenses = () => {
     history.push(`/spaces/${spaceId}/`);
   };
 
-  const handleRemove = async (spaceId, expenseId) =>{
-    const {data} = await deleteExpense(spaceId, expenseId)
-    getExpenses()
-  }
+  const handleRemove = async (spaceId, expenseId) => {
+    const { data } = await deleteExpense(spaceId, expenseId);
+    getExpenses();
+  };
 
-  const fecha = new Date()
-  const dia = fecha.getDate()
-  const mes = fecha.getMonth() + 1
-  const year = fecha.getFullYear()
+  const fecha = new Date();
+  const dia = fecha.getDate();
+  const mes = fecha.getMonth() + 1;
+  const year = fecha.getFullYear();
 
   const meses = {
-    1: 'Enero',
-    2: 'Febrero',
-    3: 'Marzo',
-    4: 'Abril',
-    5: 'Mayo',
-    6: 'Junio',
-    7: 'Julio',
-    8: 'Agosto',
-    9: 'Septiembre',
-    10: 'Octubre',
-    11: 'Noviembre',
-    12: 'Diciembre'
-  }
-  // console.log('fecha', fecha)
-  // console.log('dia', dia)
-  // console.log('mes', mes)
-  // console.log('year', year)
+    1: "Enero",
+    2: "Febrero",
+    3: "Marzo",
+    4: "Abril",
+    5: "Mayo",
+    6: "Junio",
+    7: "Julio",
+    8: "Agosto",
+    9: "Septiembre",
+    10: "Octubre",
+    11: "Noviembre",
+    12: "Diciembre",
+  };
 
+  const handleSubmit = async () => {
+    console.log("Entra aqui?");
+    try {
+      const createNew = await newExpense(spaceId, state);
+      getExpenses();
+      setState(initialState);
+      console.log(createNew);
+      if (createNew) {
+        setModal(!modal);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  //   let count = 0;
+
+  //   const sumTotal = () =>{
+  //     expenses.recibos.forEach((item)=>{
+  //     count += item.price
+  //  })
+  // }
+
+  const style = {
+    backgroundImage: `url(${expenseImg})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center center",
+    filter: 'grayscale(70%)'
+  };
 
   return (
-    <div>
-      <div className="title-logo">
-        <img onClick={goBack} src="/images/left-arrow.png" alt="back"></img>
+    <div className="fondo">
+            <div className="newEvent">
+          <img onClick={toggleModal} src="/images/mas.png" alt="mas"></img>
+        </div>
+      <div style={style} className="title-logo">
+        <div className="back">
+          <a href="/spaces/">
+            <IoArrowBackCircle color={'white'} size={32} />
+          </a>
+        </div>
         <p className="space">{space.name}</p>
       </div>
       <div>
+        <div className="fecha">
+          <span>{`${meses[mes]} de ${year}`}</span>
+        </div>
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -117,54 +166,110 @@ const AllExpenses = () => {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <div className='fecha'><span>{`${meses[mes]} de ${year}`}</span></div>
                 <div className="column-expenses">
                   {loading ? (
-                    expenses.recibos.map((expense) => <ExpensesCard key={expense._id} expense={expense} space={space} deleteExp={handleRemove} />)
+                    expenses.recibos.map((expense) => (
+                      <ExpensesCard
+                        key={expense._id}
+                        expense={expense}
+                        space={space}
+                        deleteExp={handleRemove}
+                      />
+                    ))
                   ) : (
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link to={`/spaces/${spaceId}/expenses/newexpense`}>
+
+                {/* <Link onClick={toggleModal}>
                   {" "}
                   <img src="/images/mas.png" alt="mas"></img>
-                </Link>
+                </Link> */}
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
               <Col sm="6">
-              <div className='fecha'><span>{`${meses[mes]} de ${year}`}</span></div>
+
                 <div className="column-expenses">
                   {loading ? (
-                    expenses.otros.map((expense) => 
-                    <ExpensesCard key={expense._id} expense={expense} space={space} deleteExp={handleRemove}/>)
+                    expenses.otros.map((expense) => (
+                      <ExpensesCard
+                        key={expense._id}
+                        expense={expense}
+                        space={space}
+                        deleteExp={handleRemove}
+                      />
+                    ))
                   ) : (
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link to={`/spaces/${spaceId}/expenses/newexpense`}>
+                {/* <Link onClick={toggleModal}>
                   {" "}
                   <img src="/images/mas.png" alt="mas"></img>
-                </Link>
+                </Link> */}
               </Col>
             </Row>
           </TabPane>
         </TabContent>
-        {/* <Modal isOpen={modal} toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>Crear nueva tarea</ModalHeader>
-        <NewTask click={toggleModal}/>
-       
-          <Button form='taskForm' color="primary" onClick={toggleModal}>
-            Create task
-          </Button>{" "}
-          <Button  color="secondary" onClick={toggleModal}>
-            Cancel
-          </Button>
-        
-      </Modal> */}
       </div>
+      <Modal isOpen={modal} centered="true" toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>¿Qué quieres recordar?</ModalHeader>
+        <ModalBody>
+          <form onSubmit={handleSubmit} id="form">
+            <label>
+              Nombre del gasto
+              <input
+                type="text"
+                name="name"
+                value={state.name}
+                placeholder="Ej: Aquiler"
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Descripcion del gasto
+              <input
+                type="text"
+                name="description"
+                value={state.description}
+                placeholder="Ej: Es el pago mensual del aquiler"
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Precio
+              <input
+                type="number"
+                name="price"
+                value={state.price}
+                placeholder="Ej: 700"
+                onChange={handleChange}
+              />
+            </label>
+            <label>
+              Tipo de gasto
+              <select name="type" form="form" onChange={handleChange}>
+                <option selected="true" disabled="disabled">
+                  Selecciona una opcion
+                </option>
+                <option value="Recibos">Recibos</option>
+                <option value="Otros">Otros gastos</option>
+              </select>
+            </label>
+          </form>
+        </ModalBody>
+        <ModalFooter>
+          <Button onClick={handleSubmit} color="success">
+            Añadir gasto
+          </Button>
+          <Button color="secondary" onClick={toggleModal}>
+            Cancelar
+          </Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 };

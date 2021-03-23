@@ -4,6 +4,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import SpaceList from "../../components/SpacesList/SpacesList";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { createGlobalStyle } from "styled-components";
+import "./Spaces.css";
 
 function Spaces() {
   const [spaces, setSpaces] = React.useState([]);
@@ -41,14 +42,7 @@ function Spaces() {
   };
 
   return (
-    <div
-      style={{
-        maxWidth: "900px",
-        display: "flex",
-        flexDirection: "column",
-        margin: "auto",
-      }}
-    >
+    <div className="spaces-list">
       <div>
         <Breadcrumb tag="nav" listTag="div">
           <BreadcrumbItem tag="a" href="/">
@@ -64,7 +58,6 @@ function Spaces() {
         {loading ? (
           search.map((space) => (
             <SpaceList onDelete={deleteSpace} space={space}></SpaceList>
-
           ))
         ) : (
           <p>Loading...</p>

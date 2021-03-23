@@ -1,6 +1,77 @@
-.form-space{
-  margin: auto;
+/* .form-space{
+  margin: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 }
+
+
+
+.columnaSpace{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: auto;
+  width: 100%;
+}
+.columnaSpaceImg{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+}
+
+input, select{
+  background: transparent;
+  border-radius: 5px;
+  width: 40vw;
+  height: 3vh;
+}
+
+textarea{
+  background: transparent;
+  border-radius: 5px;
+
+}
+
+label{
+  margin-top: 2%;
+}
+
+#imagenSpace {
+display: none;
+
+  }
+
+
+  .row-space{
+    margin: 5% 10% 5% 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  } */
+
+  .tarjeta{
+    background-color: rgba(255, 255, 255, 0.801);
+    margin: 0 5% 0 5%;
+    box-shadow: 0.2em 0.2em 0.5em -0.1em rgb(65, 62, 62);
+  }
+
+  .formBoot{
+    margin: 10%
+  }
+
+  .createSpace{
+    height: 100vh;
+    background-image: url('./chang-duong-Sj0iMtq_Z4w-unsplash.jpg');
+    background-repeat:no-repeat ;
+    background-size: cover;
+    background-position: 30%;
+    filter: opacity(80%);
+  }
+
+  .form-group{
+    text-align: initial;
+  }

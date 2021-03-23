@@ -94,7 +94,7 @@ function App() {
             <NewSpace/>
           </PrivateRoute>
           <Route exact path="/">
-            <Home />
+            <Home/>
           </Route>
         </Switch>
     </div>

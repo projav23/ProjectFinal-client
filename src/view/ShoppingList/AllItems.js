@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams, Link, useHistory, Redirect } from "react-router-dom";
-import { allShoppingList, deleteItem } from "../../service/shopping.service";
+import { allShoppingList, deleteItem, newItemList } from "../../service/shopping.service";
 import { findSpace } from "../../service/spaces.service";
 import ShoppingList from "../../components/ShoppingList/ShoppingList";
-// import NewTask from "./NewTask";
-// import "./AllTasks.css";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import {
   TabContent,
   TabPane,
@@ -17,16 +16,24 @@ import {
 import classnames from "classnames";
 
 const GetAllItems = (props) => {
+  const initialState = {
+    name: "",
+    quantity: 0,
+  }
   let history = useHistory();
   const { spaceId } = useParams();
   const [loading, setLoading] = React.useState(false);
-  // const [modal, setModal] = React.useState(false);
+  const [modal, setModal] = React.useState(false);
   const [space, setSpace] = React.useState({});
+  const [state, setState] = React.useState(initialState);
   const [items, setItems] = React.useState({});
   const [activeTab, setActiveTab] = React.useState("1");
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
+
+  const toggleModal = () => setModal(!modal);
+
 
   const getItems = async () => {
     const { data } = await allShoppingList(spaceId);
@@ -57,6 +64,26 @@ const GetAllItems = (props) => {
     console.error(e)
     }
   }
+
+  const handleChange = ({ target }) => {
+    setState({ ...state, [target.name]: target.value });
+  };
+
+  const handleSubmit= async ()=>{
+    try {
+      console.log('Vista')
+    const createNewItem = await newItemList(spaceId, state)
+    getItems()
+    setState(initialState)
+    if (createNewItem){
+      setModal(!modal)
+    }
+    console.log('tarea',createNewItem)
+    } catch (e) {
+    console.error(e)
+    }
+  }
+
 
   return (
     <div>
@@ -91,7 +118,7 @@ const GetAllItems = (props) => {
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link to={`/spaces/${spaceId}/shoppinglist/newshoppinglist`}>
+                <Link onClick={toggleModal}>
                   {" "}
                   <img src="/images/mas.png" alt="mas"></img>
                 </Link>
@@ -100,6 +127,40 @@ const GetAllItems = (props) => {
           </TabPane>
         </TabContent>
       </div>
+      <Modal isOpen={modal} centered="true" toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>¿Que hay que comprar?</ModalHeader>
+        <ModalBody>
+        <form onSubmit={handleSubmit}>
+        <label>
+          Producto:
+          <input
+            type="text"
+            name="name"
+            value={state.name}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Cantidad a comprar
+          <input
+            type="number"
+            name="quantity"
+            value={state.quantity}
+            onChange={handleChange}
+          />
+        </label>
+      </form>
+
+        </ModalBody>
+        <ModalFooter>
+          <Button  onClick={handleSubmit} color="success">
+            Añadir a la lista
+          </Button>
+          <Button color="secondary" onClick={toggleModal}>
+            Cancelar
+          </Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 };

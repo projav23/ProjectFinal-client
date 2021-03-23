@@ -15,7 +15,9 @@ import {
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { useAuth } from "../../context/AuthContext.utils";
+import { FiSettings, FiTrash2 } from "react-icons/fi";
 import { deleteSpaceOne } from "../../service/spaces.service";
+import './SpaceList.css'
 
 const SpacesList = ({ space, onDelete }) => {
   const { user } = useAuth();
@@ -36,7 +38,7 @@ const SpacesList = ({ space, onDelete }) => {
   }, []);
   const handleRemove = () => {
     onDelete(space._id);
-    setModal(!modal)
+    setModal(!modal);
   };
 
   const [modal, setModal] = React.useState(false);
@@ -44,54 +46,48 @@ const SpacesList = ({ space, onDelete }) => {
 
   return (
     <>
-      <Card style={{ margin: "10%", minWidth: "30%" }}>
+      <Card style={{ margin: "10%", minWidth: "30%", backgroundColor:'#ffffffeb' }}>
         <Link key={space._id} to={`/spaces/${space._id}`}>
-          <CardImg top width="100%" src={space.imgURL} alt="Card image cap" />
+          <CardImg className='imagenEspacio' src={space.imgURL} alt="Card image cap" />
         </Link>
         <CardBody>
           <CardTitle tag="h5">{space.name}</CardTitle>
           <CardSubtitle tag="h6" className="mb-2 text-muted">
-            {space.type}
+            {space.description}
           </CardSubtitle>
-          <CardText>{space.description}</CardText>
           {edit ? (
-            <>
-              <Button
-                style={{ margin: "5%", width: "30%" }}
-                onClick={toggle}
-                color="danger"
-              >
-                Delete
-              </Button>
-              <Button
-                style={{ margin: "5%", width: "30%" }}
+            <div
+              style={{
+                margin: "10%",
+                display: "flex",
+                justifyContent: "space-around",
+              }}
+            >
+              <FiTrash2 size={24} onClick={toggle} color={"#343c44"}></FiTrash2>
+              <FiSettings
+                size={24}
                 onClick={redirect}
-                color="info"
-              >
-                Edit
-              </Button>
-            </>
+                color={"#343c44"}
+              ></FiSettings>
+            </div>
           ) : (
             <></>
           )}
         </CardBody>
       </Card>
       <Modal isOpen={modal} centered="true" toggle={toggle}>
-        <ModalHeader toggle={toggle}>¡Oye! Vas a borrar el espacio</ModalHeader>
+        <ModalHeader toggle={toggle}>
+          ¡Oye! Estas a punto de borrar el espacio '{space.name}'
+        </ModalHeader>
         <ModalBody>
-          <p>
-            Estás a punto de eliminar el espacio {space.name}.<br></br><br></br>
-            ¿Confirmas que quieres borrarlo?
-          </p>
-        </ModalBody>
-        <ModalFooter>
+          <p>¿Confirmas que quieres borrarlo?</p>
           <Button color="danger" onClick={handleRemove}>
             Sí, borrar espacio
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
             Cancelar
           </Button>
-        </ModalFooter>
+        </ModalBody>
       </Modal>
     </>
   );

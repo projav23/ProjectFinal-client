@@ -1,0 +1,15 @@
+
+.breadcrumb{
+  border-radius: 0% !important;
+}
+.spaces-list{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  background-image: url('./chang-duong-Sj0iMtq_Z4w-unsplash.jpg');
+  background-position: 50% 50%;
+  background-size: cover;
+  filter: blur();
+}

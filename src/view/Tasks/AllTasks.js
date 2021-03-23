@@ -3,11 +3,13 @@ import { useParams, Link, useHistory, Redirect } from "react-router-dom";
 import {
   changeStatus,
   deleteTask,
+  getUsersBySpace,
+  newTask,
   tasksAll,
 } from "../../service/tasks.service";
 import { findSpace } from "../../service/spaces.service";
 import TaskList from "../../components/TaskList/TaskList";
-// import NewTask from "./NewTask";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "./AllTasks.css";
 import {
   TabContent,
@@ -22,24 +24,36 @@ import classnames from "classnames";
 import Pie from "../../components/ProgressCircleBar/ProgressCircleBar";
 
 const GetAllTasks = (props) => {
+  const initialState= {name:'', description:'', endData:'', asignedTo:''}
   let history = useHistory();
   const { spaceId } = useParams();
+  const [state, setState] = React.useState(initialState)
   const [loading, setLoading] = React.useState(false);
-  // const [modal, setModal] = React.useState(false);
+  const [users, setUsers] = React.useState([]);
+  const [modal, setModal] = React.useState(false);
   const [space, setSpace] = React.useState({});
   const [tasks, setTasks] = React.useState({ allTask: [], tasksByUser: [] });
   const [activeTab, setActiveTab] = React.useState("1");
   const [count, setCount] = React.useState(0);
 
+  const toggleModal = () => setModal(!modal);
+
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-  // const toggleModal = () => {
-  //   setModal(!modal);
-  // };
-  // const redirectNewTask = () => {
-  //   <Redirect to="/newtask" />;
-  // };
+
+  const getUsersAll = async () => {
+    try {
+      const { data } = await getUsersBySpace(spaceId);
+      console.log("users", data);
+      setUsers(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  React.useEffect(() => {
+    getUsersAll();
+  }, []);
   const getTasks = async () => {
     const { data } = await tasksAll(spaceId);
     setTasks(data);
@@ -52,15 +66,6 @@ const GetAllTasks = (props) => {
   useEffect(() => {
     getTasks();
     console.log('useEffect')
-    tasks.allTask.forEach((task) => {
-      console.log('forEach task',  task)
-      if (task.status) {
-        setCount(count + 1);
-      }else if (count > 0 && !task.status){
-        setCount(count - 1)
-      }
-        
-    });
   }, []);
   useEffect(() => {
     getName();
@@ -81,29 +86,35 @@ const GetAllTasks = (props) => {
     getTasks();
   };
 
-  const numberTasks = tasks.allTask.length;
-  const taskPercentaje = 100 / numberTasks;
-  const percentajetotal = count * taskPercentaje;
-  // console.log('numberTasks', numberTasks)
+  const totalTask = tasks.allTask.length;
+  const completedTask = tasks.allTask.filter(task => task.status).length
+  const percentajetotal = (completedTask/totalTask)*100
 
-  // const percentaje = () => {
-  //   setCount(0);
-  //   tasks.allTask.forEach((task, idx) => {
-  //     console.log("task.status", task.status);
-  //     if (task.status) {
-  //       setCount(count + 1);
-  //     }
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   percentaje();
-  // }, [tasks]);
   console.log("count", count);
+
+  const handleChange = ({ target }) => {
+    setState({ ...state, [target.name]: target.value });
+  };
+
+
+  const handleSubmit= async ()=>{
+    try {
+    const createNewTask = await newTask(spaceId, state)
+    getTasks()
+    setState(initialState)
+    if (createNewTask){
+      setModal(!modal)
+    }
+    } catch (e) {
+    console.error(e)
+    }
+  }
+
+
 
   return (
     <div>
-      <div className="title-logo">
+      <div  className="title-logo">
         <img onClick={goBack} src="/images/left-arrow.png" alt="back"></img>
         <p className="space">{space.name}</p>
       </div>
@@ -151,7 +162,7 @@ const GetAllTasks = (props) => {
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link to={`/spaces/${spaceId}/task/newtask`}>
+                <Link onClick={toggleModal}>
                   {" "}
                   <img src="/images/mas.png" alt="mas"></img>
                 </Link>
@@ -175,7 +186,7 @@ const GetAllTasks = (props) => {
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link to={`/spaces/${spaceId}/task/newtask`}>
+                <Link onClick={toggleModal}>
                   {" "}
                   <img src="/images/mas.png" alt="mas"></img>
                 </Link>
@@ -183,19 +194,57 @@ const GetAllTasks = (props) => {
             </Row>
           </TabPane>
         </TabContent>
-        {/* <Modal isOpen={modal} toggle={toggleModal}>
-          <ModalHeader toggle={toggleModal}>Crear nueva tarea</ModalHeader>
-          <NewTask click={toggleModal}/>
-         
-            <Button form='taskForm' color="primary" onClick={toggleModal}>
-              Create task
-            </Button>{" "}
-            <Button  color="secondary" onClick={toggleModal}>
-              Cancel
-            </Button>
-          
-        </Modal> */}
+ 
       </div>
+      <Modal isOpen={modal} centered="true" toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>¿Qué quieres recordar?</ModalHeader>
+        <ModalBody>
+        <form onSubmit={handleSubmit}>
+        <label>
+          Nombre de la tarea
+          <input
+            type="text"
+            name="name"
+            value={state.name}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Descripcion de la tarea
+          <input
+            type="text"
+            name="description"
+            value={state.description}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Usuario asignado
+          <select type="text" name="asignedTo"  onChange={handleChange}>
+          <option selected='true' disabled='disabled'>Seleccionar usuario</option>
+          {
+            users.map((user)=>(
+              <option value={user._id}>{user.username}</option>
+            ))
+          }
+          </select>
+        </label>
+        <label>Fecha de fin 
+          <input type='date' name='endData' value={state.endData} onChange={handleChange}/>
+        </label>
+        
+      </form>
+      
+        </ModalBody>
+        <ModalFooter>
+          <Button  onClick={handleSubmit} color="success">
+            Añadir gasto
+          </Button>
+          <Button color="secondary" onClick={toggleModal}>
+            Cancelar
+          </Button>
+        </ModalFooter>
+      </Modal>
     </div>
   );
 };

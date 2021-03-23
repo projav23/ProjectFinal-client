@@ -13,6 +13,7 @@ function Signup({toggle}) {
         setUser({isLogged: true, user: data.user})
         localStorage.setItem('isLogged', 'true')
         localStorage.setItem('user', data.user)
+        toggle();
       }
     } catch (e) {
       console.error(e);

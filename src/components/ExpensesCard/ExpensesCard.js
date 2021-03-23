@@ -1,10 +1,15 @@
 import React from "react";
 import "./ExpensesCard.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import { deleteExpense } from "../../service/expenses.service";
+import { GiPartyPopper, GiPresent } from "react-icons/gi";
+import { IoFastFoodSharp, IoNewspaperSharp } from "react-icons/io5";
+import { BiDrink } from "react-icons/bi";
+import { AiOutlineClear } from "react-icons/ai";
+import { FaFileInvoiceDollar } from "react-icons/fa";
+import { RiGasStationFill } from "react-icons/ri";
 
 const ExpensesCard = ({ expense, space, deleteExp }) => {
-  const fecha = new Date();
+  const fecha = new Date(expense.createdAt);
   const dia = fecha.getDate();
   const mes = fecha.getMonth() + 1;
 
@@ -118,63 +123,70 @@ const ExpensesCard = ({ expense, space, deleteExp }) => {
 
   const combustible = ["gasolina", "diesel", "caldera", "carbon", "butano"];
 
-  const imagenSrc = () =>{
-    split.forEach((word)=>{
+  const imagenSrc = () => {
+    split.forEach((word) => {
       comida.forEach((food) => {
-        if (word.includes(food)){
-          if(!image.length){
-            setImage("comida")
+        if (word.includes(food)) {
+          if (!image.length) {
+            setImage(<IoFastFoodSharp color={'#212529'} size={24}/>);
           }
         }
-      })
+      });
       bebida.forEach((food) => {
-        if (word.includes(food)){
-          if(!image.length){
-            setImage("bebida")
+        if (word.includes(food)) {
+          if (!image.length) {
+            setImage(<BiDrink color={'#212529'} size={24} />);
           }
         }
-      })
+      });
       limpieza.forEach((item) => {
-        if (word.includes(item)){
-          if(!image.length){
-            setImage("limpieza")
+        if (word.includes(item)) {
+          if (!image.length) {
+            setImage(<AiOutlineClear color={'#212529'} size={24} />);
           }
         }
-      })
+      });
       servicios.forEach((item) => {
-        if (word.includes(item)){
-          if(!image.length){
-            setImage("servicios")
+        if (word.includes(item)) {
+          if (!image.length) {
+            setImage(<FaFileInvoiceDollar color={'#212529'} size={24} />);
           }
         }
-      })
+      });
       fiesta.forEach((item) => {
-        if (word.includes(item)){
-          if(!image.length){
-            setImage("fiesta")
+        if (word.includes(item)) {
+          if (!image.length) {
+            setImage(<GiPartyPopper color={'#212529'} size={24} />);
           }
         }
-      })
+      });
       regalo.forEach((item) => {
-        if (word.includes(item)){
-          if(!image.length){
-            setImage("regalo")
+        if (word.includes(item)) {
+          if (!image.length) {
+            setImage(<GiPresent color={'#212529'} size={24} />);
           }
         }
-      })
+      });
       combustible.forEach((item) => {
-        if (word.includes(item)){
-          if(!image.length){
-            setImage("combustible")
+        if (word.includes(item)) {
+          if (!image.length) {
+            setImage(<RiGasStationFill color={'#212529'} size={24} />);
           }
         }
-      })
-  })
-  }
+      });
+      // if (!combustible.includes(word) && !regalo.includes(word) && !fiesta.includes(word) && !servicios.includes(word) && !limpieza.includes(word) && !bebida.includes(word) && !comida.includes(word)) {
+      //   if(!image.length){
+      //     setImage(<IoNewspaperSharp />);
+      //   }
+        
+      // }
+    });
+ 
+  };
 
-  React.useEffect(()=>{
-    imagenSrc()
-  },[])
+  React.useEffect(() => {
+    imagenSrc();
+  }, []);
 
   return (
     <>
@@ -183,13 +195,11 @@ const ExpensesCard = ({ expense, space, deleteExp }) => {
           <span>{meses[mes]}</span>
           <span>{dia}</span>
         </div>
-        <div>
-          <span>{image}</span>
-        </div>
+        <div className="icono">{image}</div>
         <div className="row-expense">
           <p>{expense.name}</p>
         </div>
-        <div className="row-expense">
+        <div className="row-expense2">
           <p>{expense.price}€</p>
         </div>
       </div>

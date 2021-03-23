@@ -1,15 +1,28 @@
 .column-expenses{
   display: flex;
   flex-direction: column;
+  margin:5%;
   /* margin: auto; */
 }
 
 .fecha{
-  margin: auto;
-  border: 1px solid rgb(14, 197, 14);
+
+  border: 1px solid #0c6ccc;
   color: white;
-  background-color: rgb(14, 197, 14);
+  background-color: #0c6ccc;
+  height: 50px;
+  border-radius: 2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .fecha span{
 font-weight: 700;
 }
+
+.fondo{
+  /* background-color: blue; */
+  height: 100vh;
+}
+

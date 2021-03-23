@@ -1,14 +1,34 @@
 .chore{
-  text-align: start;
-  border: 1px solid green;
-  margin-bottom: 5%;
-  font-size: 0.6em;
-  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-bottom: 1px solid rgb(214, 209, 209);
+  /* margin: auto; */
+  /* margin-top: 5%; */
+  margin: 2% 0;
+  border: 1px solid #343c44;
+  border-radius: 5px;
+  height: 120px;
+  box-shadow: 0.2em 0.2em 0.1em 0em #343c44;
 }
 
 .center{
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #343c44;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: flex-start;
+  background-color: #343c44;
+  
 }
 .center p{
-  margin: auto;
+  margin: auto 5%;
+  font-size: 1em;
+  color: white;
+  font-weight: 700;
+
+}
+
+.rowChore{
+
 }

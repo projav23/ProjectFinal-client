@@ -24,7 +24,6 @@ const MyCalendar = () => {
   const [events, setEvents] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [modalEvent, setModalEvent] = React.useState(false);
-  const [eventDate, setEventDate] = React.useState({start:"", end:"", title:""})
 
   const [state, setState] = React.useState(initialState);
   const [eventoTemp, setEventoTemp] = React.useState([{start:"", end:"", title:""}])
@@ -39,92 +38,7 @@ const MyCalendar = () => {
         event.start = new Date(event.start)
         event.end = new Date(event.end)
       })
-      // let str = event.start;
-      // const year = Number(str.substring(0, 4));
-      // let month = str.substring(5, 7);
-      // let day = str.substring(8, 10);
-      // let hour = str.substring(11, 13);
-      // let minutes = str.substring(14, 16);
-      // let monthNew;
-      // let dayNew;
-      // let hourNew;
-      // let minutesNew;
-      // const month1 = month.split("");
-
-      // if (month1[0] === "0") {
-      //   month1.splice(0, 1);
-      //   monthNew = Number(month1.toString());
-      // } else {
-      //   monthNew = Number(month1.join(""));
-      // }
-      // const day1 = day.split("");
-      // if (day1[0] === "0") {
-      //   day1.splice(0, 1);
-      //   dayNew = Number(day1.toString());
-      // } else {
-      //   dayNew = Number(day1.join(""));
-      // }
-      // const hour1 = hour.split("");
-      // if (hour1[0] === "0") {
-      //   hour1.splice(0, 1);
-      //   hourNew = Number(hour1.toString());
-      // } else {
-      //   hourNew = Number(hour1.join(""));
-      // }
-
-      // const minutes1 = minutes.split("");
-      // if (minutes1[0] === "0") {
-      //   minutes1.splice(0, 1);
-      //   minutesNew = Number(minutes1.toString());
-      // } else {
-      //   minutesNew = Number(minutes1.join(""));
-      // }
-
-      // let strEnd = event.end;
-      // const yearEnd = Number(strEnd.substring(0, 4));
-      // let monthEnd = strEnd.substring(5, 7);
-      // let dayEnd = strEnd.substring(8, 10);
-      // let hourEnd = strEnd.substring(11, 13);
-      // let minutedEnd = strEnd.substring(14, 16);
-      // let monthEndNew;
-      // let dayEndNew;
-      // let hourEndNew;
-      // let minutedEndNew;
-      // const monthEnd1 = monthEnd.split("");
-
-      // if (monthEnd1[0] === "0") {
-      //   monthEnd1.splice(0, 1);
-      //   monthEndNew = Number(monthEnd1.toString());
-      // } else {
-      //   monthEndNew = Number(monthEnd1.join(""));
-      // }
-      // const dayEnd1 = dayEnd.split("");
-      // if (dayEnd1[0] === "0") {
-      //   dayEnd1.splice(0, 1);
-      //   dayEndNew = Number(dayEnd1.toString());
-      // } else {
-      //   dayEndNew = Number(dayEnd1.join(""));
-      // }
-      // const hourEnd1 = hourEnd.split("");
-      // if (hourEnd1[0] === "0") {
-      //   hourEnd1.splice(0, 1);
-      //   hourEndNew = Number(hourEnd1.toString());
-      // } else {
-      //   hourEndNew = Number(hourEnd1.join(""));
-      // }
-
-      // const minutedEnd1 = minutedEnd.split("");
-      // if (minutedEnd1[0] === "0") {
-      //   minutedEnd1.splice(0, 1);
-      //   minutedEndNew = Number(minutedEnd1.toString());
-      // } else {
-      //   minutedEndNew = Number(minutedEnd1.join(""));
-      // }
-      // event.start = moment(event.start).toDate();
-      // event.end = moment(event.year).toDate();
-      // console.log("fecha start", event.start);
-      // console.log("fecha end", event.end);
-      // });
+      
       console.log("data mutada", data);
       setEvents(data);
     } catch (e) {
@@ -139,13 +53,7 @@ const MyCalendar = () => {
   const onSelectEvent = async (pEvent) => {
     setEventoTemp(pEvent)
     toggleTemp()
-
     console.log('pEvent', pEvent)
-    // const r = window.confirm(`¿Estás seguro de que quieres borrar el evento ${pEvent.title}?`);
-    // if (r === true) {
-    //   await deleteEvent(spaceId, pEvent._id);
-    //   getAllEvents();
-    // }
   };
 
   const handleChange = ({ target }) => {
@@ -171,22 +79,7 @@ const MyCalendar = () => {
     }
   };
 
-  // const handleSelect = async({ start, end }) => {
-  //   const title = window.prompt("New Event name");
-  //   if (title)
-  //     setState({...state,
-  //       events: [
-  //         ...state.events,
-  //         {
-  //           start,
-  //           end,
-  //           title,
-  //         },
-  //       ],
-  //     });
-  //     const { data } = await newEvent(spaceId, state);
-  //     getAllEvents();
-  // };
+
 
   return (
     <>
@@ -200,6 +93,7 @@ const MyCalendar = () => {
           onSelectEvent={event => onSelectEvent(event)}
           localizer={localizer}
           events={events}
+          defaultView={"week"}
         />
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggle}>
