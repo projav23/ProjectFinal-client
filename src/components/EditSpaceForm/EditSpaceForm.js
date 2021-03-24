@@ -20,12 +20,13 @@ import {
 import './EditSpaceForm.css'
 
 const EditForm = ({ onSubmit, isRedirect }) => {
-  const { spaceId } = useParams();
-  const [state, setState] = React.useState({
+  const initialState = {
     name: "",
     users: [],
     description: "",
-  });
+  }
+  const { spaceId } = useParams();
+  const [state, setState] = React.useState(initialState);
   const [users, setUsers] = React.useState({});
 
   const getAllUsers = async () => {
@@ -94,6 +95,7 @@ const EditForm = ({ onSubmit, isRedirect }) => {
     setState({ ...state, users: newArr });
     console.log("state enviado", state);
     onSubmit(state);
+    setState(initialState)
   };
   console.log('state.image', state.imgURL)
   const style = {

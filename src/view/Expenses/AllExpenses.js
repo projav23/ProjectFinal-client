@@ -4,12 +4,12 @@ import {
   expensesAll,
   newExpense,
 } from "../../service/expenses.service";
+import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { findSpace } from "../../service/spaces.service";
 import ExpensesCard from "../../components/ExpensesCard/ExpensesCard";
 import "./AllExpenses.css";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { useParams, useHistory, Link } from "react-router-dom";
-import expenseImg from './entrepreneur-working-with-bills.jpg'
+import expenseImg from "./entrepreneur-working-with-bills.jpg";
 import {
   TabContent,
   TabPane,
@@ -18,6 +18,20 @@ import {
   NavLink,
   Row,
   Col,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  CustomInput,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText,
+  InputGroup,
+  InputGroupText,
+  InputGroupAddon,
 } from "reactstrap";
 import { IoArrowBackCircle } from "react-icons/io5";
 import classnames from "classnames";
@@ -118,26 +132,32 @@ const AllExpenses = () => {
     backgroundImage: `url(${expenseImg})`,
     backgroundSize: "cover",
     backgroundPosition: "center center",
-    filter: 'grayscale(70%)'
+    filter: "grayscale(70%)",
   };
 
   return (
     <div className="fondo">
-            <div className="newEvent">
-          <img onClick={toggleModal} src="/images/mas.png" alt="mas"></img>
-        </div>
+      <Breadcrumb tag="nav" listTag="div">
+        <BreadcrumbItem tag="a" href="/">
+          Home
+        </BreadcrumbItem>
+        <BreadcrumbItem tag="a" href="/spaces">
+          Espacios
+        </BreadcrumbItem>
+        <BreadcrumbItem tag="a" href={`/spaces/${spaceId}`}>
+          {space.name}
+        </BreadcrumbItem>
+        <BreadcrumbItem active tag="a" href="#">
+          Gastos
+        </BreadcrumbItem>
+      </Breadcrumb>
+      <div className="newEvent">
+        <img onClick={toggleModal} src="/images/mas.png" alt="mas"></img>
+      </div>
       <div style={style} className="title-logo">
-        <div className="back">
-          <a href="/spaces/">
-            <IoArrowBackCircle color={'white'} size={32} />
-          </a>
-        </div>
-        <p className="space">{space.name}</p>
+
       </div>
       <div>
-        <div className="fecha">
-          <span>{`${meses[mes]} de ${year}`}</span>
-        </div>
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -166,6 +186,9 @@ const AllExpenses = () => {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
+                <div className="fecha">
+                  <span>{`${meses[mes]} de ${year}`}</span>
+                </div>
                 <div className="column-expenses">
                   {loading ? (
                     expenses.recibos.map((expense) => (
@@ -191,7 +214,9 @@ const AllExpenses = () => {
           <TabPane tabId="2">
             <Row>
               <Col sm="6">
-
+                <div className="fecha">
+                  <span>{`${meses[mes]} de ${year}`}</span>
+                </div>
                 <div className="column-expenses">
                   {loading ? (
                     expenses.otros.map((expense) => (
@@ -216,53 +241,58 @@ const AllExpenses = () => {
         </TabContent>
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>¿Qué quieres recordar?</ModalHeader>
+        <ModalHeader toggle={toggleModal}>¿Qué has gastado?</ModalHeader>
         <ModalBody>
-          <form onSubmit={handleSubmit} id="form">
-            <label>
-              Nombre del gasto
-              <input
+          <Form onSubmit={handleSubmit} id="form">
+            <FormGroup>
+              <Label>Nombre del gasto</Label>
+              <Input
                 type="text"
                 name="name"
                 value={state.name}
                 placeholder="Ej: Aquiler"
                 onChange={handleChange}
               />
-            </label>
-            <label>
-              Descripcion del gasto
-              <input
-                type="text"
+            </FormGroup>
+            <FormGroup>
+              <Label>Descripción del gasto</Label>
+              <Input
+                type="textarea"
                 name="description"
                 value={state.description}
                 placeholder="Ej: Es el pago mensual del aquiler"
                 onChange={handleChange}
               />
-            </label>
-            <label>
-              Precio
-              <input
+            </FormGroup>
+            <FormGroup>
+              <Label>¿Cuanto ha costado?</Label>
+              <Input
                 type="number"
                 name="price"
                 value={state.price}
                 placeholder="Ej: 700"
                 onChange={handleChange}
               />
-            </label>
-            <label>
-              Tipo de gasto
-              <select name="type" form="form" onChange={handleChange}>
+            </FormGroup>
+            <FormGroup>
+              <Label>¿Qué tipo de gasto es?</Label>
+              <Input
+                type="select"
+                name="type"
+                form="form"
+                onChange={handleChange}
+              >
                 <option selected="true" disabled="disabled">
                   Selecciona una opcion
                 </option>
                 <option value="Recibos">Recibos</option>
                 <option value="Otros">Otros gastos</option>
-              </select>
-            </label>
-          </form>
+              </Input>
+            </FormGroup>
+          </Form>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleSubmit} color="success">
+          <Button onClick={handleSubmit} color="primary">
             Añadir gasto
           </Button>
           <Button color="secondary" onClick={toggleModal}>

@@ -4,3 +4,20 @@
   left: 140px;
   z-index: 10000;
 }
+
+.breadcrumb{
+  margin-bottom: 0px !important;
+}
+
+.rbc-btn-group{
+  font-size: 0.8em;
+}
+
+.rbc-calendar{
+  margin: 5%;
+}
+
+.rbc-toolbar{
+  display: flex;
+  flex-direction: column;
+}

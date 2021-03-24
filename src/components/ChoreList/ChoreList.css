@@ -6,19 +6,19 @@
   /* margin: auto; */
   /* margin-top: 5%; */
   margin: 2% 0;
-  border: 1px solid #343c44;
+  border: 1px solid orange;
   border-radius: 5px;
-  height: 120px;
-  box-shadow: 0.2em 0.2em 0.1em 0em #343c44;
+  height: fit-content;
+  box-shadow: 0.2em 0.2em 0.1em 0em orange;
 }
 
 .center{
-  border-bottom: 1px solid #343c44;
+  border-bottom: 1px solid orange;
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: flex-start;
-  background-color: #343c44;
+  background-color: orange;
   
 }
 .center p{
@@ -29,6 +29,20 @@
 
 }
 
-.rowChore{
-
+.chore-description{
+  text-align: start;
+  padding: 10px;
+}
+.chore-delete{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.chore-delete p{
+  display: flex;
+  justify-content: flex-end;
+margin: 0px;
+font-size: 0.8em;
+color: grey;
+margin-top: 10px;
 }

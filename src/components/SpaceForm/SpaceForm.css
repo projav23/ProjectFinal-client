@@ -65,7 +65,7 @@ display: none;
 
   .createSpace{
     height: 100vh;
-    background-image: url('./chang-duong-Sj0iMtq_Z4w-unsplash.jpg');
+    background-image: url('https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80');
     background-repeat:no-repeat ;
     background-size: cover;
     background-position: 30%;

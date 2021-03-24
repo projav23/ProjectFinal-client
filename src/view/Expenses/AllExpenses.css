@@ -7,9 +7,9 @@
 
 .fecha{
 
-  border: 1px solid #0c6ccc;
+  border: 1px solid rgba(255, 166, 0, 0.774);
   color: white;
-  background-color: #0c6ccc;
+  background-color: rgba(255, 166, 0, 0.932);
   height: 50px;
   border-radius: 2px;
 
@@ -26,3 +26,13 @@ font-weight: 700;
   height: 100vh;
 }
 
+.wrapper{
+  margin-top: 10% !important;
+}
+
+.nav-item a{
+  color: orange !important;
+}
+.nav-link.active{
+  color: initial !important;
+}

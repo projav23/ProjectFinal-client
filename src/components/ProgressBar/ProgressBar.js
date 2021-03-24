@@ -2,8 +2,8 @@ import React from "react";
 
 const ProgressBar = ({ completed, bgColor, diasRestantes }) => {
   const containerStyles = {
-    width: "80px",
-    height: "10px",
+    width: "230px",
+    height: "14px",
     backgroundColor: "#343c44",
     borderRadius: 50,
   };
@@ -23,6 +23,8 @@ const ProgressBar = ({ completed, bgColor, diasRestantes }) => {
     color: "black",
     fontWeight: "normal",
     fontSize: "0.4em",
+    textAlign:'center',
+    zIndex: '20'
   };
 
   const [message, setMessage] = React.useState("");
@@ -39,10 +41,10 @@ const ProgressBar = ({ completed, bgColor, diasRestantes }) => {
   },[])
 
   return (
-    <div style={containerStyles}>
-      <div style={fillerStyles}></div>
+    <section style={containerStyles}>
+      <section style={fillerStyles}></section>
       <p style={labelStyles}>{message}</p>
-    </div>
+    </section>
   );
 };
 

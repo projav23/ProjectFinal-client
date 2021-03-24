@@ -17,7 +17,7 @@ import { useHistory } from "react-router";
 import { useAuth } from "../../context/AuthContext.utils";
 import { FiSettings, FiTrash2 } from "react-icons/fi";
 import { deleteSpaceOne } from "../../service/spaces.service";
-import './SpaceList.css'
+import "./SpaceList.css";
 
 const SpacesList = ({ space, onDelete }) => {
   const { user } = useAuth();
@@ -40,18 +40,78 @@ const SpacesList = ({ space, onDelete }) => {
     onDelete(space._id);
     setModal(!modal);
   };
-
+  console.log('user.user', user.user)
   const [modal, setModal] = React.useState(false);
   const toggle = () => setModal(!modal);
 
   return (
-    <>
-      <Card style={{ margin: "10%", minWidth: "30%", backgroundColor:'#ffffffeb' }}>
+    <div className='fadeout'>
+      <div className="container1">
+        <div className="card1">
+        
+          <div className="card__image-container1">
+          <Link key={space._id} to={`/spaces/${space._id}`}>
+          <CardImg
+            className="imagenEspacio"
+            src={space.imgURL}
+            alt="Card image cap"
+          />
+          
+            <svg class="card__svg1" viewBox="0 0 800 500">
+              <path
+                d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500"
+                stroke="transparent"
+                fill="#343c44"
+              />
+              <path
+                class="card__line1"
+                d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
+                stroke="pink"
+                stroke-width="3"
+                fill="transparent"
+              />
+            </svg>
+            </Link>
+          </div>
+          <div className="card__content1">
+            <h1 className="card__title1">{space.name}</h1>
+            <p>
+              {space.description}
+            </p>
+      
+            {edit ? (
+            <div
+              style={{
+                margin: "25%",
+                display: "flex",
+                justifyContent: "space-around",
+              }}
+            >
+              <FiTrash2 size={24} onClick={toggle} color={"white"}></FiTrash2>
+              <FiSettings
+                size={24}
+                onClick={redirect}
+                color={"white"}
+              ></FiSettings>
+            </div>
+          ) : (
+            <></>
+          )}
+          </div>
+        </div>
+      </div>
+      {/* <Card
+        style={{ margin: "10%", minWidth: "30%", backgroundColor: "#ffffffeb" }}
+      >
         <Link key={space._id} to={`/spaces/${space._id}`}>
-          <CardImg className='imagenEspacio' src={space.imgURL} alt="Card image cap" />
+          <CardImg
+            className="imagenEspacio"
+            src={space.imgURL}
+            alt="Card image cap"
+          />
         </Link>
         <CardBody>
-          <CardTitle tag="h5">{space.name}</CardTitle>
+          <CardTitle tag="h5"></CardTitle>
           <CardSubtitle tag="h6" className="mb-2 text-muted">
             {space.description}
           </CardSubtitle>
@@ -74,8 +134,8 @@ const SpacesList = ({ space, onDelete }) => {
             <></>
           )}
         </CardBody>
-      </Card>
-      <Modal isOpen={modal} centered="true" toggle={toggle}>
+      </Card> */}
+      <Modal isOpen={modal} centered={true} toggle={toggle}>
         <ModalHeader toggle={toggle}>
           ¡Oye! Estas a punto de borrar el espacio '{space.name}'
         </ModalHeader>
@@ -89,7 +149,7 @@ const SpacesList = ({ space, onDelete }) => {
           </Button>
         </ModalBody>
       </Modal>
-    </>
+    </div>
   );
 };
 

@@ -1,8 +1,11 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import "./Shopping.css";
+import styled from 'styled-components'
+import {MdDeleteForever} from 'react-icons/md'
 
 
-function ShoppingList({ item, onDelete }) {
+function ShoppingList({ item, onDelete, idx }) {
   const [status, setStatus] = React.useState(false);
 
   const handleClick = () => {
@@ -11,14 +14,38 @@ function ShoppingList({ item, onDelete }) {
   const [modal, setModal] = React.useState(false);
   const toggle = () => setModal(!modal);
 
-  const handleRemove = () =>{
-    onDelete(item._id)
-    setModal(!modal)
-  }
+  const handleRemove = () => {
+    onDelete(item._id);
+    setModal(!modal);
+  };
+
+  // const InputItem = ({ item }) => (
+  //   <>
+  //     <input id={`label-${}`} type="checkbox" checked />
+  //     <label for={`label-${item._id}`}>
+  //       <h2>{item.name}</h2>
+  //     </label>
+  //   </>
+  // );
+
+
   return (
     <>
-      <div>
-        <label
+      <div className="card-items">
+  
+        <input className='check-item' id={`label-${idx}`} type="checkbox" />
+        <label style={{marginBottom:'0px'}} className='item-shop' htmlFor={`label-${idx}`}>
+          <h2>
+            {item.name}
+            <span>Se necesita comprar {item.quantity}</span>
+  
+          </h2>
+          <span onClick={toggle} className='delete-icon'>
+           <MdDeleteForever   size={18}/> 
+          </span>
+          
+        </label>
+        {/* <label
           style={
             status
               ? { textDecoration: "line-through" }
@@ -28,19 +55,18 @@ function ShoppingList({ item, onDelete }) {
           <input type="checkbox" onClick={handleClick}></input>
           {item.name}
         </label>
-        <button onClick={toggle}>Borrar</button>
+        <button onClick={toggle}>Borrar</button> */}
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggle}>
-        <ModalHeader toggle={toggle}>¡Oye! Vas a borrar el espacio</ModalHeader>
+        <ModalHeader toggle={toggle}>Estás a punto de eliminar '{item.name}' de la lista de la compra.</ModalHeader>
         <ModalBody>
           <p>
-            Estás a punto de eliminar el documento {item.name}.<br></br><br></br>
             ¿Confirmas que quieres borrarlo?
           </p>
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={handleRemove}>
-            Sí, borrar espacio
+            Sí, borrar de la lista
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
             Cancelar
@@ -52,3 +78,7 @@ function ShoppingList({ item, onDelete }) {
 }
 
 export default ShoppingList;
+
+
+
+

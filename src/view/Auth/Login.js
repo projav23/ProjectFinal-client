@@ -6,6 +6,7 @@ import { useAuth } from "../../context/AuthContext.utils";
 
 function Login({ toggle }) {
   const { setUser } = useAuth();
+  const [error, setError] = React.useState({})
 
   const handleLoginUser = async (user) => {
     try {
@@ -19,6 +20,8 @@ function Login({ toggle }) {
       }
     } catch (e) {
       console.error(e);
+      setError(e.response.data)
+      console.log('error', e.response.data)
     }
   };
   React.useEffect(() => {
@@ -27,7 +30,7 @@ function Login({ toggle }) {
 
   return (
 
-      <AuthForm btnText="login" onSubmit={handleLoginUser} />
+      <AuthForm error={error} btnText="login" onSubmit={handleLoginUser} />
 
   )
 }

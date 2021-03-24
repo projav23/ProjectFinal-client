@@ -5,11 +5,16 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useParams } from "react-router-dom";
 import "./Calendar.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {IoArrowBackCircle} from 'react-icons/io5'
 import {
   allEvents,
   deleteEvent,
   newEvent,
 } from "../../service/calendar.service";
+import { findSpace } from "../../service/spaces.service";
+import calendarImg from './top-view-desk-2021-calendar.jpg'
+import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+
 
 const localizer = momentLocalizer(moment);
 
@@ -24,21 +29,32 @@ const MyCalendar = () => {
   const [events, setEvents] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [modalEvent, setModalEvent] = React.useState(false);
-
+  const [space, setSpace] = React.useState({});
   const [state, setState] = React.useState(initialState);
-  const [eventoTemp, setEventoTemp] = React.useState([{start:"", end:"", title:""}])
+  const [eventoTemp, setEventoTemp] = React.useState([
+    { start: "", end: "", title: "" },
+  ]);
 
   const toggleTemp = () => setModalEvent(!modalEvent);
   const toggle = () => setModal(!modal);
 
+  const getName = async () => {
+    const { data } = await findSpace(spaceId);
+    console.log(data);
+    setSpace(data);
+  };
+  React.useEffect(() => {
+    getName();
+  }, []);
+
   const getAllEvents = async () => {
     try {
       const { data } = await allEvents(spaceId);
-       data.forEach((event) => {
-        event.start = new Date(event.start)
-        event.end = new Date(event.end)
-      })
-      
+      data.forEach((event) => {
+        event.start = new Date(event.start);
+        event.end = new Date(event.end);
+      });
+
       console.log("data mutada", data);
       setEvents(data);
     } catch (e) {
@@ -51,9 +67,9 @@ const MyCalendar = () => {
   }, []);
 
   const onSelectEvent = async (pEvent) => {
-    setEventoTemp(pEvent)
-    toggleTemp()
-    console.log('pEvent', pEvent)
+    setEventoTemp(pEvent);
+    toggleTemp();
+    console.log("pEvent", pEvent);
   };
 
   const handleChange = ({ target }) => {
@@ -61,11 +77,11 @@ const MyCalendar = () => {
     console.log("state", state);
   };
 
-  const handleDelete = async() =>{
-    await deleteEvent(spaceId, eventoTemp._id)
-    getAllEvents()
-    setModalEvent(!modalEvent)
-  }
+  const handleDelete = async () => {
+    await deleteEvent(spaceId, eventoTemp._id);
+    getAllEvents();
+    setModalEvent(!modalEvent);
+  };
 
   const handleSubmit = async (e) => {
     try {
@@ -79,21 +95,43 @@ const MyCalendar = () => {
     }
   };
 
-
+  const style = {
+    backgroundImage: `url(${calendarImg})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center center",
+    filter: "grayscale(70%)",
+  };
 
   return (
     <>
       <div>
+      <Breadcrumb tag="nav" listTag="div">
+        <BreadcrumbItem tag="a" href="/">
+          Home
+        </BreadcrumbItem>
+        <BreadcrumbItem  tag="a" href="/spaces">
+          Espacios
+        </BreadcrumbItem>
+        <BreadcrumbItem  tag="a" href={`/spaces/${spaceId}`}>
+          {space.name}
+        </BreadcrumbItem>
+        <BreadcrumbItem active tag="a" href="#">
+          Calendario
+        </BreadcrumbItem>
+      </Breadcrumb>
         <div className="newEvent">
           <img onClick={toggle} src="/images/mas.png" alt="mas"></img>
         </div>
+        <div style={style} className="title-logo">
+        
+      </div>
         <Calendar
           selectable
           onDoubleClickEvent={() => toggle()}
-          onSelectEvent={event => onSelectEvent(event)}
+          onSelectEvent={(event) => onSelectEvent(event)}
           localizer={localizer}
           events={events}
-          defaultView={"week"}
+          defaultView={"day"}
         />
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggle}>
@@ -106,7 +144,11 @@ const MyCalendar = () => {
             </label>
             <label>
               Fecha inicio:
-              <input name="start" type="datetime-local" onChange={handleChange} />
+              <input
+                name="start"
+                type="datetime-local"
+                onChange={handleChange}
+              />
             </label>
 
             <label>

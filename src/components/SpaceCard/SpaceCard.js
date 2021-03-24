@@ -8,7 +8,7 @@ import {IoArrowBackCircle} from 'react-icons/io5'
 function SpaceCard({ spaceId }) {
   return (
     <div className='drop-blur'>
-      <div className='back'><a href='/spaces/'><IoArrowBackCircle size={32}/></a></div>
+      {/* <div className='back'><a href='/spaces/'><IoArrowBackCircle size={32}/></a></div> */}
       <nav className="menu">
         <input
           type="checkbox"
@@ -17,7 +17,7 @@ function SpaceCard({ spaceId }) {
           name="menu-open"
           id="menu-open"
         />
-        <label className="menu-open-button" for="menu-open">
+        <label className="menu-open-button" htmlFor="menu-open">
         <GoKey size={24}/>
           {/* <span className="hamburger hamburger-1"></span>
           <span className="hamburger hamburger-2"></span>

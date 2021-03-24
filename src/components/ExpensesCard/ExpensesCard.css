@@ -20,7 +20,7 @@
   justify-content: space-between;
   align-items: center;
   width: 120px;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 .row-expense2 {
   margin:auto ;
@@ -35,7 +35,7 @@
 .row-expense2 p{
   margin: auto 0;
   font-size: 0.9em;
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 
 .modal-content{
@@ -50,7 +50,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #0c6ccc;
+  color: orange;
   border-right: 1px solid #5f5c5c33;
 }
 

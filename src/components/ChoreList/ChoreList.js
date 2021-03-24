@@ -1,6 +1,7 @@
 import React from "react";
 import "./ChoreList.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {MdDeleteForever} from 'react-icons/md'
 
 const ChoreList = ({ chore, onDelete, idx }) => {
   const [modal, setModal] = React.useState(false);
@@ -17,9 +18,12 @@ const ChoreList = ({ chore, onDelete, idx }) => {
           <p>Regla n.{idx + 1}:</p>
           <p>{chore.name}</p>
         </div>
-        <div>
-          <p>{chore.description}</p>
-          <button onClick={toggle}>Borrar</button>
+        <div className='chore-description'>
+          <li>{chore.description}</li>
+        </div>
+        <div className='chore-delete' >
+        <p>Created by: {chore.createdBy}</p>
+        <MdDeleteForever color={'orange'} size={28} onClick={toggle}></MdDeleteForever>
         </div>
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggle}>

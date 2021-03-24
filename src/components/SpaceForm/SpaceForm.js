@@ -101,7 +101,7 @@ function FormSpace({ onSubmit, isRedirect }) {
               required
               id="exampleSelect"
             >
-              <option selected="true" disabled="disabled">
+              <option selected={true} disabled="disabled">
                 Selecciona el tipo
               </option>
               <option value="Grupal">Grupal</option>
@@ -166,8 +166,8 @@ function FormSpace({ onSubmit, isRedirect }) {
 
         <div className="columna">
           <Button
-            color="success"
-            style={{ marginBottom: "5%" }}
+            
+            style={{ marginBottom: "5%", backgroundColor:'#343c44'}}
             form="form"
             type="submit"
           >

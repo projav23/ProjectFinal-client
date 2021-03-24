@@ -4,7 +4,7 @@ import imagenUser from "./email-icon.png";
 import imagenPass from "./password-icon.png";
 // import { Redirect } from "react-router-dom";
 
-function AuthForm({ btnText, onSubmit }) {
+function AuthForm({ btnText, onSubmit, error}) {
   const [state, setState] = React.useState({ email: "", password: "" });
 
   const handleChange = ({ target }) => {
@@ -31,13 +31,14 @@ function AuthForm({ btnText, onSubmit }) {
               <img
                 id="imgLogin"
                 src={imagenUser}
-                style={{ width: "8%" }}
+                style={{ width: "7%" }}
                 alt="foto"
               />
               <input
                 id="inputsLogin"
                 type="email"
                 name="email"
+                required
                 value={state.email}
                 placeholder="info@roomies.com"
                 onChange={handleChange}
@@ -50,7 +51,7 @@ function AuthForm({ btnText, onSubmit }) {
               <img
                 id="imgLogin"
                 src={imagenPass}
-                style={{ width: "8%" }}
+                style={{ width: "6%" }}
                 alt="foto"
               />
               <input
@@ -59,9 +60,11 @@ function AuthForm({ btnText, onSubmit }) {
                 name="password"
                 value={state.password}
                 placeholder="********"
+                required
                 onChange={handleChange}
               />
             </div>
+            <p className='error-login'>{error.message}</p>
             <button className="btn-login">{btnText}</button>
           </form>
         </section>

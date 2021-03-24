@@ -10,9 +10,9 @@
 
 .title-logo{
 display: flex;
-padding-top: 10%;
-padding-bottom: 10%;
-
+padding-top: 15%;
+padding-bottom: 15%;
+height: 200px;
 
 }
 .title-logo img{
@@ -23,7 +23,7 @@ padding-bottom: 10%;
 
 .space{
 text-align: center;
-margin: auto 15%;
+margin: auto;
 font-size: 1.9em;
 color: white;
 font-weight: 700;
@@ -33,4 +33,5 @@ letter-spacing: 2px;
 }
 .nav-item{
   border-radius: 50%;
+  ;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-function AuthForm({ btnText, onSubmit }) {
+function AuthForm({ btnText, onSubmit, error}) {
   const [state, setState] = React.useState({
     email: "",
     password: "",
@@ -72,6 +72,7 @@ function AuthForm({ btnText, onSubmit }) {
                 name="username"
                 value={state.username}
                 onChange={handleChange}
+                required
               />
             </div>
             <div
@@ -85,8 +86,10 @@ function AuthForm({ btnText, onSubmit }) {
                 name="password"
                 value={state.password}
                 onChange={handleChange}
+                required
               />
             </div>
+            <p className='error-login'>{error.message}</p>
             <button className="btn-login">{btnText}</button>
           </form>
         </section>

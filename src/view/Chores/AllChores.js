@@ -3,8 +3,9 @@ import { useParams } from "react-router";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import ChoreList from "../../components/ChoreList/ChoreList";
 import { choresAll, deleteChore, newChore } from "../../service/chores.service";
-import choreImg from './top-view-frame-with-contract-and-wooden-judge-gavel.jpg'
-import {IoArrowBackCircle} from 'react-icons/io5'
+import choreImg from "./top-view-frame-with-contract-and-wooden-judge-gavel.jpg";
+import { IoArrowBackCircle } from "react-icons/io5";
+import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import {
   TabContent,
   TabPane,
@@ -16,11 +17,25 @@ import {
 } from "reactstrap";
 import classnames from "classnames";
 import { findSpace } from "../../service/spaces.service";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  CustomInput,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText,
+  InputGroup,
+  InputGroupText,
+  InputGroupAddon,
+} from "reactstrap";
 
 const AllChores = () => {
-  const initialState = { name: "", description:'' }
+  const initialState = { name: "", description: "" };
   let history = useHistory();
   const { spaceId } = useParams();
   const [space, setSpace] = React.useState({});
@@ -32,12 +47,11 @@ const AllChores = () => {
 
   const toggleModal = () => setModal(!modal);
 
-
   const getAllChores = async () => {
     const { data } = await choresAll(spaceId);
     console.log(data);
     setChores(data);
-    setLoading(true)
+    setLoading(true);
   };
   const getName = async () => {
     const { data } = await findSpace(spaceId);
@@ -56,59 +70,69 @@ const AllChores = () => {
   }, []);
 
   const goBack = () => {
-    history.push(`/spaces/${spaceId}`)
+    history.push(`/spaces/${spaceId}`);
   };
 
-  const handleDelete =async (choreId) =>{
+  const handleDelete = async (choreId) => {
     try {
-    const deleteOne = await deleteChore(spaceId, choreId)
-    getAllChores()
+      const deleteOne = await deleteChore(spaceId, choreId);
+      getAllChores();
     } catch (e) {
-    console.error(e)
+      console.error(e);
     }
-  }
+  };
 
   const handleChange = ({ target }) => {
     setState({ ...state, [target.name]: target.value });
   };
 
-  const handleSubmit= async ()=>{
+  const handleSubmit = async () => {
     try {
-    const {data} = await newChore(spaceId, state)
-    getAllChores()
-    setState(initialState)
-    if (data){
-      setModal(!modal)
-    }
+      const { data } = await newChore(spaceId, state);
+      getAllChores();
+      setState(initialState);
+      if (data) {
+        setModal(!modal);
+      }
     } catch (e) {
-    console.error(e)
+      console.error(e);
     }
-  }
+  };
 
   const style = {
     backgroundImage: `url(${choreImg})`,
     backgroundSize: "cover",
     backgroundPosition: "center center",
-    filter: 'grayscale(70%)'
+    filter: "grayscale(70%)",
   };
 
   return (
-<div>
+    <div>
+      <Breadcrumb tag="nav" listTag="div">
+        <BreadcrumbItem tag="a" href="/">
+          Home
+        </BreadcrumbItem>
+        <BreadcrumbItem tag="a" href="/spaces">
+          Espacios
+        </BreadcrumbItem>
+        <BreadcrumbItem tag="a" href={`/spaces/${spaceId}`}>
+          {space.name}
+        </BreadcrumbItem>
+        <BreadcrumbItem active tag="a" href="#">
+          Normas
+        </BreadcrumbItem>
+      </Breadcrumb>
       <div style={style} className="title-logo">
-      <div className="back">
-          <a href="/spaces/">
-            <IoArrowBackCircle color={'white'} size={32} />
-          </a>
-        </div>        <p className="space">{space.name}</p>
+
       </div>
       <div className="newEvent">
-          <img onClick={toggleModal} src="/images/mas.png" alt="mas"></img>
-        </div>
+        <img onClick={toggleModal} src="/images/mas.png" alt="mas"></img>
+      </div>
       <div>
         <Nav tabs>
-          <NavItem>
+          <NavItem style={{ borderBottom: "1px solid #343c44" }}>
             <NavLink
-              style={{ width: "375px" }}
+              style={{ width: "375px", fontSize: "1.1em", fontFamily: "Lato" }}
               className={classnames({ active: activeTab === "1" })}
               onClick={() => {
                 toggle("1");
@@ -124,8 +148,13 @@ const AllChores = () => {
               <Col sm="12">
                 <div className="column-expenses">
                   {loading ? (
-                    chores.map((item,idx) => (
-                      <ChoreList onDelete={handleDelete} key={item._id} idx={idx} chore={item} ></ChoreList>
+                    chores.map((item, idx) => (
+                      <ChoreList
+                        onDelete={handleDelete}
+                        key={item._id}
+                        idx={idx}
+                        chore={item}
+                      ></ChoreList>
                     ))
                   ) : (
                     <p>Loading...</p>
@@ -141,35 +170,33 @@ const AllChores = () => {
         </TabContent>
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>¿Qué quieres recordar?</ModalHeader>
+        <ModalHeader toggle={toggleModal}>¿Qué quieres que se?</ModalHeader>
         <ModalBody>
-        <form className="form-space" onSubmit={handleSubmit} id="form">
-        <label>
-          Nombre de la norma*
-          <input
-            type="text"
-            name="name"
-            value={state.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <label>
-          Descripcion de la norma*
-          <input
-            type="text"
-            name="description"
-            value={state.description}
-            onChange={handleChange}
-            required
-          />
-        </label>
-
-      </form>
-      
+          <Form className="form-space" onSubmit={handleSubmit} id="form">
+            <FormGroup>
+              <Label>Nombre de la norma:</Label>
+              <Input
+                type="text"
+                name="name"
+                value={state.name}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Descripción detallada de la norma:</Label>
+              <Input
+                type="textarea"
+                name="description"
+                value={state.description}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+          </Form>
         </ModalBody>
         <ModalFooter>
-          <Button  onClick={handleSubmit} color="success">
+          <Button onClick={handleSubmit} color="primary">
             Añadir norma
           </Button>
           <Button color="secondary" onClick={toggleModal}>

@@ -42,7 +42,7 @@ input.email, input.password, textarea{
 #343c44 */
 
 #login {
-  background-image: url('./Captura\ de\ pantalla\ 2021-03-21\ a\ las\ 19.28.35.png');
+  background-image: url('https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80');
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -109,9 +109,9 @@ input.email, input.password, textarea{
   margin: 10px;
 }
 .btn-login {
-  width: 40vw;
+  width: 30vw;
   border: none;
-  padding: 1em;
+  padding: 0.5em;
   outline: none;
   color: white;
   text-transform: uppercase;
@@ -121,10 +121,11 @@ input.email, input.password, textarea{
   position: relative;
   z-index: 1;
   cursor: pointer;
-  background: none;
+  border-radius: 10px;
+  background: rgb(248, 167, 17);
   text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.45);
 }
-.btn-login:before,
+/* .btn-login:before,
 .btn-login:after {
   position: absolute;
   top: 50%;
@@ -148,14 +149,14 @@ input.email, input.password, textarea{
 
 .btn-login:after {
   filter: blur(0.3px);
-}
+} */
 #inputsLogin {
   margin: 0;
   background-color: transparent;
   color: white;
   font-size: medium;
   width: 100%;
-  padding: 15px;
+  height: 43px;
 
   /* display: inline-block; */
   border: none;
@@ -168,6 +169,10 @@ input.email, input.password, textarea{
   color: white;
 }
 #Registrate {
-  color: #aadd4f;
+  color: orange;
 }
 
+.error-login{
+  color: orange;
+  font-weight: 700;
+}

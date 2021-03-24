@@ -1,0 +1,111 @@
+.card-items {
+  display: flex;
+  justify-content: flex-start;
+  /* margin: auto; */
+  /* margin-top: 5%; */
+  margin: 2% 0;
+  border-radius: 5px;
+  height: 100%;
+  box-shadow: 0.2em 0.2em 0.1em 0em #5f5c5c6b;
+  width: 100%;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.item-shop {
+  /* background: #343c44; */
+  background: orange;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid orange;
+  color: #fff;
+  /* text-transform: capitalize; */
+  font-weight: 900;
+
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-indent: 20px;
+  cursor: pointer;
+  transition: all 0.7s ease;
+  position: relative;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.item-shop h2 {
+  text-align: start;
+  font-size: 1.5em;
+  margin: auto 0px;
+  
+}
+.item-shop span {
+  display: block;
+  font-size: 12px;
+  text-transform: none;
+  font-weight: normal;
+  color: #fff;
+}
+.item-shop:before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  right: 20px;
+  top: 30%;
+  transition: border 0.7s ease;
+}
+
+#label-0:checked ~ label[for="label-0"],
+#label-1:checked ~ label[for="label-1"],
+#label-2:checked ~ label[for="label-2"],
+#label-3:checked ~ label[for="label-3"],
+#label-4:checked ~ label[for="label-4"],
+#label-5:checked ~ label[for="label-5"],
+#label-6:checked ~ label[for="label-6"],
+#label-7:checked ~ label[for="label-7"],
+#label-8:checked ~ label[for="label-8"],
+#label-9:checked ~ label[for="label-9"] {
+  background: rgba(255, 166, 0, 0.411);
+  border-bottom: 1px solid #245caf91;
+  color: white;
+}
+#label-0:checked ~ label[for="label-0"] h2 span,
+#label-1:checked ~ label[for="label-1"] h2 span,
+#label-2:checked ~ label[for="label-2"] h2 span,
+#label-3:checked ~ label[for="label-3"] h2 span,
+#label-4:checked ~ label[for="label-4"] h2 span,
+#label-5:checked ~ label[for="label-5"] h2 span,
+#label-6:checked ~ label[for="label-6"] h2 span,
+#label-7:checked ~ label[for="label-7"] h2 span,
+#label-8:checked ~ label[for="label-8"] h2 span,
+#label-9:checked ~ label[for="label-9"] h2 span {
+  color: white;
+}
+#label-0:checked ~ label[for="label-0"]:before,
+#label-1:checked ~ label[for="label-1"]:before,
+#label-2:checked ~ label[for="label-2"]:before,
+#label-3:checked ~ label[for="label-3"]:before,
+#label-4:checked ~ label[for="label-4"]:before,
+#label-5:checked ~ label[for="label-5"]:before,
+#label-6:checked ~ label[for="label-6"]:before,
+#label-7:checked ~ label[for="label-7"]:before,
+#label-8:checked ~ label[for="label-8"]:before,
+#label-9:checked ~ label[for="label-9"]:before {
+  background: url("./comprobar.png") no-repeat center center;
+}
+
+.delete-icon{
+  position: absolute;
+  top:34%;
+  left: 70%;
+  z-index: 9999;
+}

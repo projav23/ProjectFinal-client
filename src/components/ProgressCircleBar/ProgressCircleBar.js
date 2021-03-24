@@ -1,5 +1,5 @@
 import React from "react";
-import './ProgressCircleBar.css'
+import "./ProgressCircleBar.css";
 
 const cleanPercentage = (percentage) => {
   const tooLow = !Number.isFinite(+percentage) || percentage < 0;
@@ -18,7 +18,7 @@ const Circle = ({ colour, pct }) => {
       cy={100}
       fill="transparent"
       stroke={strokePct !== circ ? colour : ""} // remove colour as 0% sets full circumference
-      strokeWidth={"2rem"}
+      strokeWidth={"1.5rem"}
       strokeDasharray={circ}
       strokeDashoffset={pct ? strokePct : 0}
       strokeLinecap="round"
@@ -33,7 +33,7 @@ const Text = ({ percentage }) => {
       y="50%"
       dominantBaseline="central"
       textAnchor="middle"
-      fontSize={"1.5em"}
+      fontSize={"1em"}
     >
       {percentage.toFixed(0)}%
     </text>

@@ -54,10 +54,10 @@ function Spaces() {
         </Breadcrumb>
         <SearchBar filter={filterSpace} />
       </div>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div>
         {loading ? (
           search.map((space) => (
-            <SpaceList onDelete={deleteSpace} space={space}></SpaceList>
+            <SpaceList key={space._id} onDelete={deleteSpace} space={space}></SpaceList>
           ))
         ) : (
           <p>Loading...</p>
