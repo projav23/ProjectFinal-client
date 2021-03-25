@@ -11,7 +11,7 @@ function Login({ toggle }) {
   const handleLoginUser = async (user) => {
     try {
       const { data } = await login(user);
-      console.log(data);
+      console.log('login user', data);
       if (data.user) {
         setUser({ isLogged: true, user: data.id });
         localStorage.setItem("isLogged", "true");

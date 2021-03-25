@@ -11,9 +11,9 @@ function Signup({toggle}) {
       const { data } = await signup(user);
       console.log(data);
       if(data.user){
-        setUser({isLogged: true, user: data.user})
+        setUser({isLogged: true, user: data.id})
         localStorage.setItem('isLogged', 'true')
-        localStorage.setItem('user', data.user)
+        localStorage.setItem('user', data.id)
         toggle();
       }
     } catch (e) {
