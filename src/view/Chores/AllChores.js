@@ -126,7 +126,7 @@ const AllChores = () => {
 
       </div>
       <div className="newEvent">
-        <img onClick={toggleModal} src="/images/mas.png" alt="mas"></img>
+        <img onClick={toggleModal} src="/images/plus.png" alt="mas"></img>
       </div>
       <div>
         <Nav tabs>
@@ -196,7 +196,7 @@ const AllChores = () => {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleSubmit} color="primary">
+          <Button onClick={handleSubmit} style={{ backgroundColor: "orange", border:'none' }}>
             Añadir norma
           </Button>
           <Button color="secondary" onClick={toggleModal}>

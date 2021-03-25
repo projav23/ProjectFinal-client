@@ -167,7 +167,7 @@ function FormSpace({ onSubmit, isRedirect }) {
         <div className="columna">
           <Button
             
-            style={{ marginBottom: "5%", backgroundColor:'#343c44'}}
+            style={{ marginBottom: "5%", backgroundColor:'orange', border:'orange'}}
             form="form"
             type="submit"
           >

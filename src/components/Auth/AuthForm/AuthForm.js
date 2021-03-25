@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import "./AuthForm.css";
 import imagenUser from "./email-icon.png";
 import imagenPass from "./password-icon.png";
+import {AiOutlineEyeInvisible, AiOutlineEye} from 'react-icons/ai'
 // import { Redirect } from "react-router-dom";
 
 function AuthForm({ btnText, onSubmit, error}) {
@@ -9,6 +10,17 @@ function AuthForm({ btnText, onSubmit, error}) {
 
   const handleChange = ({ target }) => {
     setState({ ...state, [target.name]: target.value });
+  };
+  const [icon, setIcon] = useState(false);
+  const [inputType, setType] = useState("password");
+  const handleIcon = () => {
+    if (!icon) {
+      setIcon(true);
+      setType("text");
+    } else {
+      setIcon(false);
+      setType("password");
+    }
   };
 
   const handleSubmit = (e) => {
@@ -56,13 +68,14 @@ function AuthForm({ btnText, onSubmit, error}) {
               />
               <input
                 id="inputsLogin"
-                type="password"
+                type={inputType}
                 name="password"
                 value={state.password}
                 placeholder="********"
                 required
                 onChange={handleChange}
               />
+              {icon ? <AiOutlineEyeInvisible size={32} color={'white'} onClick={handleIcon}/> : <AiOutlineEye size={32} color={'white'} onClick={handleIcon}/>}
             </div>
             <p className='error-login'>{error.message}</p>
             <button className="btn-login">{btnText}</button>

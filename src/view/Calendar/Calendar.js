@@ -4,17 +4,26 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useParams } from "react-router-dom";
 import "./Calendar.css";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import {IoArrowBackCircle} from 'react-icons/io5'
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from "reactstrap";
+import { IoArrowBackCircle } from "react-icons/io5";
 import {
   allEvents,
   deleteEvent,
   newEvent,
 } from "../../service/calendar.service";
 import { findSpace } from "../../service/spaces.service";
-import calendarImg from './top-view-desk-2021-calendar.jpg'
+import calendarImg from "./top-view-desk-2021-calendar.jpg";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
-
 
 const localizer = momentLocalizer(moment);
 
@@ -32,7 +41,7 @@ const MyCalendar = () => {
   const [space, setSpace] = React.useState({});
   const [state, setState] = React.useState(initialState);
   const [eventoTemp, setEventoTemp] = React.useState([
-    { start: "", end: "", title: "" },
+    { start: "", end: "", title: "", createdBy: "" },
   ]);
 
   const toggleTemp = () => setModalEvent(!modalEvent);
@@ -68,6 +77,8 @@ const MyCalendar = () => {
 
   const onSelectEvent = async (pEvent) => {
     setEventoTemp(pEvent);
+    // eventoTemp.end.toString()
+    // eventoTemp.start.toString()
     toggleTemp();
     console.log("pEvent", pEvent);
   };
@@ -105,26 +116,24 @@ const MyCalendar = () => {
   return (
     <>
       <div>
-      <Breadcrumb tag="nav" listTag="div">
-        <BreadcrumbItem tag="a" href="/">
-          Home
-        </BreadcrumbItem>
-        <BreadcrumbItem  tag="a" href="/spaces">
-          Espacios
-        </BreadcrumbItem>
-        <BreadcrumbItem  tag="a" href={`/spaces/${spaceId}`}>
-          {space.name}
-        </BreadcrumbItem>
-        <BreadcrumbItem active tag="a" href="#">
-          Calendario
-        </BreadcrumbItem>
-      </Breadcrumb>
+        <Breadcrumb tag="nav" listTag="div">
+          <BreadcrumbItem tag="a" href="/">
+            Home
+          </BreadcrumbItem>
+          <BreadcrumbItem tag="a" href="/spaces">
+            Espacios
+          </BreadcrumbItem>
+          <BreadcrumbItem tag="a" href={`/spaces/${spaceId}`}>
+            {space.name}
+          </BreadcrumbItem>
+          <BreadcrumbItem active tag="a" href="#">
+            Calendario
+          </BreadcrumbItem>
+        </Breadcrumb>
         <div className="newEvent">
-          <img onClick={toggle} src="/images/mas.png" alt="mas"></img>
+          <img onClick={toggle} src="/images/plus.png" alt="mas"></img>
         </div>
-        <div style={style} className="title-logo">
-        
-      </div>
+        <div style={style} className="title-logo"></div>
         <Calendar
           selectable
           onDoubleClickEvent={() => toggle()}
@@ -132,43 +141,50 @@ const MyCalendar = () => {
           localizer={localizer}
           events={events}
           defaultView={"day"}
+          eventPropGetter={(event) => ({
+            style: {
+              backgroundColor: "orange",
+            },
+          })}
         />
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggle}>
         <ModalHeader toggle={toggle}>¿Qué quieres recordar?</ModalHeader>
         <ModalBody>
-          <form>
-            <label>
-              Titulo del evento:
-              <input name="title" type="text" onChange={handleChange} />
-            </label>
-            <label>
-              Fecha inicio:
-              <input
+          <Form>
+            <FormGroup>
+              <Label> Titulo del evento:</Label>
+              <Input name="title" type="text" onChange={handleChange} />
+            </FormGroup>
+            <FormGroup>
+              <Label> Fecha/hora de inicio:</Label>
+              <Input
                 name="start"
                 type="datetime-local"
                 onChange={handleChange}
               />
-            </label>
-
-            <label>
-              Fecha fin:
-              <input name="end" type="datetime-local" onChange={handleChange} />
-            </label>
-            <label>
-              ¿El evento tiene duración diaria?
-              <select name="allDay" onChange={handleChange}>
-                <option selected="true" disabled="disabled">
-                  Selecciona una opcion
-                </option>
-                <option value="true">Si</option>
-                <option value="false">No</option>
-              </select>
-            </label>
-          </form>
+            </FormGroup>
+            <FormGroup>
+              <Label> Fecha/hora de fin:</Label>
+              <Input name="end" type="datetime-local" onChange={handleChange} />
+            </FormGroup>
+            <FormGroup>
+              <Label> ¿El evento tiene duración diaria?</Label>
+              <Input name="allDay" onChange={handleChange} type="select">
+              <option selected="true" disabled="disabled">
+                Selecciona una opcion
+              </option>
+              <option value="true">Si</option>
+              <option value="false">No</option>
+              </Input>
+            </FormGroup>
+          </Form>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleSubmit} color="success">
+          <Button
+            onClick={handleSubmit}
+            style={{ backgroundColor: "orange", border: "none" }}
+          >
             Crear evento
           </Button>
           <Button color="secondary" onClick={toggle}>
@@ -179,9 +195,11 @@ const MyCalendar = () => {
       <Modal isOpen={modalEvent} centered="true" toggle={toggleTemp}>
         <ModalHeader toggle={toggleTemp}>Información del evento</ModalHeader>
         <ModalBody>
-          <p>{eventoTemp.title}</p>
-          <p>{eventoTemp._id}</p>
-          <p>{eventoTemp.createdBy}</p>
+          <p>
+            <strong>Nombre del evento:</strong> {eventoTemp.title}
+          </p>
+          {/* <p>{eventoTemp.end}</p> */}
+          {/* <p>{eventoTemp.createdBy.username}</p> */}
           <p></p>
         </ModalBody>
         <ModalFooter>

@@ -8,10 +8,10 @@ import { AiOutlineFileJpg, AiOutlineFileExcel, AiOutlineFileWord, AiOutlineFileP
 
 function DocumentsList({ item, onDelete }) {
   const tipo = {
-    imagen: <AiOutlineFileJpg color={'black'} size={24}/>,
-    word: <AiOutlineFileWord  color={'black'} size={24}/>,
-    excel: <AiOutlineFileExcel color={'black'} size={24}/>,
-    pdf: <AiOutlineFilePdf color={'black'} size={24}/>,
+    imagen: <AiOutlineFileJpg color={'black'} size={32}/>,
+    word: <AiOutlineFileWord  color={'black'} size={32}/>,
+    excel: <AiOutlineFileExcel color={'black'} size={32}/>,
+    pdf: <AiOutlineFilePdf color={'black'} size={32}/>,
   };
 
   const handleDelete = () => {
@@ -37,11 +37,11 @@ function DocumentsList({ item, onDelete }) {
         </div>
         <div className="row-doc">
           <a href={item.urlFile} download target="_blank" rel="noreferrer">
-            <HiDownload  />
+            <HiDownload  size={24} color={'orange'} />
           </a>
         </div>
         <div className="row-doc2">
-          <MdDeleteForever onClick={toggle} />
+          <MdDeleteForever size={22} onClick={toggle} />
         </div>
         {/* <div className="columna">
         <span>{item.name}</span>
@@ -57,17 +57,17 @@ function DocumentsList({ item, onDelete }) {
       </div> */}
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggle}>
-        <ModalHeader toggle={toggle}>¡Oye! Vas a borrar el espacio</ModalHeader>
+        <ModalHeader toggle={toggle}>¡Oye! Vas a borrar un documento</ModalHeader>
         <ModalBody>
           <p>
-            Estás a punto de eliminar el documento {item.name}.<br></br>
+            Estás a punto de eliminar el documento '{item.name}'.<br></br>
             <br></br>
             ¿Confirmas que quieres borrarlo?
           </p>
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={handleDelete}>
-            Sí, borrar espacio
+            Sí, borrar documento
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
             Cancelar

@@ -20,6 +20,11 @@ import {
   NavLink,
   Row,
   Col,
+  CustomInput,
+  Form,
+  FormGroup,
+  Label,
+  Input,
 } from "reactstrap";
 import { IoArrowBackCircle } from "react-icons/io5";
 import classnames from "classnames";
@@ -130,23 +135,21 @@ const GetAllTasks = (props) => {
 
   return (
     <div>
-          <Breadcrumb tag="nav" listTag="div">
+      <Breadcrumb tag="nav" listTag="div">
         <BreadcrumbItem tag="a" href="/">
           Home
         </BreadcrumbItem>
-        <BreadcrumbItem  tag="a" href="/spaces">
+        <BreadcrumbItem tag="a" href="/spaces">
           Espacios
         </BreadcrumbItem>
-        <BreadcrumbItem  tag="a" href={`/spaces/${spaceId}`}>
+        <BreadcrumbItem tag="a" href={`/spaces/${spaceId}`}>
           {space.name}
         </BreadcrumbItem>
         <BreadcrumbItem active tag="a" href="#">
           Tareas
         </BreadcrumbItem>
       </Breadcrumb>
-      <div style={style} className="title-logo">
-
-      </div>
+      <div style={style} className="title-logo"></div>
       <div>
         <Nav tabs>
           <NavItem>
@@ -191,17 +194,20 @@ const GetAllTasks = (props) => {
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link onClick={toggleModal}>
-                  {" "}
-                  <img src="/images/mas.png" alt="mas"></img>
-                </Link>
+                <div className="newEvent">
+                  <img
+                    onClick={toggleModal}
+                    src="/images/plus.png"
+                    alt="mas"
+                  ></img>
+                </div>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
               <Col sm="6">
-                <Pie percentage={percentajetotalUser} colour="blue" />
+                <Pie percentage={percentajetotalUser} colour="orange" />
                 <div className="column">
                   {loading ? (
                     tasks.taskByUser.map((task) => (
@@ -216,10 +222,13 @@ const GetAllTasks = (props) => {
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link onClick={toggleModal}>
-                  {" "}
-                  <img src="/images/mas.png" alt="mas"></img>
-                </Link>
+                <div className="newEvent">
+                  <img
+                    onClick={toggleModal}
+                    src="/images/plus.png"
+                    alt="mas"
+                  ></img>
+                </div>
               </Col>
             </Row>
           </TabPane>
@@ -228,49 +237,52 @@ const GetAllTasks = (props) => {
       <Modal isOpen={modal} centered="true" toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>¿Qué quieres recordar?</ModalHeader>
         <ModalBody>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Nombre de la tarea
-              <input
+          <Form onSubmit={handleSubmit}>
+            <FormGroup>
+              <Label>Nombre de la tarea</Label>
+              <Input
                 type="text"
                 name="name"
                 value={state.name}
                 onChange={handleChange}
               />
-            </label>
-            <label>
-              Descripcion de la tarea
-              <input
-                type="text"
+            </FormGroup>
+            <FormGroup>
+              <Label>Descripcion de la tarea</Label>
+              <Input
+                type="textarea"
                 name="description"
                 value={state.description}
                 onChange={handleChange}
               />
-            </label>
-            <label>
-              Usuario asignado
-              <select type="text" name="asignedTo" onChange={handleChange}>
+            </FormGroup>
+            <FormGroup>
+              <Label>Descripcion de la tarea</Label>
+              <Input type="select" name="asignedTo" onChange={handleChange}>
                 <option selected="true" disabled="disabled">
                   Seleccionar usuario
                 </option>
                 {users.map((user) => (
                   <option value={user._id}>{user.username}</option>
                 ))}
-              </select>
-            </label>
-            <label>
-              Fecha de fin
-              <input
+              </Input>
+            </FormGroup>
+            <FormGroup>
+              <Label>Fecha de fin</Label>
+              <Input
                 type="date"
                 name="endData"
                 value={state.endData}
                 onChange={handleChange}
               />
-            </label>
-          </form>
+            </FormGroup>
+          </Form>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleSubmit} color="primary">
+          <Button
+            onClick={handleSubmit}
+            style={{ backgroundColor: "orange", border: "none" }}
+          >
             Añadir gasto
           </Button>
           <Button color="secondary" onClick={toggleModal}>

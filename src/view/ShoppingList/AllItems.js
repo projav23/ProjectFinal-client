@@ -117,7 +117,7 @@ const GetAllItems = (props) => {
         </BreadcrumbItem>
       </Breadcrumb>
       <div className="newEvent">
-        <img onClick={toggleModal} src="/images/mas.png" alt="mas"></img>
+        <img onClick={toggleModal} src="/images/plus.png" alt="mas"></img>
       </div>
       <div style={style} className="title-logo">
       </div>
@@ -139,7 +139,7 @@ const GetAllItems = (props) => {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <div className="column">
+                <div className="column-expenses">
                   {loading ? (
                     items.allItems.map((item, idx) => (
                       <ShoppingList
@@ -187,7 +187,7 @@ const GetAllItems = (props) => {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleSubmit} color="primary">
+          <Button onClick={handleSubmit} style={{ backgroundColor: "orange", border:'none' }}>
             Añadir a la lista
           </Button>
           <Button color="secondary" onClick={toggleModal}>

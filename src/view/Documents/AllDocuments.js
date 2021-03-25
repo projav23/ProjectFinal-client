@@ -124,9 +124,7 @@ const GetAllItems = (props) => {
           Documentos
         </BreadcrumbItem>
       </Breadcrumb>
-      <div style={style} className="title-logo">
- 
-      </div>
+      <div style={style} className="title-logo"></div>
       <div>
         <Nav tabs>
           <NavItem>
@@ -145,7 +143,7 @@ const GetAllItems = (props) => {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <div className="column">
+                <div className="column-expenses">
                   {loading ? (
                     documents.map((item) => (
                       <DocumentsList
@@ -158,17 +156,20 @@ const GetAllItems = (props) => {
                     <p>Loading...</p>
                   )}
                 </div>
-                <Link onClick={toggleModal}>
-                  {" "}
-                  <img src="/images/mas.png" alt="mas"></img>
-                </Link>
+                <div className="newEvent">
+                  <img
+                    onClick={toggleModal}
+                    src="/images/plus.png"
+                    alt="mas"
+                  ></img>
+                </div>
               </Col>
             </Row>
           </TabPane>
         </TabContent>
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>¿Qué quieres recordar?</ModalHeader>
+        <ModalHeader toggle={toggleModal}>¿Qué quieres subir?</ModalHeader>
         <ModalBody>
           <Form className="form-space" onSubmit={handleSubmit} id="form">
             <FormGroup>
@@ -184,7 +185,7 @@ const GetAllItems = (props) => {
               </Label>
             </FormGroup>
             <FormGroup>
-              <Label for="imagenSpace">Seleccionar imagen </Label>
+              <Label for="imagenSpace">Seleccionar documento </Label>
               <CustomInput
                 bsSize="sm"
                 id="imagenSpace"
@@ -196,7 +197,7 @@ const GetAllItems = (props) => {
             </FormGroup>
             <FormGroup>
               <Label>
-                Seleccionar documento
+                Seleccionar tipo de archivo
                 <Input type="select" onChange={handleChange} name="type">
                   <option selected="true" disabled="disabled">
                     Seleccionar tipo
@@ -213,7 +214,11 @@ const GetAllItems = (props) => {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button disabled={!imageReady} onClick={handleSubmit} color="primary">
+          <Button
+            disabled={!imageReady}
+            onClick={handleSubmit}
+            style={{ backgroundColor: "orange", border: "none" }}
+          >
             Subir documento
           </Button>
           <Button color="secondary" onClick={toggleModal}>

@@ -142,7 +142,7 @@
   }
 }
 
-.search {
+/* .search {
   border: 1px solid grey;
   border-radius: 25px !important;
   height: 25px;
@@ -151,7 +151,7 @@
   outline: 0;
   color: black;
   background-color: #f5f5f57a !important;
-}
+} */
 
 .wrapper{
   animation: SearchFadeIn 0.5s 0.5s backwards ease-in

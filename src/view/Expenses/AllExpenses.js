@@ -152,7 +152,7 @@ const AllExpenses = () => {
         </BreadcrumbItem>
       </Breadcrumb>
       <div className="newEvent">
-        <img onClick={toggleModal} src="/images/mas.png" alt="mas"></img>
+        <img onClick={toggleModal} src="/images/plus.png" alt="mas"></img>
       </div>
       <div style={style} className="title-logo">
 
@@ -292,7 +292,7 @@ const AllExpenses = () => {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleSubmit} color="primary">
+          <Button onClick={handleSubmit} style={{ backgroundColor: "orange", border:'none' }}>
             Añadir gasto
           </Button>
           <Button color="secondary" onClick={toggleModal}>

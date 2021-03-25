@@ -100,7 +100,7 @@ font-weight: bold !important;
   display: block;
   width: 80px;
   height: 80px;
-  background: #343c44;
+  background: rgba(201, 132, 6, 0.726);
   border-radius: 50%;
   animation: pulse-border 1500ms ease-out infinite;
 }
@@ -115,13 +115,13 @@ font-weight: bold !important;
   display: block;
   width: 80px;
   height: 80px;
-  background: #343c44;
+  background: orange;
   border-radius: 50%;
   transition: all 200ms;
 }
 
 .video-play-button:hover:after {
-  background-color: darken(#343c44, 10%);
+  background-color: darken(orange, 10%);
 }
 
 .video-play-button img {

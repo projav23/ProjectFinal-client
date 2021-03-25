@@ -109,3 +109,14 @@ input[type="checkbox"] {
   left: 70%;
   z-index: 9999;
 }
+
+.column-shopp{
+  height: -moz-fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: flex-start;
+  margin: 5%;
+  font-size: 1.5em;
+}

@@ -49,6 +49,7 @@ function TaskList({ task, statusClick, onDelete }) {
     <>
       <label id="label1" htmlFor={`task-${task._id}`}>
         <input
+          className='input-display'
           type="checkbox"
           checked={task.status}
           onClick={handleClick}
@@ -67,25 +68,10 @@ function TaskList({ task, statusClick, onDelete }) {
               />
             </p>
           </div>
-          <div class="back2"><p>Completada</p></div>
+          <div class="back2"><p style={{marginTop:'15%'}}>Completada</p><p className='flotar'><MdDeleteForever onClick={toggle}/></p></div>
         </div>
       </label>
- 
-      <div
-        // style={
-        //   task.status
-        //     ? { backgroundColor: "rgba(255, 166, 0, 0.63)" }
-        //     : { backgroundColor: "white" }
-        // }
-        className="card-task"
-      >
-        <div className="columna-task">
-          <p id="nombre">{task.name}</p>
-          <p>{task.description}</p>
-          <p>Asigned to: {task.asignedTo.username}</p>
-        </div>
 
-      </div>
 
       <Modal isOpen={modal} centered="true" toggle={toggle}>
         <ModalHeader toggle={toggle}>
