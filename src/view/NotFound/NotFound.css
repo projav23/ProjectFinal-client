@@ -1,0 +1,117 @@
+.notFound{
+  width: 100vw;
+    display: flex;
+    align-items: center;
+    background: #E3F2FD;
+    min-width: 275px;
+    height: 100vh;
+    overflow: hidden;
+    color: #138FF2;
+    z-index: 1;
+}
+
+
+
+.wrapper2 {
+  flex-grow: 2;
+  width: 40vw;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.wrapper2 h1 {
+  margin: 0;
+  font-size: 6em;
+  font-weight: 100;
+}
+
+.wrapper2 p {
+  width: 95%;
+  font-size: 1.5em;
+  line-height: 1.4;
+}
+
+.buttons2 {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.buttons2 span {
+  display: block;
+  text-transform: uppercase;
+  color: #B9DDFB;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+.buttons2 a {
+  display: inline-block;
+  padding: 0.8em 1em;
+  margin-right: 1em;
+  margin-bottom: -0.9em;
+  border: 3px solid #B9DDFB;
+  color: #138FF2;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s;
+}
+.buttons2 a:hover {
+  color: #E3F2FD;
+}
+.buttons2 a:hover:before {
+  top: 0;
+}
+.buttons2 a:before {
+  content: "";
+  background: #138FF2;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  transition: 0.3s;
+  z-index: -1;
+}
+.buttons2 button {
+  display: inline-block;
+  padding: 0.8em 1em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+  border: 3px solid #B9DDFB;
+  color: #138FF2;
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.2em;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s;
+}
+.buttons2 button:hover {
+  color: #E3F2FD;
+}
+.buttons2 button:hover:before {
+  top: 0;
+}
+.buttons2 button:before {
+  content: "";
+  background: #138FF2;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  transition: 0.3s;
+  z-index: -1;
+}
+
+
+@media (max-width: 600px) {
+  .wrapper2 {
+    margin: 5%;
+  }
+}

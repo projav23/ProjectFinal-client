@@ -2,7 +2,7 @@ import React from "react";
 import "./ExpensesCard.css";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { GiPartyPopper, GiPresent } from "react-icons/gi";
-import { IoFastFoodSharp, IoNewspaperSharp } from "react-icons/io5";
+import { IoFastFoodSharp } from "react-icons/io5";
 import { BiDrink } from "react-icons/bi";
 import { AiOutlineClear } from "react-icons/ai";
 import { FaFileInvoiceDollar } from "react-icons/fa";
@@ -128,60 +128,53 @@ const ExpensesCard = ({ expense, space, deleteExp }) => {
       comida.forEach((food) => {
         if (word.includes(food)) {
           if (!image.length) {
-            setImage(<IoFastFoodSharp color={'#212529'} size={24}/>);
+            setImage(<IoFastFoodSharp color={"#212529"} size={24} />);
           }
         }
       });
       bebida.forEach((food) => {
         if (word.includes(food)) {
           if (!image.length) {
-            setImage(<BiDrink color={'#212529'} size={24} />);
+            setImage(<BiDrink color={"#212529"} size={24} />);
           }
         }
       });
       limpieza.forEach((item) => {
         if (word.includes(item)) {
           if (!image.length) {
-            setImage(<AiOutlineClear color={'#212529'} size={24} />);
+            setImage(<AiOutlineClear color={"#212529"} size={24} />);
           }
         }
       });
       servicios.forEach((item) => {
         if (word.includes(item)) {
           if (!image.length) {
-            setImage(<FaFileInvoiceDollar color={'#212529'} size={24} />);
+            setImage(<FaFileInvoiceDollar color={"#212529"} size={24} />);
           }
         }
       });
       fiesta.forEach((item) => {
         if (word.includes(item)) {
           if (!image.length) {
-            setImage(<GiPartyPopper color={'#212529'} size={24} />);
+            setImage(<GiPartyPopper color={"#212529"} size={24} />);
           }
         }
       });
       regalo.forEach((item) => {
         if (word.includes(item)) {
           if (!image.length) {
-            setImage(<GiPresent color={'#212529'} size={24} />);
+            setImage(<GiPresent color={"#212529"} size={24} />);
           }
         }
       });
       combustible.forEach((item) => {
         if (word.includes(item)) {
           if (!image.length) {
-            setImage(<RiGasStationFill color={'#212529'} size={24} />);
+            setImage(<RiGasStationFill color={"#212529"} size={24} />);
           }
         }
       });
-      // if (!combustible.includes(word) && !regalo.includes(word) && !fiesta.includes(word) && !servicios.includes(word) && !limpieza.includes(word) && !bebida.includes(word) && !comida.includes(word)) {
-      //   if(!image.length){
-      //     setImage(<IoNewspaperSharp />);
-      //   }
-        
-      // }
     });
- 
   };
 
   React.useEffect(() => {

@@ -7,7 +7,6 @@ import { useAuth } from "../../context/AuthContext.utils";
 function NavBar() {
   const { user, setUser } = useAuth();
   const [redirect, setRedirect] = React.useState(false);
-  const [show, setShow] = React.useState(null);
   const [refresh, setRefresh] = React.useState(false);
   const [expanded, setExpanded] = React.useState(false);
 
@@ -19,10 +18,8 @@ function NavBar() {
   };
   const refreshNav = () => {
     if (localStorage.getItem("user")) {
-      setShow(true);
       setRefresh(!refresh);
     } else {
-      setShow(false);
       setRefresh(!refresh);
     }
   };

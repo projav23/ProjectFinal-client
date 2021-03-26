@@ -1,13 +1,13 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext.utils";
 import "./home.css";
-import play from "./tocar-play.png";
+
 function Home() {
   const { user } = useAuth();
 let history = useHistory()
 
-  console.log("user", user);
+
   const handleSpace = () =>{
     setTimeout(() => {
       history.push('/spaces')
@@ -27,17 +27,17 @@ let history = useHistory()
           <div className="homeColor">
             <div className="title-home">
               <div id="container">
-                  <button onClick={handleSpace} class="learn-more">
-                    <span class="circle" aria-hidden="true">
-                      <span class="icon arrow"></span>
+                  <button onClick={handleSpace} className="learn-more">
+                    <span className="circle" aria-hidden="true">
+                      <span className="icon arrow"></span>
                     </span>
-                    <span class="button-text">Mis espacios</span>
+                    <span className="button-text">Mis espacios</span>
                   </button>
-                  <button onClick={handleSpaceNew} class="learn-more">
-                    <span class="circle" aria-hidden="true">
-                      <span class="icon arrow"></span>
+                  <button onClick={handleSpaceNew} className="learn-more">
+                    <span className="circle" aria-hidden="true">
+                      <span className="icon arrow"></span>
                     </span>
-                    <span class="button-text">Crear espacio</span>
+                    <span className="button-text">Crear espacio</span>
                   </button>
 
               </div>
@@ -53,7 +53,7 @@ let history = useHistory()
                 <h2>Make it easy with Roomies</h2>
               </div>
               <div className="unete">
-                <a id="play-video" class="video-play-button" href="/spaces">
+                <a id="play-video" className="video-play-button" href="/spaces">
                   <span></span>
                 </a>
 

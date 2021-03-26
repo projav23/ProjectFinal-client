@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, Link, useHistory, Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   allShoppingList,
   deleteItem,
@@ -23,15 +23,15 @@ import {
   Input,
 } from "reactstrap";
 import classnames from "classnames";
-import { IoArrowBackCircle } from "react-icons/io5";
 import itemImg from "./woman-with-shopping-cart-buying-food-at-supermarket.jpg";
+import Spinner from "../../components/Spinner/Spinner";
 
 const GetAllItems = (props) => {
   const initialState = {
     name: "",
     quantity: 0,
   };
-  let history = useHistory();
+
   const { spaceId } = useParams();
   const [loading, setLoading] = React.useState(false);
   const [modal, setModal] = React.useState(false);
@@ -52,7 +52,7 @@ const GetAllItems = (props) => {
   };
   const getName = async () => {
     const { data } = await findSpace(spaceId);
-    console.log(data);
+
     setSpace(data);
   };
   useEffect(() => {
@@ -62,17 +62,13 @@ const GetAllItems = (props) => {
     getName();
   }, []);
 
-  const goBack = () => {
-    history.push(`/spaces/${spaceId}`);
-  };
-
   const handleDelete = async (shoppingId) => {
     try {
-      const deleteOne = await deleteItem(spaceId, shoppingId);
-      getItems();
-    } catch (e) {
-      console.error(e);
-    }
+      const { data } = await deleteItem(spaceId, shoppingId);
+      if (data) {
+        getItems();
+      }
+    } catch (e) {}
   };
 
   const handleChange = ({ target }) => {
@@ -81,17 +77,13 @@ const GetAllItems = (props) => {
 
   const handleSubmit = async () => {
     try {
-      console.log("Vista");
       const createNewItem = await newItemList(spaceId, state);
       getItems();
       setState(initialState);
       if (createNewItem) {
         setModal(!modal);
       }
-      console.log("tarea", createNewItem);
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) {}
   };
 
   const style = {
@@ -102,14 +94,14 @@ const GetAllItems = (props) => {
   };
   return (
     <div>
-          <Breadcrumb tag="nav" listTag="div">
+      <Breadcrumb tag="nav" listTag="div">
         <BreadcrumbItem tag="a" href="/">
           Home
         </BreadcrumbItem>
-        <BreadcrumbItem  tag="a" href="/spaces">
+        <BreadcrumbItem tag="a" href="/spaces">
           Espacios
         </BreadcrumbItem>
-        <BreadcrumbItem  tag="a" href={`/spaces/${spaceId}`}>
+        <BreadcrumbItem tag="a" href={`/spaces/${spaceId}`}>
           {space.name}
         </BreadcrumbItem>
         <BreadcrumbItem active tag="a" href="#">
@@ -119,8 +111,7 @@ const GetAllItems = (props) => {
       <div className="newEvent">
         <img onClick={toggleModal} src="/images/plus.png" alt="mas"></img>
       </div>
-      <div style={style} className="title-logo">
-      </div>
+      <div style={style} className="title-logo"></div>
       <div>
         <Nav tabs>
           <NavItem>
@@ -150,7 +141,7 @@ const GetAllItems = (props) => {
                       ></ShoppingList>
                     ))
                   ) : (
-                    <p>Loading...</p>
+                    <Spinner/>
                   )}
                 </div>
               </Col>
@@ -162,7 +153,7 @@ const GetAllItems = (props) => {
         <ModalHeader toggle={toggleModal}>¿Qué hay que comprar?</ModalHeader>
         <ModalBody>
           <Form onSubmit={handleSubmit} className="items-shopping">
-            <FormGroup >
+            <FormGroup>
               <Label>
                 Nombre producto:
                 <Input
@@ -187,7 +178,10 @@ const GetAllItems = (props) => {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleSubmit} style={{ backgroundColor: "orange", border:'none' }}>
+          <Button
+            onClick={handleSubmit}
+            style={{ backgroundColor: "orange", border: "none" }}
+          >
             Añadir a la lista
           </Button>
           <Button color="secondary" onClick={toggleModal}>

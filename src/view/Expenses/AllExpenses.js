@@ -8,7 +8,7 @@ import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { findSpace } from "../../service/spaces.service";
 import ExpensesCard from "../../components/ExpensesCard/ExpensesCard";
 import "./AllExpenses.css";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import expenseImg from "./entrepreneur-working-with-bills.jpg";
 import {
   TabContent,
@@ -23,22 +23,17 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  CustomInput,
   Form,
   FormGroup,
   Label,
   Input,
-  FormText,
-  InputGroup,
-  InputGroupText,
-  InputGroupAddon,
 } from "reactstrap";
-import { IoArrowBackCircle } from "react-icons/io5";
 import classnames from "classnames";
+import Spinner from "../../components/Spinner/Spinner";
 
 const AllExpenses = () => {
   const initialState = { name: "", description: "", type: "", price: "" };
-  let history = useHistory();
+
   const [expenses, setExpenses] = React.useState({});
   const [space, setSpace] = React.useState({});
   const [state, setState] = React.useState(initialState);
@@ -58,16 +53,14 @@ const AllExpenses = () => {
   const getExpenses = async () => {
     try {
       const { data } = await expensesAll(spaceId);
-      console.log("expenses", data);
+
       setExpenses(data);
       setLoading(true);
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) {}
   };
   const getName = async () => {
     const { data } = await findSpace(spaceId);
-    console.log(data);
+
     setSpace(data);
   };
   useEffect(() => {
@@ -77,17 +70,15 @@ const AllExpenses = () => {
   useEffect(() => {
     getExpenses();
   }, []);
-  const goBack = () => {
-    history.push(`/spaces/${spaceId}/`);
-  };
 
   const handleRemove = async (spaceId, expenseId) => {
     const { data } = await deleteExpense(spaceId, expenseId);
-    getExpenses();
+    if (data) {
+      getExpenses();
+    }
   };
 
   const fecha = new Date();
-  const dia = fecha.getDate();
   const mes = fecha.getMonth() + 1;
   const year = fecha.getFullYear();
 
@@ -107,26 +98,16 @@ const AllExpenses = () => {
   };
 
   const handleSubmit = async () => {
-    console.log("Entra aqui?");
     try {
       const createNew = await newExpense(spaceId, state);
       getExpenses();
       setState(initialState);
-      console.log(createNew);
+
       if (createNew) {
         setModal(!modal);
       }
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) {}
   };
-  //   let count = 0;
-
-  //   const sumTotal = () =>{
-  //     expenses.recibos.forEach((item)=>{
-  //     count += item.price
-  //  })
-  // }
 
   const style = {
     backgroundImage: `url(${expenseImg})`,
@@ -153,10 +134,9 @@ const AllExpenses = () => {
       </Breadcrumb>
 
       <div className="newEvent">
-      {/* <a id="play-video1" class="video-play-button1" onClick={toggleModal}>
-                  <span></span>
-                </a> */}
-        <span className="animation"><img onClick={toggleModal} src="/images/plus.png" alt="mas"></img></span>
+        <span className="animation">
+          <img onClick={toggleModal} src="/images/plus.png" alt="mas"></img>
+        </span>
       </div>
       <div style={style} className="title-logo"></div>
 
@@ -203,21 +183,15 @@ const AllExpenses = () => {
                       />
                     ))
                   ) : (
-                    <p>Loading...</p>
+                    <Spinner />
                   )}
                 </div>
-
-                {/* <Link onClick={toggleModal}>
-                  {" "}
-                  <img src="/images/mas.png" alt="mas"></img>
-                </Link> */}
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="2">
             <Row>
               <Col sm="12">
-
                 <div className="column-expenses">
                   {loading ? (
                     expenses.otros.map((expense) => (
@@ -229,13 +203,9 @@ const AllExpenses = () => {
                       />
                     ))
                   ) : (
-                    <p>Loading...</p>
+                    <Spinner />
                   )}
                 </div>
-                {/* <Link onClick={toggleModal}>
-                  {" "}
-                  <img src="/images/mas.png" alt="mas"></img>
-                </Link> */}
               </Col>
             </Row>
           </TabPane>

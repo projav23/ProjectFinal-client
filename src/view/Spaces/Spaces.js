@@ -3,8 +3,8 @@ import { allSpaces, deleteSpaceOne } from "../../service/spaces.service";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import SpaceList from "../../components/SpacesList/SpacesList";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
-import { createGlobalStyle } from "styled-components";
 import "./Spaces.css";
+import Spinner from "../../components/Spinner/Spinner";
 
 function Spaces() {
   const [spaces, setSpaces] = React.useState([]);
@@ -17,9 +17,7 @@ function Spaces() {
       setSpaces(data);
       setSearch(data);
       setLoading(true);
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) {}
   };
 
   React.useEffect(() => {
@@ -38,7 +36,9 @@ function Spaces() {
   };
   const deleteSpace = async (spaceId) => {
     const { data } = await deleteSpaceOne(spaceId);
-    getSpaces();
+    if (data) {
+      getSpaces();
+    }
   };
 
   return (
@@ -57,10 +57,14 @@ function Spaces() {
       <div className="position-cards">
         {loading ? (
           search.map((space) => (
-            <SpaceList key={space._id} onDelete={deleteSpace} space={space}></SpaceList>
+            <SpaceList
+              key={space._id}
+              onDelete={deleteSpace}
+              space={space}
+            ></SpaceList>
           ))
         ) : (
-          <p>Loading...</p>
+          <Spinner />
         )}
       </div>
     </div>

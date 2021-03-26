@@ -1,22 +1,9 @@
 import React from "react";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Card,
-  CardImg,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-} from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, CardImg } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { useAuth } from "../../context/AuthContext.utils";
 import { FiSettings, FiTrash2 } from "react-icons/fi";
-import { deleteSpaceOne } from "../../service/spaces.service";
 import "./SpaceList.css";
 
 const SpacesList = ({ space, onDelete }) => {
@@ -40,23 +27,20 @@ const SpacesList = ({ space, onDelete }) => {
     onDelete(space._id);
     setModal(!modal);
   };
-  console.log('user.user', user.user)
   const [modal, setModal] = React.useState(false);
   const toggle = () => setModal(!modal);
 
   return (
     <>
-      {/* <div className="container1"> */}
-        <div className="card1">
-        
-          <div className="card__image-container1">
+      <div className="card1">
+        <div className="card__image-container1">
           <Link key={space._id} to={`/spaces/${space._id}`}>
-          <CardImg
-            className="imagenEspacio"
-            src={space.imgURL}
-            alt="Card image cap"
-          />
-          
+            <CardImg
+              className="imagenEspacio"
+              src={space.imgURL}
+              alt="Card image cap"
+            />
+
             <svg class="card__svg1" viewBox="0 0 800 500">
               <path
                 d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500"
@@ -71,15 +55,12 @@ const SpacesList = ({ space, onDelete }) => {
                 fill="transparent"
               />
             </svg>
-            </Link>
-          </div>
-          <div className="card__content1">
-            <h1 className="card__title1">{space.name}</h1>
-            <p className="description-card">
-              {space.description}
-            </p>
-      
-            {edit ? (
+          </Link>
+        </div>
+        <div className="card__content1">
+          <h1 className="card__title1">{space.name}</h1>
+          <p className="description-card">{space.description}</p>
+          {edit ? (
             <div
               style={{
                 margin: "5%",
@@ -97,9 +78,8 @@ const SpacesList = ({ space, onDelete }) => {
           ) : (
             <></>
           )}
-          </div>
         </div>
-      {/* </div> */}
+      </div>
       <Modal isOpen={modal} centered={true} toggle={toggle}>
         <ModalHeader toggle={toggle}>
           ¡Oye! Estas a punto de borrar el espacio '{space.name}'

@@ -11,7 +11,7 @@ function Login({ toggle }) {
   const handleLoginUser = async (user) => {
     try {
       const { data } = await login(user);
-      console.log('login user', data);
+
       if (data.user) {
         setUser({ isLogged: true, user: data.id });
         localStorage.setItem("isLogged", "true");
@@ -19,9 +19,9 @@ function Login({ toggle }) {
         toggle();
       }
     } catch (e) {
-      console.error(e);
+
       setError(e.response.data)
-      console.log('error', e.response.data)
+
     }
   };
   React.useEffect(() => {

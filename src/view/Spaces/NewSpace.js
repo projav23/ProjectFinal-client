@@ -8,12 +8,12 @@ const [redirect, setRedirect] = React.useState(false)
   const handleSubmit= async (space)=>{
     try {
     const createNew = await newSpace(space)
-    console.log("createNewSpace",createNew)
+ 
     if (createNew){
       setRedirect(true)
     }
     } catch (e) {
-    console.error(e)
+ 
     }
   }
   return(

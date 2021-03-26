@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Redirect, useParams } from "react-router";
 
 function ChoresForm({ onSubmit, isRedirect }) {

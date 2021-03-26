@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, Link, useHistory, Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   changeStatus,
   deleteTask,
@@ -20,13 +20,11 @@ import {
   NavLink,
   Row,
   Col,
-  CustomInput,
   Form,
   FormGroup,
   Label,
   Input,
 } from "reactstrap";
-import { IoArrowBackCircle } from "react-icons/io5";
 import classnames from "classnames";
 import Pie from "../../components/ProgressCircleBar/ProgressCircleBar";
 import taskImg from "./frustrated-tired-housewife-fed-up-with-home-routine-and-domestic-work-makes-suicide-gesture-shoots-at-temple-with-finger-stands-near-pile-of-laundry-hangs-wet-clean-clothes-on-clothesline.jpg";
@@ -38,7 +36,7 @@ const GetAllTasks = (props) => {
     endData: "",
     asignedTo: "",
   };
-  let history = useHistory();
+
   const { spaceId } = useParams();
   const [state, setState] = React.useState(initialState);
   const [loading, setLoading] = React.useState(false);
@@ -47,7 +45,6 @@ const GetAllTasks = (props) => {
   const [space, setSpace] = React.useState({});
   const [tasks, setTasks] = React.useState({ allTask: [], taskByUser: [] });
   const [activeTab, setActiveTab] = React.useState("1");
-  const [count, setCount] = React.useState(0);
 
   const toggleModal = () => setModal(!modal);
 
@@ -58,11 +55,9 @@ const GetAllTasks = (props) => {
   const getUsersAll = async () => {
     try {
       const { data } = await getUsersBySpace(spaceId);
-      console.log("users", data);
+
       setUsers(data);
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) {}
   };
   React.useEffect(() => {
     getUsersAll();
@@ -78,25 +73,23 @@ const GetAllTasks = (props) => {
   };
   useEffect(() => {
     getTasks();
-    console.log("useEffect");
   }, []);
   useEffect(() => {
     getName();
   }, []);
 
-  const goBack = () => {
-    history.push(`/spaces/${spaceId}`);
-  };
-
   const handleStatus = async (spaceId, taskId) => {
     const { data } = await changeStatus(spaceId, taskId);
-    console.log("data task", data);
-    getTasks();
+    if (data) {
+      getTasks();
+    }
   };
 
   const handleDelete = async (taskId) => {
     const { data } = await deleteTask(spaceId, taskId);
-    getTasks();
+    if (data) {
+      getTasks();
+    }
   };
 
   const totalTask = tasks.allTask.length;
@@ -106,8 +99,6 @@ const GetAllTasks = (props) => {
     .length;
   const percentajetotal = (completedTask / totalTask) * 100;
   const percentajetotalUser = (completedTaskUser / totalTaskUser) * 100;
-
-  console.log("count", count);
 
   const handleChange = ({ target }) => {
     setState({ ...state, [target.name]: target.value });
@@ -121,10 +112,7 @@ const GetAllTasks = (props) => {
       if (createNewTask) {
         setModal(!modal);
       }
-    } catch (e) {
-      console.log("error task", e.response.data)
-      console.error(e);
-    }
+    } catch (e) {}
   };
 
   const style = {
@@ -256,12 +244,16 @@ const GetAllTasks = (props) => {
                 name="description"
                 value={state.description}
                 onChange={handleChange}
-                
               />
             </FormGroup>
             <FormGroup>
               <Label>Asignar a:</Label>
-              <Input required type="select" name="asignedTo" onChange={handleChange}>
+              <Input
+                required
+                type="select"
+                name="asignedTo"
+                onChange={handleChange}
+              >
                 <option selected="true" disabled="disabled">
                   Seleccionar usuario
                 </option>
@@ -273,7 +265,7 @@ const GetAllTasks = (props) => {
             <FormGroup>
               <Label>Fecha de fin</Label>
               <Input
-              required
+                required
                 type="date"
                 name="endData"
                 value={state.endData}

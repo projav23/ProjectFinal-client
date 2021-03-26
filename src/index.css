@@ -76,7 +76,8 @@ code {
     flex-direction: row !important;
     flex-wrap: wrap !important;
     width: 1260px !important;
-    margin: auto !important;
+    margin: 0 auto !important;
+    justify-content: center;
   }
   .imagenEspacio {
     height: 40vh !important;
@@ -161,7 +162,7 @@ code {
     border-bottom: transparent !important;
   }
   .chore {
-    max-width: 600px;
+    width: 600px !important;
   }
   .column-expenses {
     align-items: center;
@@ -223,5 +224,8 @@ code {
   display: flex;
   flex-direction: row !important;
   font-size: 24px !important;
+}
+.spaces-list{
+  height: 100vmax  !important;
 }
 }

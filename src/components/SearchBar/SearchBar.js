@@ -1,10 +1,9 @@
 import React from "react";
 import "./SearchBar.css";
-import { Searchbar } from "reactstrap";
+
 
 function SearchBarSpaces({ filter }) {
   const [search, setSearch] = React.useState({ input: "" });
-  //Para que se vaya actualizando el state mientras escribo
   const handleChange = ({ target }) => {
     setSearch({ input: target.value });
     filter(target.value);

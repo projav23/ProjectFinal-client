@@ -24,7 +24,7 @@ const ProgressBar = ({ completed, bgColor, diasRestantes }) => {
     fontWeight: "normal",
     fontSize: "0.4em",
     textAlign:'center',
-    zIndex: '20'
+    zIndex: '20',
   };
 
   const [message, setMessage] = React.useState("");

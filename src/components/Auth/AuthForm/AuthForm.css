@@ -150,7 +150,7 @@ input.email, input.password, textarea{
 .btn-login:after {
   filter: blur(0.3px);
 } */
-#inputsLogin {
+.inputsLogin {
   margin: 0;
   background-color: transparent;
   color: white;

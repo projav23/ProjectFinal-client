@@ -20,7 +20,6 @@ function ShoppingForm({ onSubmit, isRedirect }) {
   const goBack = () => {
     history.goBack();
   };
-  console.log(state);
 
   return (
     <>

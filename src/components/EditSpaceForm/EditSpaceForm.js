@@ -31,7 +31,7 @@ const EditForm = ({ onSubmit, isRedirect }) => {
 
   const getAllUsers = async () => {
     const { data } = await getUsers();
-    console.log("users", data);
+
     setUsers(data);
   };
   const getSpace = async () => {
@@ -39,7 +39,7 @@ const EditForm = ({ onSubmit, isRedirect }) => {
       const { data } = await findSpace(spaceId);
       setState(data);
     } catch (e) {
-      console.error(e);
+
     }
   };
   React.useEffect(() => {
@@ -49,7 +49,7 @@ const EditForm = ({ onSubmit, isRedirect }) => {
     getAllUsers();
   }, []);
 
-  // const [inputList, setInputList] = React.useState(state.users);
+
   const [committedFieldsToAdd, setCommittedFieldsToAdd] = React.useState(0);
 
   const handleChange = ({ target }) => {
@@ -84,20 +84,19 @@ const EditForm = ({ onSubmit, isRedirect }) => {
     const array = [...Array(committedFieldsToAdd)];
     array.splice(idx, 1);
     setCommittedFieldsToAdd(array.length);
-    // array.splice(idx, 1)
-    // // const newArray = array.pop()
+
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newArr = state.users.map((user) => user._id);
-    console.log("newArr", newArr);
+
     setState({ ...state, users: newArr });
-    console.log("state enviado", state);
+
     onSubmit(state);
     setState(initialState)
   };
-  console.log('state.image', state.imgURL)
+
   const style = {
     height: '100vh',
     backgroundImage: `url(${state.imgURL})`,

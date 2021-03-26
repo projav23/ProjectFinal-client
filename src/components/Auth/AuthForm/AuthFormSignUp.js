@@ -41,10 +41,10 @@ function AuthForm({ btnText, onSubmit, error }) {
           <form id="form-login" onSubmit={handleSubmit}>
             <div
               id="loginDiv"
-              class="flex-row-inputs paint-div-input bottom-space"
+              className="flex-row-inputs paint-div-input bottom-space"
             >
               <input
-                id="inputsLogin"
+                className="inputsLogin"
                 placeholder="NAME"
                 type="text"
                 name="name"
@@ -52,7 +52,7 @@ function AuthForm({ btnText, onSubmit, error }) {
                 onChange={handleChange}
               />
               <input
-                id="inputsLogin"
+                className="inputsLogin"
                 type="text"
                 name="lastName"
                 placeholder="LASTNAME"
@@ -60,13 +60,13 @@ function AuthForm({ btnText, onSubmit, error }) {
                 onChange={handleChange}
               />
             </div>
-            ;
+
             <div
               id="loginDiv"
               className="flex-row-inputs paint-div-input bottom-space"
             >
               <input
-                id="inputsLogin"
+                className="inputsLogin"
                 placeholder="EMAIL"
                 type="email"
                 name="email"
@@ -79,7 +79,7 @@ function AuthForm({ btnText, onSubmit, error }) {
               className="flex-row-inputs paint-div-input bottom-space"
             >
               <input
-                id="inputsLogin"
+                className="inputsLogin"
                 placeholder="USERNAME"
                 type="text"
                 name="username"
@@ -93,7 +93,7 @@ function AuthForm({ btnText, onSubmit, error }) {
               className="flex-row-inputs paint-div-input bottom-space"
             >
               <input
-                id="inputsLogin"
+                className="inputsLogin"
                 placeholder="PASSWORD"
                 type={inputType}
                 name="password"
@@ -125,54 +125,6 @@ function AuthForm({ btnText, onSubmit, error }) {
         </p>
       </section>
     </>
-    // <form onSubmit={handleSubmit}>
-    //   <label>
-    //     email
-    //     <input
-    //       type="email"
-    //       name="email"
-    //       value={state.email}
-    //       onChange={handleChange}
-    //     />
-    //   </label>
-    //   <label>
-    //     username
-    //     <input
-    //       type="text"
-    //       name="username"
-    //       value={state.username}
-    //       onChange={handleChange}
-    //     />
-    //   </label>
-    //   <label>
-    //     password
-    //     <input
-    //       type="password"
-    //       name="password"
-    //       value={state.password}
-    //       onChange={handleChange}
-    //     />
-    //   </label>
-    //   <label>
-    //     name
-    //     <input
-    //       type="text"
-    //       name="name"
-    //       value={state.name}
-    //       onChange={handleChange}
-    //     />
-    //   </label>
-    //   <label>
-    //     lastName
-    //     <input
-    //       type="text"
-    //       name="lastName"
-    //       value={state.lastName}
-    //       onChange={handleChange}
-    //     />
-    //   </label>
-    //   <button>{btnText}</button>
-    // </form>
   );
 }
 

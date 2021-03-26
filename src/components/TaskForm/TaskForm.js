@@ -20,10 +20,10 @@ function TaskForm({ onSubmit, isRedirect }) {
   const getUsersAll = async () => {
     try {
       const { data } = await getUsersBySpace(spaceId);
-      console.log("users", data);
+
       setUsers(data);
     } catch (e) {
-      console.error(e);
+
     }
   };
   React.useEffect(() => {

@@ -9,7 +9,7 @@ function Signup({toggle}) {
   const handleSignup = async (user) => {
     try {
       const { data } = await signup(user);
-      console.log(data);
+
       if(data.user){
         setUser({isLogged: true, user: data.id})
         localStorage.setItem('isLogged', 'true')
@@ -17,7 +17,7 @@ function Signup({toggle}) {
         toggle();
       }
     } catch (e) {
-      console.error(e);
+
       setError(e.response.data)
     }
   };

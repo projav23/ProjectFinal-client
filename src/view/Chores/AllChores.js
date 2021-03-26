@@ -1,10 +1,9 @@
 import React from "react";
 import { useParams } from "react-router";
-import { Link, useHistory, Redirect } from "react-router-dom";
 import ChoreList from "../../components/ChoreList/ChoreList";
 import { choresAll, deleteChore, newChore } from "../../service/chores.service";
 import choreImg from "./top-view-frame-with-contract-and-wooden-judge-gavel.jpg";
-import { IoArrowBackCircle } from "react-icons/io5";
+
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import {
   TabContent,
@@ -23,20 +22,18 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  CustomInput,
+
   Form,
   FormGroup,
   Label,
   Input,
-  FormText,
-  InputGroup,
-  InputGroupText,
-  InputGroupAddon,
+
 } from "reactstrap";
+import Spinner from "../../components/Spinner/Spinner";
 
 const AllChores = () => {
   const initialState = { name: "", description: "" };
-  let history = useHistory();
+ 
   const { spaceId } = useParams();
   const [space, setSpace] = React.useState({});
   const [state, setState] = React.useState(initialState);
@@ -49,13 +46,13 @@ const AllChores = () => {
 
   const getAllChores = async () => {
     const { data } = await choresAll(spaceId);
-    console.log(data);
+
     setChores(data);
     setLoading(true);
   };
   const getName = async () => {
     const { data } = await findSpace(spaceId);
-    console.log(data);
+
     setSpace(data);
   };
 
@@ -69,16 +66,16 @@ const AllChores = () => {
     getName();
   }, []);
 
-  const goBack = () => {
-    history.push(`/spaces/${spaceId}`);
-  };
+
 
   const handleDelete = async (choreId) => {
     try {
-      const deleteOne = await deleteChore(spaceId, choreId);
-      getAllChores();
+      const {data} = await deleteChore(spaceId, choreId);
+      if(data){
+       getAllChores(); 
+      }
     } catch (e) {
-      console.error(e);
+   
     }
   };
 
@@ -95,7 +92,7 @@ const AllChores = () => {
         setModal(!modal);
       }
     } catch (e) {
-      console.error(e);
+     
     }
   };
 
@@ -157,13 +154,10 @@ const AllChores = () => {
                       ></ChoreList>
                     ))
                   ) : (
-                    <p>Loading...</p>
+                    <Spinner/>
                   )}
                 </div>
-                {/* <Link onClick={toggleModal}>
-                  {" "}
-                  <img src="/images/mas.png" alt="mas"></img>
-                </Link> */}
+        
               </Col>
             </Row>
           </TabPane>

@@ -11,9 +11,7 @@ function TaskList({ task, statusClick, onDelete }) {
     statusClick(spaceId, task._id);
   };
   const [modal, setModal] = React.useState(false);
-  // const [color, setColor] = React.useState("#31D927");
   const toggle = () => setModal(!modal);
-
   const handleDelete = () => {
     onDelete(task._id);
   };
@@ -29,21 +27,6 @@ function TaskList({ task, statusClick, onDelete }) {
   const porcentajeCompletado = ((dias - diasRestantes) * porcentajeDia).toFixed(
     0
   );
-  // const colorFunct = () => {
-  //   if (task.status) {
-  //     setColor("grey");
-  //   } else {
-  //     setColor("orange");
-  //   }
-    // if (porcentajeCompletado > 40 && porcentajeCompletado <= 70) {
-    //   setColor("#F37A27");
-    // } else if (porcentajeCompletado > 70) {
-    //   setColor("#F70909");
-    // }
-  // };
-  // React.useEffect(() => {
-  //   colorFunct();
-  // }, []);
 
   return (
     <>

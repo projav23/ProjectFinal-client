@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Redirect } from "react-router";
 import { getUsers, getFile } from "../../service/spaces.service";
+
 import {
   Button,
   CustomInput,
@@ -20,10 +21,10 @@ function FormSpace({ onSubmit, isRedirect }) {
   const [inputfieldsToAdd, setInputfieldsToAdd] = React.useState(1);
   const [committedFieldsToAdd, setCommittedFieldsToAdd] = React.useState(0);
   const [users, setUsers] = React.useState({});
-  console.log("state global", state);
+
   const getAllUsers = async () => {
     const { data } = await getUsers();
-    console.log("Usuarios", data);
+
     setUsers(data);
   };
   const handleChange = ({ target }) => {
@@ -35,7 +36,6 @@ function FormSpace({ onSubmit, isRedirect }) {
       ...state,
       users: Object.values({ ...state.users, [target.name]: target.value }),
     }));
-    console.log("state select", state);
   };
   useEffect(() => {
     getAllUsers();
@@ -50,19 +50,15 @@ function FormSpace({ onSubmit, isRedirect }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // parserToArray()
-    console.log("state enviado", state);
     onSubmit(state);
   };
 
   return (
     <div className="createSpace">
       {isRedirect ? <Redirect to="/spaces" /> : null}
-      <div>
-        <p style={{ color: "transparent" }}>Create your space</p>
-      </div>
+
       <div className="tarjeta">
-        <p style={{fontSize:'2em'}}>¡Empieza ya!</p>
+        <p style={{ fontSize: "2em" }}>¡Empieza ya!</p>
         <Form className="formBoot" id="form" onSubmit={handleSubmit}>
           <FormGroup>
             <Label for="space-name">Nombre del espacio</Label>
@@ -137,13 +133,18 @@ function FormSpace({ onSubmit, isRedirect }) {
                 }
               />
               <InputGroupAddon addonType="append">
-                <InputGroupText  onClick={() => {
-              setCommittedFieldsToAdd(inputfieldsToAdd);
-            }} >+</InputGroupText>
+                <InputGroupText
+                  onClick={() => {
+                    setCommittedFieldsToAdd(inputfieldsToAdd);
+                  }}
+                >
+                  +
+                </InputGroupText>
               </InputGroupAddon>
             </InputGroup>
             <FormText color="muted">
-              Minimo se requiere un usuario. Solo el creador tendra permisos para gestionar el espacio.
+              Minimo se requiere un usuario. Solo el creador tendra permisos
+              para gestionar el espacio.
             </FormText>
           </FormGroup>
           {[...Array(committedFieldsToAdd)].map((item, index) => (
@@ -163,98 +164,18 @@ function FormSpace({ onSubmit, isRedirect }) {
             </Input>
           ))}
           <Button
-            
-            style={{ marginBottom: "5%", backgroundColor:'orange', border:'orange'}}
+            style={{
+              marginBottom: "5%",
+              marginTop: "10%",
+              backgroundColor: "orange",
+              border: "orange",
+            }}
             form="form"
             type="submit"
           >
             Crear espacio
           </Button>
         </Form>
-
-  
-
-        {/* <Form className="form-space" onSubmit={handleSubmit} id="form">
-          <div className="row-space">
-            <div className="columnaSpace">
-              <label>Nombre del espacio*</label>
-              <input
-                type="text"
-                name="name"
-                value={state.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="columnaSpace">
-              <label>Numero de inquilinos*</label>
-              <input
-                required
-                type="number"
-                name="inquilinos"
-                value={inputfieldsToAdd}
-                onChange={(e) =>
-                  setInputfieldsToAdd(parseInt(e.currentTarget.value, 10))
-                }
-              />
-            </div>
-          </div>
-          <div className="row-space">
-            <div className="columnaSpace">
-              <label>Tipo de espacio*</label>
-              <select name="type" onChange={handleChange} form="form" required>
-                <option selected="true" disabled="disabled">
-                  Selecciona el tipo
-                </option>
-                <option value="Grupal">Grupal</option>
-                <option value="Personal">Personal</option>
-              </select>
-            </div>
-            <div className="columnaSpace">
-              <label htmlFor="imagenSpace" className="custom-file-upload">
-                Imagen
-              </label>
-              <input
-                id="imagenSpace"
-                type="file"
-                name="image"
-                value={state.image}
-                onChange={handleUpload}
-              />
-            </div>
-          </div>
-          <div className="columnaSpace">
-            <label>Descripcion*</label>
-            <textarea
-              type="text"
-              name="description"
-              value={state.description}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </Form>
-      </div>
-      <button
-        onClick={() => {
-          setCommittedFieldsToAdd(inputfieldsToAdd);
-        }}
-      >
-        Add users
-      </button>
-      {[...Array(committedFieldsToAdd)].map((item, index) => (
-        <select key={index} name={index} onChange={handleSelect} form="form">
-          <option disabled="disabled" selected="true">
-            Seleccionar usuario
-          </option>
-          {users.map((user) => (
-            <option value={user._id}>{user.username}</option>
-          ))}
-        </select>
-      ))}
-      <button form="form" type="submit">
-        Crear nuevo espacio
-      </button> */}
       </div>
     </div>
   );

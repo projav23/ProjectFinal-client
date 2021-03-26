@@ -19,7 +19,7 @@
 }
 .icono-documents{
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   width: 150px;
   text-align: center;
   font-size: 1em;

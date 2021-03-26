@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Redirect, useParams } from "react-router";
 import { getFile } from "../../service/documents.service";
 
 function DocumentsForm({ onSubmit, isRedirect }) {
   const { spaceId } = useParams();
-  const [state, setState] = React.useState({ name: "", type:'' });
+  const [state, setState] = React.useState({ name: "", type: "" });
   const [imageReady, setImageReady] = React.useState(false);
 
   const handleChange = ({ target }) => {
@@ -16,15 +16,12 @@ function DocumentsForm({ onSubmit, isRedirect }) {
     const uploadData = new FormData();
     uploadData.append("file", e.target.files[0]);
     const { data } = await getFile(spaceId, uploadData);
-    console.log("document", data);
     setState({ ...state, urlFile: data });
     setImageReady(true);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // parserToArray()
-    console.log("state enviado", state);
     onSubmit(state);
   };
 
@@ -54,16 +51,16 @@ function DocumentsForm({ onSubmit, isRedirect }) {
         </label>
         <label>
           Tipo de documento
-          <select onChange={handleChange}  name="type">
+          <select onChange={handleChange} name="type">
             <option selected="true" disabled="disabled">
               Seleccionar tipo
             </option>
-            <option value='imagen'>Imagen</option>
-            <option value='excel'>Excel</option>
-            <option value='word'>Word</option>
-            <option value='powerpoint'>PowerPoint</option>
-            <option value='pdf'>PDF</option>
-            <option value='csv'>CSV</option>
+            <option value="imagen">Imagen</option>
+            <option value="excel">Excel</option>
+            <option value="word">Word</option>
+            <option value="powerpoint">PowerPoint</option>
+            <option value="pdf">PDF</option>
+            <option value="csv">CSV</option>
           </select>
         </label>
       </form>

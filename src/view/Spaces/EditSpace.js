@@ -18,7 +18,7 @@ const EditSpace = () => {
       const { data } = await findSpace(spaceId);
       setState(data);
     } catch (e) {
-      console.error(e);
+    
     }
   };
   useEffect(() => {
@@ -27,12 +27,13 @@ const EditSpace = () => {
 
   const handleSubmit = async (space) => {
     try {
-      const editSpaceOne = await editSpace(spaceId, space);
-      console.log(editSpaceOne);
-      setRedirect(true);
+      const {data} = await editSpace(spaceId, space);
+      if(data){
+        setRedirect(true);
+      }
     } catch (e) {}
   };
-  console.log("state", state);
+
 
   return (
     <>

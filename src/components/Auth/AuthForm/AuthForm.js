@@ -3,7 +3,7 @@ import "./AuthForm.css";
 import imagenUser from "./email-icon.png";
 import imagenPass from "./password-icon.png";
 import {AiOutlineEyeInvisible, AiOutlineEye} from 'react-icons/ai'
-// import { Redirect } from "react-router-dom";
+
 
 function AuthForm({ btnText, onSubmit, error}) {
   const [state, setState] = React.useState({ email: "", password: "" });
@@ -47,7 +47,7 @@ function AuthForm({ btnText, onSubmit, error}) {
                 alt="foto"
               />
               <input
-                id="inputsLogin"
+                className="inputsLogin"
                 type="email"
                 name="email"
                 required
@@ -67,7 +67,7 @@ function AuthForm({ btnText, onSubmit, error}) {
                 alt="foto"
               />
               <input
-                id="inputsLogin"
+                className="inputsLogin"
                 type={inputType}
                 name="password"
                 value={state.password}
@@ -95,27 +95,4 @@ function AuthForm({ btnText, onSubmit, error}) {
 }
 
 export default AuthForm;
-{
-  /* <div className="container-login">
-        <h2 className="login-text">Login</h2>
-        <form id="form-login" onSubmit={handleSubmit}>
-          <input
-            id="inputsLogin"
-            type="email"
-            name="email"
-            value={state.email}
-            placeholder="info@roomies.com"
-            onChange={handleChange}
-          />
-          <input
-            id="inputsLogin"
-            type="password"
-            name="password"
-            value={state.password}
-            placeholder="********"
-            onChange={handleChange}
-          />
-          <button className="btn-login">{btnText}</button>
-        </form>
-      </div> */
-}
+

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import "./DocumentsList.css";
 import { HiDownload } from "react-icons/hi";
@@ -26,11 +25,6 @@ function DocumentsList({ item, onDelete }) {
       <div className="card-documents">
         <div className="columna">
         {tipo[item.type]}
-          {/* <img
-            style={{ width: "30px" }}
-            src={tipo[item.type]}
-            alt="archivo"
-          ></img> */}
         </div>
         <div className="icono-documents">
           <p id="name-doc">{item.name}</p>
@@ -43,18 +37,7 @@ function DocumentsList({ item, onDelete }) {
         <div className="row-doc2">
           <MdDeleteForever className="iconos-documentos" size={22} onClick={toggle} />
         </div>
-        {/* <div className="columna">
-        <span>{item.name}</span>
-      </div>
-      <div className='columna' style={{ fontSize:'0.7em', alignContent:'center'}}>
-        <img style={{width:'40px'}} src={tipo[item.type]} alt='archivo'></img>
-      </div>
-      <div className='columna' style={{ fontSize:'0.7em'}}>
-        <a href={item.urlFile} download target='_blank' rel='noreferrer'>Descargar</a>
-      </div>
-      <div className='columna' style={{ fontSize:'0.7em'}}>
-        <button onClick={toggle}> Borrar</button>
-      </div> */}
+
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggle}>
         <ModalHeader toggle={toggle}>¡Oye! Vas a borrar un documento</ModalHeader>
@@ -68,7 +51,7 @@ function DocumentsList({ item, onDelete }) {
         <ModalFooter>
           <Button color="danger" onClick={handleDelete}>
             Sí, borrar documento
-          </Button>{" "}
+          </Button>
           <Button color="secondary" onClick={toggle}>
             Cancelar
           </Button>

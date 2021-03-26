@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, Link, useHistory, Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   deleteDocument,
   documentsAll,
@@ -22,15 +22,15 @@ import {
   Input,
   CustomInput,
 } from "reactstrap";
-import { IoArrowBackCircle } from "react-icons/io5";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import classnames from "classnames";
 import DocumentsList from "../../components/DocumentsList/DocumentsList";
 import docuImg from "./closeup-of-working-table-workplace-office.jpg";
+import Spinner from "../../components/Spinner/Spinner";
 
 const GetAllItems = (props) => {
   const initialState = { name: "", description: "" };
-  let history = useHistory();
+
   const { spaceId } = useParams();
   const [modal, setModal] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -53,7 +53,7 @@ const GetAllItems = (props) => {
   };
   const getName = async () => {
     const { data } = await findSpace(spaceId);
-    console.log(data);
+
     setSpace(data);
   };
   useEffect(() => {
@@ -63,27 +63,28 @@ const GetAllItems = (props) => {
     getName();
   }, []);
 
-  const goBack = () => {
-    history.push(`/spaces/${spaceId}`);
-  };
+ 
 
   const handleRemove = async (documentId) => {
     const { data } = await deleteDocument(spaceId, documentId);
-    getDocuments();
+    if (data){
+      getDocuments();
+    }
+  
   };
 
   const handleSubmit = async () => {
     try {
-      console.log("entra a crear doc");
+  
       const { data } = await newDocument(spaceId, state);
       getDocuments();
       setState(initialState);
-      console.log("createNewDoc", data);
+
       if (data) {
         setModal(!modal);
       }
     } catch (e) {
-      console.error(e);
+
     }
   };
 
@@ -96,7 +97,7 @@ const GetAllItems = (props) => {
     const uploadData = new FormData();
     uploadData.append("file", e.target.files[0]);
     const { data } = await getFile(spaceId, uploadData);
-    console.log("document", data);
+
     setState({ ...state, urlFile: data });
     setImageReady(true);
   };
@@ -153,7 +154,7 @@ const GetAllItems = (props) => {
                       ></DocumentsList>
                     ))
                   ) : (
-                    <p>Loading...</p>
+                    <Spinner/>
                   )}
                 </div>
                 <div className="newEvent">
