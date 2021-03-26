@@ -40,9 +40,9 @@ const MyCalendar = () => {
   const [modalEvent, setModalEvent] = React.useState(false);
   const [space, setSpace] = React.useState({});
   const [state, setState] = React.useState(initialState);
-  const [eventoTemp, setEventoTemp] = React.useState([
-    { start: "", end: "", title: "", createdBy: "" },
-  ]);
+  const [eventoTemp, setEventoTemp] = React.useState(
+    { start: "", end: "", title: "", createdBy: {username:"default"} },
+  );
 
   const toggleTemp = () => setModalEvent(!modalEvent);
   const toggle = () => setModal(!modal);
@@ -199,7 +199,7 @@ const MyCalendar = () => {
             <strong>Nombre del evento:</strong> {eventoTemp.title}
           </p>
           {/* <p>{eventoTemp.end}</p> */}
-          {/* <p>{eventoTemp.createdBy.username}</p> */}
+          <p>{eventoTemp.createdBy.username}</p>
           <p></p>
         </ModalBody>
         <ModalFooter>

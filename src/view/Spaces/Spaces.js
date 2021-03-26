@@ -54,7 +54,7 @@ function Spaces() {
         </Breadcrumb>
         <SearchBar filter={filterSpace} />
       </div>
-      <div>
+      <div className="position-cards">
         {loading ? (
           search.map((space) => (
             <SpaceList key={space._id} onDelete={deleteSpace} space={space}></SpaceList>

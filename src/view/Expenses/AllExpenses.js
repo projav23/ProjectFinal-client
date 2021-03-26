@@ -136,7 +136,7 @@ const AllExpenses = () => {
   };
 
   return (
-    <div className="fondo">
+    <>
       <Breadcrumb tag="nav" listTag="div">
         <BreadcrumbItem tag="a" href="/">
           Home
@@ -151,17 +151,23 @@ const AllExpenses = () => {
           Gastos
         </BreadcrumbItem>
       </Breadcrumb>
-      <div className="newEvent">
-        <img onClick={toggleModal} src="/images/plus.png" alt="mas"></img>
-      </div>
-      <div style={style} className="title-logo">
 
+      <div className="newEvent">
+      {/* <a id="play-video1" class="video-play-button1" onClick={toggleModal}>
+                  <span></span>
+                </a> */}
+        <span className="animation"><img onClick={toggleModal} src="/images/plus.png" alt="mas"></img></span>
       </div>
-      <div>
+      <div style={style} className="title-logo"></div>
+
+      <div className="fecha">
+        <span>{`${meses[mes]} de ${year}`}</span>
+      </div>
+      <div className="max-width900">
         <Nav tabs>
           <NavItem>
             <NavLink
-              style={{ width: "187px" }}
+              id="ancho"
               className={classnames({ active: activeTab === "1" })}
               onClick={() => {
                 toggle("1");
@@ -172,7 +178,7 @@ const AllExpenses = () => {
           </NavItem>
           <NavItem>
             <NavLink
-              style={{ width: "187px" }}
+              id="ancho"
               className={classnames({ active: activeTab === "2" })}
               onClick={() => {
                 toggle("2");
@@ -186,9 +192,6 @@ const AllExpenses = () => {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <div className="fecha">
-                  <span>{`${meses[mes]} de ${year}`}</span>
-                </div>
                 <div className="column-expenses">
                   {loading ? (
                     expenses.recibos.map((expense) => (
@@ -213,10 +216,8 @@ const AllExpenses = () => {
           </TabPane>
           <TabPane tabId="2">
             <Row>
-              <Col sm="6">
-                <div className="fecha">
-                  <span>{`${meses[mes]} de ${year}`}</span>
-                </div>
+              <Col sm="12">
+
                 <div className="column-expenses">
                   {loading ? (
                     expenses.otros.map((expense) => (
@@ -292,7 +293,10 @@ const AllExpenses = () => {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={handleSubmit} style={{ backgroundColor: "orange", border:'none' }}>
+          <Button
+            onClick={handleSubmit}
+            style={{ backgroundColor: "orange", border: "none" }}
+          >
             Añadir gasto
           </Button>
           <Button color="secondary" onClick={toggleModal}>
@@ -300,7 +304,7 @@ const AllExpenses = () => {
           </Button>
         </ModalFooter>
       </Modal>
-    </div>
+    </>
   );
 };
 

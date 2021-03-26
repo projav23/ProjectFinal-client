@@ -161,10 +161,10 @@ const GetAllItems = (props) => {
       <Modal isOpen={modal} centered="true" toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>¿Qué hay que comprar?</ModalHeader>
         <ModalBody>
-          <Form onSubmit={handleSubmit}>
-            <FormGroup>
+          <Form onSubmit={handleSubmit} className="items-shopping">
+            <FormGroup >
               <Label>
-                Producto:
+                Nombre producto:
                 <Input
                   type="text"
                   name="name"

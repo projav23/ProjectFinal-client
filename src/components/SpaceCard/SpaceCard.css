@@ -1,43 +1,41 @@
-.iconos-row{
+.iconos-row {
   display: flex;
   flex-direction: row;
-  flex-wrap:nowrap;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   margin: auto;
 }
-.iconos-column{
-
+.iconos-column {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: flex-start;
-  margin: 0 0 100px 0
+  margin: 0 0 100px 0;
 }
-.iconos-column img{
-margin: 30% auto;
-width: 40%;
+.iconos-column img {
+  margin: 30% auto;
+  width: 40%;
 }
 
-.title{
+.title {
   font-weight: 900;
   font-size: 2em;
   margin-top: 20%;
 }
 
-
-.space-animation{
+.space-animation {
   margin-top: 20%;
 }
-
 
 .menu {
   filter: url("#goo");
   margin-top: 75%;
 }
 
-.menu-item, .menu-open-button {
+.menu-item,
+.menu-open-button {
   background: rgb(245, 159, 0);
   border-radius: 100%;
   width: 80px;
@@ -148,9 +146,37 @@ width: 40%;
   transform: scale(0.8, 0.8) translate3d(0, 0, 0);
 }
 
-.menu-open:checked ~ .menu-item {
+/* .menu-open:checked ~ .menu-item {
   transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
 }
+.menu-open:checked ~ .menu-item:nth-child(3) {
+  transition-duration: 180ms;
+  transform: translate3d(0.08361px, -204.99997px, 0);
+}
+.menu-open:checked ~ .menu-item:nth-child(4) {
+  transition-duration: 280ms;
+  transform: translate3d(190.9466px, -115.47586px, 0);
+}
+.menu-open:checked ~ .menu-item:nth-child(5) {
+  transition-duration: 380ms;
+  transform: translate3d(190.9466px, 115.47586px, 0);
+}
+.menu-open:checked ~ .menu-item:nth-child(6) {
+  transition-duration: 480ms;
+  transform: translate3d(0.08361px, 204.99997px, 0);
+}
+.menu-open:checked ~ .menu-item:nth-child(7) {
+  transition-duration: 580ms;
+  transform: translate3d(-190.86291px, 115.62064px, 0);
+}
+.menu-open:checked ~ .menu-item:nth-child(8) {
+  transition-duration: 680ms;
+  transform: translate3d(-191.03006px, -115.33095px, 0);
+}
+.menu-open:checked ~ .menu-item:nth-child(9) {
+  transition-duration: 780ms;
+  transform: translate3d(-0.25084px, -204.9997px, 0);
+} */
 .menu-open:checked ~ .menu-item:nth-child(3) {
   transition-duration: 180ms;
   transform: translate3d(0.08361px, -104.99997px, 0);
@@ -180,16 +206,66 @@ width: 40%;
   transform: translate3d(-0.25084px, -104.9997px, 0);
 }
 
-.drop-blur{
+.drop-blur {
   height: 100vh;
   backdrop-filter: blur(6px);
 }
 
-.back{
+.back {
   display: flex;
   margin: 5%;
   text-decoration: none;
 }
-.back a{
+.back a {
   color: inherit;
+}
+
+.prueba-icon {
+}
+
+#llave-icon {
+}
+
+@media (min-width: 768px) {
+  .menu-open:checked ~ .menu-item {
+    transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+  }
+  .menu-open:checked ~ .menu-item:nth-child(3) {
+    transition-duration: 180ms;
+    transform: translate3d(0.08361px, -204.99997px, 0);
+  }
+  .menu-open:checked ~ .menu-item:nth-child(4) {
+    transition-duration: 280ms;
+    transform: translate3d(190.9466px, -115.47586px, 0);
+  }
+  .menu-open:checked ~ .menu-item:nth-child(5) {
+    transition-duration: 380ms;
+    transform: translate3d(190.9466px, 115.47586px, 0);
+  }
+  .menu-open:checked ~ .menu-item:nth-child(6) {
+    transition-duration: 480ms;
+    transform: translate3d(0.08361px, 204.99997px, 0);
+  }
+  .menu-open:checked ~ .menu-item:nth-child(7) {
+    transition-duration: 580ms;
+    transform: translate3d(-190.86291px, 115.62064px, 0);
+  }
+  .menu-open:checked ~ .menu-item:nth-child(8) {
+    transition-duration: 680ms;
+    transform: translate3d(-191.03006px, -115.33095px, 0);
+  }
+  .menu-open:checked ~ .menu-item:nth-child(9) {
+    transition-duration: 780ms;
+    transform: translate3d(-0.25084px, -204.9997px, 0);
+  }
+  .prueba-icon {
+    width: 64px;
+    height: 64px;
+    margin-top: 40px;
+  }
+  #llave-icon {
+    width: 52px;
+    height: 52px;
+    margin-top: 50px;
+  }
 }

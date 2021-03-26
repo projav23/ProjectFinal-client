@@ -41,7 +41,7 @@ function ShoppingList({ item, onDelete, idx }) {
   
           </h2>
           <span onClick={toggle} className='delete-icon'>
-           <MdDeleteForever   size={18}/> 
+           <MdDeleteForever id="borrar-icon"  size={18}/> 
           </span>
           
         </label>

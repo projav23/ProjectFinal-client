@@ -128,9 +128,9 @@ const AllChores = () => {
       <div className="newEvent">
         <img onClick={toggleModal} src="/images/plus.png" alt="mas"></img>
       </div>
-      <div>
+      <div className="max-width900">
         <Nav tabs>
-          <NavItem style={{ borderBottom: "1px solid #343c44" }}>
+          <NavItem >
             <NavLink
               style={{ width: "375px", fontSize: "1.1em", fontFamily: "Lato" }}
               className={classnames({ active: activeTab === "1" })}

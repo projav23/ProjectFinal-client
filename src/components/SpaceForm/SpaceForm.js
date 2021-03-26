@@ -162,9 +162,6 @@ function FormSpace({ onSubmit, isRedirect }) {
               ))}
             </Input>
           ))}
-        </Form>
-
-        <div className="columna">
           <Button
             
             style={{ marginBottom: "5%", backgroundColor:'orange', border:'orange'}}
@@ -173,7 +170,9 @@ function FormSpace({ onSubmit, isRedirect }) {
           >
             Crear espacio
           </Button>
-        </div>
+        </Form>
+
+  
 
         {/* <Form className="form-space" onSubmit={handleSubmit} id="form">
           <div className="row-space">

@@ -122,6 +122,7 @@ const GetAllTasks = (props) => {
         setModal(!modal);
       }
     } catch (e) {
+      console.log("error task", e.response.data)
       console.error(e);
     }
   };
@@ -175,11 +176,11 @@ const GetAllTasks = (props) => {
             </NavLink>
           </NavItem>
         </Nav>
-        <TabContent activeTab={activeTab}>
+        <TabContent className="max-width900" activeTab={activeTab}>
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <Pie percentage={percentajetotal} colour="orange" />
+                <Pie id="pie" percentage={percentajetotal} colour="orange" />
                 <div className="column">
                   {loading ? (
                     tasks.allTask.map((task) => (
@@ -206,7 +207,7 @@ const GetAllTasks = (props) => {
           </TabPane>
           <TabPane tabId="2">
             <Row>
-              <Col sm="6">
+              <Col sm="12">
                 <Pie percentage={percentajetotalUser} colour="orange" />
                 <div className="column">
                   {loading ? (
@@ -239,26 +240,28 @@ const GetAllTasks = (props) => {
         <ModalBody>
           <Form onSubmit={handleSubmit}>
             <FormGroup>
-              <Label>Nombre de la tarea</Label>
+              <Label>Nombre de la tarea:</Label>
               <Input
                 type="text"
                 name="name"
                 value={state.name}
                 onChange={handleChange}
+                required
               />
             </FormGroup>
             <FormGroup>
-              <Label>Descripcion de la tarea</Label>
+              <Label>Descripcion de la tarea: (Opcional)</Label>
               <Input
                 type="textarea"
                 name="description"
                 value={state.description}
                 onChange={handleChange}
+                
               />
             </FormGroup>
             <FormGroup>
-              <Label>Descripcion de la tarea</Label>
-              <Input type="select" name="asignedTo" onChange={handleChange}>
+              <Label>Asignar a:</Label>
+              <Input required type="select" name="asignedTo" onChange={handleChange}>
                 <option selected="true" disabled="disabled">
                   Seleccionar usuario
                 </option>
@@ -270,6 +273,7 @@ const GetAllTasks = (props) => {
             <FormGroup>
               <Label>Fecha de fin</Label>
               <Input
+              required
                 type="date"
                 name="endData"
                 value={state.endData}
@@ -283,7 +287,7 @@ const GetAllTasks = (props) => {
             onClick={handleSubmit}
             style={{ backgroundColor: "orange", border: "none" }}
           >
-            Añadir gasto
+            Añadir tarea
           </Button>
           <Button color="secondary" onClick={toggleModal}>
             Cancelar

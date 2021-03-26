@@ -18,7 +18,7 @@ function SpaceCard({ spaceId }) {
           id="menu-open"
         />
         <label className="menu-open-button" htmlFor="menu-open">
-        <GoKey size={24}/>
+        <GoKey id="llave-icon" size={24}/>
           {/* <span className="hamburger hamburger-1"></span>
           <span className="hamburger hamburger-2"></span>
           <span className="hamburger hamburger-3"></span> */}
@@ -26,27 +26,27 @@ function SpaceCard({ spaceId }) {
 
         <a href={`/spaces/${spaceId}/calendar`} className="menu-item">
           {" "}
-          <GoCalendar size={32}/>
+          <GoCalendar className="prueba-icon" size={32}/>
         </a>
         <a href={`/spaces/${spaceId}/documents`} className="menu-item">
           {" "}
-          <GoFile size={32}/>
+          <GoFile className="prueba-icon" size={32}/>
         </a>
         <a href={`/spaces/${spaceId}/task`} className="menu-item">
           {" "}
-          <GoTasklist size={32}/>
+          <GoTasklist className="prueba-icon" size={32}/>
         </a>
         <a href={`/spaces/${spaceId}/shoppingList`} className="menu-item">
           {" "}
-          <FiShoppingCart size={32}/>
+          <FiShoppingCart className="prueba-icon" size={32}/>
         </a>
         <a href={`/spaces/${spaceId}/chores`} className="menu-item">
           {" "}
-          <FiShieldOff size ={32}/>
+          <FiShieldOff className="prueba-icon" size ={32}/>
         </a>
         <a href={`/spaces/${spaceId}/expenses`} className="menu-item">
           {" "}
-          <GoCreditCard size={32}/>
+          <GoCreditCard className="prueba-icon" size={32}/>
         </a>
       </nav>
       {/* <svg xmlns="http://www.w3.org/2000/svg" version="1.1">

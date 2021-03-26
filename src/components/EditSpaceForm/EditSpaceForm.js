@@ -105,6 +105,7 @@ const EditForm = ({ onSubmit, isRedirect }) => {
     backgroundSize: 'cover',
     backgroundPosition: '30%',
     filter: 'opacity(90%)',
+    display: "flex"
   }
 
   return (
@@ -198,9 +199,7 @@ const EditForm = ({ onSubmit, isRedirect }) => {
               </InputGroup>
             </FormGroup>
           ))}
-        </Form>
-
-        <IoPersonAdd
+          <IoPersonAdd
           size={32}
           style={{ color: "#343c44" }}
           onClick={() => {
@@ -212,6 +211,9 @@ const EditForm = ({ onSubmit, isRedirect }) => {
           {" "}
           Actualizar espacio
         </Button>
+        </Form>
+
+        
       </div>
     </div>
   );

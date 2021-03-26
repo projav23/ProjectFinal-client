@@ -1,37 +1,58 @@
-import React, { useEffect } from 'react'
-import {useParams} from 'react-router-dom'
-import {findSpace, editSpace} from '../../service/spaces.service'
-import EditSpaceForm from '../../components/EditSpaceForm/EditSpaceForm'
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { findSpace, editSpace } from "../../service/spaces.service";
+import EditSpaceForm from "../../components/EditSpaceForm/EditSpaceForm";
+import {Breadcrumb ,BreadcrumbItem} from "reactstrap"
 
 const EditSpace = () => {
-const [state, setState] = React.useState({name:'', users:[], description:''})
-const {spaceId} = useParams()
-const [redirect, setRedirect] = React.useState(false)
+  const [state, setState] = React.useState({
+    name: "",
+    users: [],
+    description: "",
+  });
+  const { spaceId } = useParams();
+  const [redirect, setRedirect] = React.useState(false);
 
-const getSpace = async () =>{
-  try {
-  const {data} = await findSpace(spaceId)
-  setState(data)
-  } catch (e) {
-  console.error(e)
-  }
-}
-useEffect(()=>{
-  getSpace()
-},[])
+  const getSpace = async () => {
+    try {
+      const { data } = await findSpace(spaceId);
+      setState(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  useEffect(() => {
+    getSpace();
+  }, []);
 
-const handleSubmit = async (space) =>{
- try {
- const editSpaceOne = await editSpace(spaceId, space)
- console.log(editSpaceOne)
- setRedirect(true)
- } catch (e) {
- 
- }
-}
-console.log('state',state)
+  const handleSubmit = async (space) => {
+    try {
+      const editSpaceOne = await editSpace(spaceId, space);
+      console.log(editSpaceOne);
+      setRedirect(true);
+    } catch (e) {}
+  };
+  console.log("state", state);
 
-  return ( <EditSpaceForm  onSubmit={handleSubmit} isRedirect={redirect}/> );
-}
- 
+  return (
+    <>
+      <Breadcrumb tag="nav" listTag="div">
+        <BreadcrumbItem tag="a" href="/">
+          Home
+        </BreadcrumbItem>
+        <BreadcrumbItem tag="a" href="/spaces">
+          Espacios
+        </BreadcrumbItem>
+        <BreadcrumbItem tag="a" href={`/spaces/${spaceId}`}>
+          {state.name}
+        </BreadcrumbItem>
+        <BreadcrumbItem active tag="a" href="#">
+          Editar Espacio
+        </BreadcrumbItem>
+      </Breadcrumb>
+      <EditSpaceForm onSubmit={handleSubmit} isRedirect={redirect} />{" "}
+    </>
+  );
+};
+
 export default EditSpace;

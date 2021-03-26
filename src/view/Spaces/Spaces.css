@@ -13,3 +13,11 @@
   padding: -2em;
   /* filter: blur(); */
 }
+
+@media (max-width: 767px){
+  .position-cards{
+  display: flex;
+  flex-direction: column;
+  margin: 10%;
+}
+}

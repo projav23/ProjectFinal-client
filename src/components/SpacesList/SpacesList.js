@@ -45,8 +45,8 @@ const SpacesList = ({ space, onDelete }) => {
   const toggle = () => setModal(!modal);
 
   return (
-    <div className='fadeout'>
-      <div className="container1">
+    <>
+      {/* <div className="container1"> */}
         <div className="card1">
         
           <div className="card__image-container1">
@@ -75,14 +75,14 @@ const SpacesList = ({ space, onDelete }) => {
           </div>
           <div className="card__content1">
             <h1 className="card__title1">{space.name}</h1>
-            <p>
+            <p className="description-card">
               {space.description}
             </p>
       
             {edit ? (
             <div
               style={{
-                margin: "25%",
+                margin: "5%",
                 display: "flex",
                 justifyContent: "space-around",
               }}
@@ -99,42 +99,7 @@ const SpacesList = ({ space, onDelete }) => {
           )}
           </div>
         </div>
-      </div>
-      {/* <Card
-        style={{ margin: "10%", minWidth: "30%", backgroundColor: "#ffffffeb" }}
-      >
-        <Link key={space._id} to={`/spaces/${space._id}`}>
-          <CardImg
-            className="imagenEspacio"
-            src={space.imgURL}
-            alt="Card image cap"
-          />
-        </Link>
-        <CardBody>
-          <CardTitle tag="h5"></CardTitle>
-          <CardSubtitle tag="h6" className="mb-2 text-muted">
-            {space.description}
-          </CardSubtitle>
-          {edit ? (
-            <div
-              style={{
-                margin: "10%",
-                display: "flex",
-                justifyContent: "space-around",
-              }}
-            >
-              <FiTrash2 size={24} onClick={toggle} color={"#343c44"}></FiTrash2>
-              <FiSettings
-                size={24}
-                onClick={redirect}
-                color={"#343c44"}
-              ></FiSettings>
-            </div>
-          ) : (
-            <></>
-          )}
-        </CardBody>
-      </Card> */}
+      {/* </div> */}
       <Modal isOpen={modal} centered={true} toggle={toggle}>
         <ModalHeader toggle={toggle}>
           ¡Oye! Estas a punto de borrar el espacio '{space.name}'
@@ -149,7 +114,7 @@ const SpacesList = ({ space, onDelete }) => {
           </Button>
         </ModalBody>
       </Modal>
-    </div>
+    </>
   );
 };
 

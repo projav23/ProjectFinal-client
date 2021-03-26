@@ -26,9 +26,6 @@ font-weight: 700;
   height: 100vh;
 }
 
-.wrapper{
-  margin-top: 10% !important;
-}
 
 .nav-item a{
   color: orange !important;
@@ -36,3 +33,8 @@ font-weight: 700;
 .nav-link.active{
   color: initial !important;
 }
+
+#ancho{
+  width: 187px;
+}
+

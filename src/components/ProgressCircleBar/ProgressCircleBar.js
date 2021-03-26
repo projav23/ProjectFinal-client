@@ -8,7 +8,7 @@ const cleanPercentage = (percentage) => {
 };
 
 const Circle = ({ colour, pct }) => {
-  const r = 70;
+  const r = 85;
   const circ = 2 * Math.PI * r;
   const strokePct = ((100 - pct) * circ) / 100;
   return (
@@ -43,7 +43,7 @@ const Text = ({ percentage }) => {
 const Pie = ({ percentage, colour }) => {
   const pct = cleanPercentage(percentage);
   return (
-    <svg width={200} height={200}>
+    <svg id="pie" width={200} height={200}>
       <g transform={`rotate(-90 ${"100 100"})`}>
         <Circle colour="lightgrey" />
         <Circle colour={colour} pct={pct} />

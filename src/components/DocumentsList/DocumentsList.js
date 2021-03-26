@@ -37,11 +37,11 @@ function DocumentsList({ item, onDelete }) {
         </div>
         <div className="row-doc">
           <a href={item.urlFile} download target="_blank" rel="noreferrer">
-            <HiDownload  size={24} color={'orange'} />
+            <HiDownload className="iconos-documentos" size={24} color={'orange'} />
           </a>
         </div>
         <div className="row-doc2">
-          <MdDeleteForever size={22} onClick={toggle} />
+          <MdDeleteForever className="iconos-documentos" size={22} onClick={toggle} />
         </div>
         {/* <div className="columna">
         <span>{item.name}</span>
