@@ -29,7 +29,7 @@ import docuImg from "./closeup-of-working-table-workplace-office.jpg";
 import Spinner from "../../components/Spinner/Spinner";
 
 const GetAllItems = (props) => {
-  const initialState = { name: "", description: "" };
+  const initialState = { name: "", description: "", image: "", type: "" };
 
   const { spaceId } = useParams();
   const [modal, setModal] = React.useState(false);
@@ -37,6 +37,7 @@ const GetAllItems = (props) => {
   const [space, setSpace] = React.useState({});
   const [state, setState] = React.useState(initialState);
   const [documents, setDocuments] = React.useState({});
+  const [error, setError] = React.useState(false)
   const [activeTab, setActiveTab] = React.useState("1");
   const [imageReady, setImageReady] = React.useState(false);
 
@@ -75,7 +76,9 @@ const GetAllItems = (props) => {
 
   const handleSubmit = async () => {
     try {
-  
+      if(!state.name || !state.image || !state.type){
+        setError({message: "Debes completar los campos requeridos"})
+      }
       const { data } = await newDocument(spaceId, state);
       getDocuments();
       setState(initialState);
@@ -194,12 +197,13 @@ const GetAllItems = (props) => {
                 name="image"
                 value={state.image}
                 onChange={handleUpload}
+                required
               />
             </FormGroup>
             <FormGroup>
               <Label>
                 Seleccionar tipo de archivo
-                <Input type="select" onChange={handleChange} name="type">
+                <Input  required type="select" onChange={handleChange} name="type">
                   <option selected="true" disabled="disabled">
                     Seleccionar tipo
                   </option>
@@ -213,6 +217,7 @@ const GetAllItems = (props) => {
               </Label>
             </FormGroup>
           </Form>
+          <p style={{color:"red"}}>{error.message}</p>
         </ModalBody>
         <ModalFooter>
           <Button

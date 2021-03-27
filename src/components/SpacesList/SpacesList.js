@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, ModalHeader, ModalBody, CardImg } from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, CardImg, ModalFooter } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { useAuth } from "../../context/AuthContext.utils";
@@ -86,13 +86,16 @@ const SpacesList = ({ space, onDelete }) => {
         </ModalHeader>
         <ModalBody>
           <p>¿Confirmas que quieres borrarlo?</p>
-          <Button color="danger" onClick={handleRemove}>
+ 
+        </ModalBody>
+        <ModalFooter>
+        <Button color="danger" onClick={handleRemove}>
             Sí, borrar espacio
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
             Cancelar
           </Button>
-        </ModalBody>
+        </ModalFooter>
       </Modal>
     </>
   );

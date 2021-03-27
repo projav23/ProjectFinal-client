@@ -39,6 +39,7 @@ const GetAllItems = (props) => {
   const [state, setState] = React.useState(initialState);
   const [items, setItems] = React.useState({});
   const [activeTab, setActiveTab] = React.useState("1");
+  const [error, setError] = React.useState(false);
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
@@ -77,11 +78,15 @@ const GetAllItems = (props) => {
 
   const handleSubmit = async () => {
     try {
-      const createNewItem = await newItemList(spaceId, state);
-      getItems();
-      setState(initialState);
-      if (createNewItem) {
-        setModal(!modal);
+      if (!state.name.length || !state.quantity.length) {
+        setError({ message: "Debes completar los campos requeridos" });
+      } else {
+        const createNewItem = await newItemList(spaceId, state);
+        getItems();
+        setState(initialState);
+        if (createNewItem) {
+          setModal(!modal);
+        }
       }
     } catch (e) {}
   };
@@ -141,7 +146,7 @@ const GetAllItems = (props) => {
                       ></ShoppingList>
                     ))
                   ) : (
-                    <Spinner/>
+                    <Spinner />
                   )}
                 </div>
               </Col>
@@ -157,6 +162,7 @@ const GetAllItems = (props) => {
               <Label>
                 Nombre producto:
                 <Input
+                required
                   type="text"
                   name="name"
                   value={state.name}
@@ -168,6 +174,7 @@ const GetAllItems = (props) => {
               <Label>
                 Cantidad a comprar:
                 <Input
+                required
                   type="number"
                   name="quantity"
                   value={state.quantity}
@@ -176,6 +183,7 @@ const GetAllItems = (props) => {
               </Label>
             </FormGroup>
           </Form>
+          <p style={{color: "red"}}>{error.message}</p>
         </ModalBody>
         <ModalFooter>
           <Button

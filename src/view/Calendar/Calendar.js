@@ -38,10 +38,14 @@ const MyCalendar = () => {
   const [modal, setModal] = React.useState(false);
   const [modalEvent, setModalEvent] = React.useState(false);
   const [space, setSpace] = React.useState({});
+  const [error, setError] = React.useState(false);
   const [state, setState] = React.useState(initialState);
-  const [eventoTemp, setEventoTemp] = React.useState(
-    { start: "", end: "", title: "", createdBy: {username:"default"} },
-  );
+  const [eventoTemp, setEventoTemp] = React.useState({
+    start: "",
+    end: "",
+    title: "",
+    createdBy: { username: "default" },
+  });
 
   const toggleTemp = () => setModalEvent(!modalEvent);
   const toggle = () => setModal(!modal);
@@ -62,12 +66,8 @@ const MyCalendar = () => {
         event.start = new Date(event.start);
         event.end = new Date(event.end);
       });
-
-
       setEvents(data);
-    } catch (e) {
-
-    }
+    } catch (e) {}
   };
 
   React.useEffect(() => {
@@ -78,12 +78,10 @@ const MyCalendar = () => {
     setEventoTemp(pEvent);
 
     toggleTemp();
-
   };
 
   const handleChange = ({ target }) => {
     setState({ ...state, [target.name]: target.value });
-
   };
 
   const handleDelete = async () => {
@@ -94,13 +92,16 @@ const MyCalendar = () => {
 
   const handleSubmit = async (e) => {
     try {
-      e.preventDefault();
-      const { data } = await newEvent(spaceId, state);
-      getAllEvents();
-      setModal(!modal);
-      setState(initialState);
-    } catch (e) {
-    }
+      if (!state.end.length || !state.start.length || !state.title.length) {
+        setError({ message: "Deben estar completos los campos requeridos" });
+      } else {
+        e.preventDefault();
+        const { data } = await newEvent(spaceId, state);
+        getAllEvents();
+        setModal(!modal);
+        setState(initialState);
+      }
+    } catch (e) {}
   };
 
   const style = {
@@ -168,14 +169,15 @@ const MyCalendar = () => {
             <FormGroup>
               <Label> ¿El evento tiene duración diaria?</Label>
               <Input name="allDay" onChange={handleChange} type="select">
-              <option selected="true" disabled="disabled">
-                Selecciona una opcion
-              </option>
-              <option value="true">Si</option>
-              <option value="false">No</option>
+                <option selected="true" disabled="disabled">
+                  Selecciona una opcion
+                </option>
+                <option value="true">Si</option>
+                <option value="false">No</option>
               </Input>
             </FormGroup>
           </Form>
+          <p style={{color:"red"}}>{error.message}</p>
         </ModalBody>
         <ModalFooter>
           <Button
@@ -195,8 +197,10 @@ const MyCalendar = () => {
           <p>
             <strong>Nombre del evento:</strong> {eventoTemp.title}
           </p>
-    
-          <p>{eventoTemp.createdBy.username}</p>
+
+          <p>
+            <strong>Creador del evento:</strong> {eventoTemp.createdBy.username}
+          </p>
           <p></p>
         </ModalBody>
         <ModalFooter>
@@ -213,4 +217,3 @@ const MyCalendar = () => {
 };
 
 export default MyCalendar;
-

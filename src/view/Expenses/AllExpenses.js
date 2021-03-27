@@ -41,6 +41,7 @@ const AllExpenses = () => {
   const [activeTab, setActiveTab] = React.useState("1");
   const [modal, setModal] = React.useState(false);
   const toggleModal = () => setModal(!modal);
+  const [error, setError] = React.useState(false);
   const { spaceId } = useParams();
 
   const toggle = (tab) => {
@@ -99,13 +100,18 @@ const AllExpenses = () => {
 
   const handleSubmit = async () => {
     try {
-      const createNew = await newExpense(spaceId, state);
-      getExpenses();
-      setState(initialState);
-
-      if (createNew) {
-        setModal(!modal);
+      if (!state.name.length || !state.price.length || !state.type.length) {
+        setError({ messageRequired: "Debes rellenar los campos requeridos" });
+      }else {
+        const createNew = await newExpense(spaceId, state);
+        getExpenses();
+        setState(initialState);
+  
+        if (createNew) {
+          setModal(!modal);
+        }
       }
+
     } catch (e) {}
   };
 
@@ -218,6 +224,7 @@ const AllExpenses = () => {
             <FormGroup>
               <Label>Nombre del gasto</Label>
               <Input
+                required
                 type="text"
                 name="name"
                 value={state.name}
@@ -226,7 +233,7 @@ const AllExpenses = () => {
               />
             </FormGroup>
             <FormGroup>
-              <Label>Descripción del gasto</Label>
+              <Label>Descripción del gasto (Opcional)</Label>
               <Input
                 type="textarea"
                 name="description"
@@ -238,6 +245,7 @@ const AllExpenses = () => {
             <FormGroup>
               <Label>¿Cuanto ha costado?</Label>
               <Input
+                required
                 type="number"
                 name="price"
                 value={state.price}
@@ -248,6 +256,7 @@ const AllExpenses = () => {
             <FormGroup>
               <Label>¿Qué tipo de gasto es?</Label>
               <Input
+                required
                 type="select"
                 name="type"
                 form="form"
@@ -261,6 +270,7 @@ const AllExpenses = () => {
               </Input>
             </FormGroup>
           </Form>
+          <p style={{color:"red"}}>{error.messageRequired}</p>
         </ModalBody>
         <ModalFooter>
           <Button

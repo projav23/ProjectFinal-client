@@ -28,6 +28,7 @@ import {
 import classnames from "classnames";
 import Pie from "../../components/ProgressCircleBar/ProgressCircleBar";
 import taskImg from "./frustrated-tired-housewife-fed-up-with-home-routine-and-domestic-work-makes-suicide-gesture-shoots-at-temple-with-finger-stands-near-pile-of-laundry-hangs-wet-clean-clothes-on-clothesline.jpg";
+import Spinner from "../../components/Spinner/Spinner";
 
 const GetAllTasks = (props) => {
   const initialState = {
@@ -43,6 +44,7 @@ const GetAllTasks = (props) => {
   const [users, setUsers] = React.useState([]);
   const [modal, setModal] = React.useState(false);
   const [space, setSpace] = React.useState({});
+  const [error, setError] = React.useState(false);
   const [tasks, setTasks] = React.useState({ allTask: [], taskByUser: [] });
   const [activeTab, setActiveTab] = React.useState("1");
 
@@ -106,11 +108,15 @@ const GetAllTasks = (props) => {
 
   const handleSubmit = async () => {
     try {
-      const createNewTask = await newTask(spaceId, state);
-      getTasks();
-      setState(initialState);
-      if (createNewTask) {
-        setModal(!modal);
+      if (!state.name || !state.asignedTo || !state.endData) {
+        setError({ message: "Debes rellenar los campos obligatorios" });
+      } else {
+        const createNewTask = await newTask(spaceId, state);
+        getTasks();
+        setState(initialState);
+        if (createNewTask) {
+          setModal(!modal);
+        }
       }
     } catch (e) {}
   };
@@ -168,7 +174,7 @@ const GetAllTasks = (props) => {
           <TabPane tabId="1">
             <Row>
               <Col sm="12">
-                <Pie id="pie" percentage={percentajetotal} colour="orange" />
+              {tasks.allTask.length ? <Pie id="pie" percentage={percentajetotal} colour="orange" /> : null}
                 <div className="column">
                   {loading ? (
                     tasks.allTask.map((task) => (
@@ -180,7 +186,7 @@ const GetAllTasks = (props) => {
                       ></TaskList>
                     ))
                   ) : (
-                    <p>Loading...</p>
+                    <Spinner />
                   )}
                 </div>
                 <div className="newEvent">
@@ -196,7 +202,7 @@ const GetAllTasks = (props) => {
           <TabPane tabId="2">
             <Row>
               <Col sm="12">
-                <Pie percentage={percentajetotalUser} colour="orange" />
+              {tasks.taskByUser.length ? <Pie id="pie" percentage={percentajetotal} colour="orange" /> : null}
                 <div className="column">
                   {loading ? (
                     tasks.taskByUser.map((task) => (
@@ -208,7 +214,7 @@ const GetAllTasks = (props) => {
                       ></TaskList>
                     ))
                   ) : (
-                    <p>Loading...</p>
+                    <Spinner />
                   )}
                 </div>
                 <div className="newEvent">
@@ -273,6 +279,7 @@ const GetAllTasks = (props) => {
               />
             </FormGroup>
           </Form>
+          <p style={{color:"red"}}>{error.message}</p>
         </ModalBody>
         <ModalFooter>
           <Button

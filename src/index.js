@@ -6,12 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import AuthProvider from "./context/AuthContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary"
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </AuthProvider>
     </Router>
   </React.StrictMode>,

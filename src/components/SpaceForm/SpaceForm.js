@@ -19,6 +19,7 @@ import "./SpaceForm.css";
 function FormSpace({ onSubmit, isRedirect }) {
   const [state, setState] = React.useState({ name: "", users: [] });
   const [inputfieldsToAdd, setInputfieldsToAdd] = React.useState(1);
+  const [error, setError] = React.useState(false)
   const [committedFieldsToAdd, setCommittedFieldsToAdd] = React.useState(0);
   const [users, setUsers] = React.useState({});
 
@@ -50,7 +51,12 @@ function FormSpace({ onSubmit, isRedirect }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(state);
+    if(state.users.length){
+      onSubmit(state);
+    }
+    setError({message: "No has añadido ningún usuario"})
+    
+    
   };
 
   return (
@@ -97,7 +103,7 @@ function FormSpace({ onSubmit, isRedirect }) {
               required
               id="exampleSelect"
             >
-              <option selected={true} disabled="disabled">
+              <option value="" selected={true} disabled="disabled">
                 Selecciona el tipo
               </option>
               <option value="Grupal">Grupal</option>
@@ -162,7 +168,9 @@ function FormSpace({ onSubmit, isRedirect }) {
                 <option value={user._id}>{user.username}</option>
               ))}
             </Input>
+            
           ))}
+          <p>{error.message}</p>
           <Button
             style={{
               marginBottom: "5%",
