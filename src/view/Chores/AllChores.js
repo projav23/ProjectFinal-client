@@ -169,7 +169,7 @@ const AllChores = () => {
         </TabContent>
       </div>
       <Modal isOpen={modal} centered="true" toggle={toggleModal}>
-        <ModalHeader toggle={toggleModal}>¿Qué quieres que se?</ModalHeader>
+        <ModalHeader toggle={toggleModal}>¿Qué quieres que se haga?</ModalHeader>
         <ModalBody>
           <Form className="form-space" onSubmit={handleSubmit} id="form">
             <FormGroup>

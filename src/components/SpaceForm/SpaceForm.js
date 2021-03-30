@@ -51,9 +51,11 @@ function FormSpace({ onSubmit, isRedirect }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(`lenght`, state.users.length > 0)
+    console.log(`users array`, state.users)
     if(state.users.length){
       onSubmit(state);
-    }
+    } else
     setError({message: "No has añadido ningún usuario"})
     
     
@@ -161,11 +163,11 @@ function FormSpace({ onSubmit, isRedirect }) {
               onChange={handleSelect}
               form="form"
             >
-              <option disabled="disabled" selected="true">
+              <option disabled="disabled" selected={true}>
                 Seleccionar usuario
               </option>
               {users.map((user) => (
-                <option value={user._id}>{user.username}</option>
+                <option key={user._id} value={user._id}>{user.username}</option>
               ))}
             </Input>
             

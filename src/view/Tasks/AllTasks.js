@@ -27,7 +27,7 @@ import {
 } from "reactstrap";
 import classnames from "classnames";
 import Pie from "../../components/ProgressCircleBar/ProgressCircleBar";
-import taskImg from "./frustrated-tired-housewife-fed-up-with-home-routine-and-domestic-work-makes-suicide-gesture-shoots-at-temple-with-finger-stands-near-pile-of-laundry-hangs-wet-clean-clothes-on-clothesline.jpg";
+import taskImg from "./satisfied-bearded-red-haired-man-makes-okay-gesture-shows-approval-sign-says-everything-is-under-control.jpg";
 import Spinner from "../../components/Spinner/Spinner";
 
 const GetAllTasks = (props) => {
@@ -202,7 +202,7 @@ const GetAllTasks = (props) => {
           <TabPane tabId="2">
             <Row>
               <Col sm="12">
-              {tasks.taskByUser.length ? <Pie id="pie" percentage={percentajetotal} colour="orange" /> : null}
+              {tasks.taskByUser.length ? <Pie id="pie" percentage={percentajetotalUser} colour="orange" /> : null}
                 <div className="column">
                   {loading ? (
                     tasks.taskByUser.map((task) => (
@@ -214,7 +214,10 @@ const GetAllTasks = (props) => {
                       ></TaskList>
                     ))
                   ) : (
-                    <Spinner />
+                    <div style={{display: "flex", margin: "0 auto"}}>
+                      <Spinner />
+                    </div>
+                    
                   )}
                 </div>
                 <div className="newEvent">

@@ -39,7 +39,7 @@ const ChoreList = ({ chore, onDelete, idx }) => {
         </ModalBody>
         <ModalFooter>
           <Button color="danger" onClick={handleRemove}>
-            Sí, borrar espacio
+            Sí, borrar norma
           </Button>{" "}
           <Button color="secondary" onClick={toggle}>
             Cancelar
