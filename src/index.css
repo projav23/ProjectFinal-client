@@ -73,6 +73,7 @@ code {
   }
   .card1 {
     max-width: 500px;
+    height: 95vh !important;
   }
 
   .position-cards {
@@ -84,7 +85,7 @@ code {
     justify-content: center;
   }
   .imagenEspacio {
-    height: 40vh !important;
+    height: 50vh !important;
     object-fit: cover;
   }
   .card__content1 {
