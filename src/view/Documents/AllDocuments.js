@@ -172,7 +172,7 @@ const GetAllItems = (props) => {
           </TabPane>
         </TabContent>
       </div>
-      <Modal isOpen={modal} centered="true" toggle={toggleModal}>
+      <Modal isOpen={modal} centered={true} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>¿Qué quieres subir?</ModalHeader>
         <ModalBody>
           <Form className="form-space" onSubmit={handleSubmit} id="form">
@@ -204,7 +204,7 @@ const GetAllItems = (props) => {
               <Label>
                 Seleccionar tipo de archivo
                 <Input  required type="select" onChange={handleChange} name="type">
-                  <option selected="true" disabled="disabled">
+                  <option selected={true} disabled="disabled">
                     Seleccionar tipo
                   </option>
                   <option value="imagen">Imagen</option>

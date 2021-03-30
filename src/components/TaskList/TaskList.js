@@ -38,8 +38,8 @@ function TaskList({ task, statusClick, onDelete }) {
           onClick={handleClick}
           id={`task-${task._id}`}
         />
-        <div class="card9">
-          <div class="front">
+        <div className="card9">
+          <div className="front">
             <p id="nombre">{task.name}</p>
             <p className="descripcion-task">{task.description}</p>
             <p id="asigned">Asigned to: {task.asignedTo.username}</p>
@@ -51,12 +51,12 @@ function TaskList({ task, statusClick, onDelete }) {
               />
             </p>
           </div>
-          <div class="back2"><p style={{marginTop:'15%'}}>Completada</p><p className='flotar'><MdDeleteForever onClick={toggle}/></p></div>
+          <div className="back2"><p style={{marginTop:'15%'}}>Completada</p><p className='flotar'><MdDeleteForever onClick={toggle}/></p></div>
         </div>
       </label>
 
 
-      <Modal isOpen={modal} centered="true" toggle={toggle}>
+      <Modal isOpen={modal} centered={true} toggle={toggle}>
         <ModalHeader toggle={toggle}>
           ¡Oye! Vas a borrar la tarea...
         </ModalHeader>

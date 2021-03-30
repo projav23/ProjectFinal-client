@@ -30,7 +30,7 @@ function ShoppingList({ item, onDelete, idx }) {
           </span>
         </label>
       </div>
-      <Modal isOpen={modal} centered="true" toggle={toggle}>
+      <Modal isOpen={modal} centered={true} toggle={toggle}>
         <ModalHeader toggle={toggle}>
           Estás a punto de eliminar '{item.name}' de la lista de la compra.
         </ModalHeader>

@@ -51,8 +51,6 @@ function FormSpace({ onSubmit, isRedirect }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`lenght`, state.users.length > 0)
-    console.log(`users array`, state.users)
     if(state.users.length){
       onSubmit(state);
     } else

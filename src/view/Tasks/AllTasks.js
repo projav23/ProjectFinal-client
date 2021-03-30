@@ -232,7 +232,7 @@ const GetAllTasks = (props) => {
           </TabPane>
         </TabContent>
       </div>
-      <Modal isOpen={modal} centered="true" toggle={toggleModal}>
+      <Modal isOpen={modal} centered={true} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>¿Qué quieres recordar?</ModalHeader>
         <ModalBody>
           <Form onSubmit={handleSubmit}>
@@ -267,7 +267,7 @@ const GetAllTasks = (props) => {
                   Seleccionar usuario
                 </option>
                 {users.map((user) => (
-                  <option value={user._id}>{user.username}</option>
+                  <option key={user._id} value={user._id}>{user.username}</option>
                 ))}
               </Input>
             </FormGroup>

@@ -154,7 +154,7 @@ const GetAllItems = (props) => {
           </TabPane>
         </TabContent>
       </div>
-      <Modal isOpen={modal} centered="true" toggle={toggleModal}>
+      <Modal isOpen={modal} centered={true} toggle={toggleModal}>
         <ModalHeader toggle={toggleModal}>¿Qué hay que comprar?</ModalHeader>
         <ModalBody>
           <Form onSubmit={handleSubmit} className="items-shopping">

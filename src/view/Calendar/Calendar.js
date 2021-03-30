@@ -146,7 +146,7 @@ const MyCalendar = () => {
           })}
         />
       </div>
-      <Modal isOpen={modal} centered="true" toggle={toggle}>
+      <Modal isOpen={modal} centered={true} toggle={toggle}>
         <ModalHeader toggle={toggle}>¿Qué quieres recordar?</ModalHeader>
         <ModalBody>
           <Form>
@@ -169,7 +169,7 @@ const MyCalendar = () => {
             <FormGroup>
               <Label> ¿El evento tiene duración diaria?</Label>
               <Input name="allDay" onChange={handleChange} type="select">
-                <option selected="true" disabled="disabled">
+                <option selected={true} disabled="disabled">
                   Selecciona una opcion
                 </option>
                 <option value="true">Si</option>
@@ -191,7 +191,7 @@ const MyCalendar = () => {
           </Button>
         </ModalFooter>
       </Modal>
-      <Modal isOpen={modalEvent} centered="true" toggle={toggleTemp}>
+      <Modal isOpen={modalEvent} centered={true} toggle={toggleTemp}>
         <ModalHeader toggle={toggleTemp}>Información del evento</ModalHeader>
         <ModalBody>
           <p>

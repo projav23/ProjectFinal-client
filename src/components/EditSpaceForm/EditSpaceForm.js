@@ -109,7 +109,6 @@ const EditForm = ({ onSubmit, isRedirect }) => {
 
   return (
     <div style={style}>
-    <div style={{color:'transparent'}}>Hola</div>
       {isRedirect ? <Redirect to="/spaces" /> : null}
       <div className="tarjeta1">
       <br></br>

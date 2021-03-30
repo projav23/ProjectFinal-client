@@ -26,7 +26,7 @@ const ChoreList = ({ chore, onDelete, idx }) => {
         <MdDeleteForever color={'orange'} size={28} onClick={toggle}></MdDeleteForever>
         </div>
       </div>
-      <Modal isOpen={modal} centered="true" toggle={toggle}>
+      <Modal isOpen={modal} centered={true} toggle={toggle}>
         <ModalHeader toggle={toggle}>
           ¡Oye! Vas a borrar la norma...
         </ModalHeader>

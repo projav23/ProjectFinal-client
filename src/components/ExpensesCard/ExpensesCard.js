@@ -196,7 +196,7 @@ const ExpensesCard = ({ expense, space, deleteExp }) => {
           <p>{expense.price}€</p>
         </div>
       </div>
-      <Modal isOpen={modal} centered="true" toggle={toggle}>
+      <Modal isOpen={modal} centered={true} toggle={toggle}>
         <ModalHeader toggle={toggle}>Gasto de '{space.name}'</ModalHeader>
         <ModalBody>
           <p>
