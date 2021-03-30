@@ -139,7 +139,7 @@ code {
     justify-content: center;
   }
   .card-expenses {
-    width: 400px;
+    width: 450px;
     margin: 2% auto !important;
   }
   #ancho {
@@ -148,9 +148,12 @@ code {
   .nav-link.active {
     border-bottom: 5px solid orange !important;
   }
+  .row-expense{
+    width: 170px;
+  }
   .newEvent {
-    top: 890px !important;
-    left: 1660px !important;
+    top: 690px!important;
+    left: 1320px!important;
     padding-bottom: 20% !important;
   }
   .nav-tabs .nav-item.show .nav-link,

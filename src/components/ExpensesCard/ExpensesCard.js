@@ -115,6 +115,8 @@ const ExpensesCard = ({ expense, space, deleteExp }) => {
     "comunidad",
     "alquiler",
     "gas",
+    "parking",
+    "internet"
   ];
 
   const fiesta = ["fiesta", "discoteca", "concierto"];
